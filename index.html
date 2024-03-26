@@ -6,6 +6,28 @@
 -->
 <html>
 	<head>
+		<style>
+			.video-container {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: -1;
+				overflow: hidden;
+			}
+			
+			.video-container video {
+				min-width: 100%;
+				min-height: 100%;
+				object-fit: cover;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			
+			</style>
 		<title>Henrique Borges 
 
 		</title>
@@ -15,12 +37,14 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
-		<video autoplay muted loop id="myVideo">
-			<source src="images/HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
-		  </video>
+
 
 		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
+		<div class="video-container">
+			<video autoplay muted loop id="myVideo">
+				<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+			</video>
+		</div>
 
 				<!-- Intro -->
 					<div id="intro">
@@ -57,16 +81,16 @@
 							<article>
 								<header>
 									
-									<h2><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisPerformanceDashboard/Dashboard1">Tableau Projects<br />
+									<h2><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisProject_17059329645720/Dashboard1">Tableau Projects <br />
 									</a></h2>
 									<p>This dashboard provides an in-depth analysis of the performance of Novak Djokovic, Rafael Nadal, and Andy Murray from 2005 to 2013. As a tennis enthusiast, 
 										I have gathered detailed data on their aces, matches played, matches won, and tie-breaks to identify trends in their performance over the years. 
 										</p>
 								</header>
-								<a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisPerformanceDashboard/Dashboard1" class="image fit" target="_blank"><img src="images/Dashboard Tableau.jpg" alt="" /></a>
+								<a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisProject_17059329645720/Dashboard1" class="image fit"><img src="images/Dashboard Tableau.jpg" alt="" /></a>
 								
 								<ul class="actions special">
-									<li><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/vizzes" class="button" target="_blank" >View Project</a></li>
+									<li><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/vizzes" class="button">VIEW PROJECT</a></li>
 								</ul>
 							</article>
 
@@ -75,15 +99,15 @@
 								<article>
 									<header>
 										
-										<h2><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" target="_blank">BigQuery SQL<br /></a></h2>
+										<h2><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql">BigQuery SQL<br />
 										</a></h2>
 										<p>The Chicago Taxi Trips Dataset is available on Google Cloud's BigQuery platform. I explored this dataset using BigQuery SQL queries and by analyzing this data, we can gain insights into the operational dynamics 
 											of taxi services in Chicago, as well as uncover patterns in urban mobility.</p>
 									</header>
-									<a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="image fit" target="_blank" ><img src="images\sql.JPG" alt="" /></a>
+									<a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="image fit"><img src="images\sql.JPG" alt="" /></a>
 								
 									<ul class="actions special">
-										<li><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="button" target="_blank" >View Project</a></li>
+										<li><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="button">View Project</a></li>
 									</ul>
 								</article>
 
@@ -94,11 +118,11 @@
 										with Python</a></h2>
 										<p>This report delves into the heights of presidents to uncover trends in their stature. It also poses an intriguing question: 
 											"What is the probability of having a president of a certain height?" 
-											This query aims to understand the likelihood of specific heights among global presidents, adding a predictive dimension to our exploration.
+											This query aims to understand the likelihood of specific heights among global presidents, adding a predictive dimension to our exploration
 									</header>
 									<a href="https://github.com/henrimbo/Exploratory-Data-Analysis-/blob/main/An%C3%A1lise%20Explorat%C3%B3ria%202.ipynb" class="image fit"><img src="images/Python2.jpg" alt="" /></a>
 									<ul class="actions special">
-										<li><a href="https://github.com/henrimbo" class="button large" target="_blank" >View Project</a></li>
+										<li><a href="https://github.com/henrimbo" class="button large">View Project</a></li>
 									</ul>
 								</article>
 
@@ -108,16 +132,16 @@
 									
 									<header>
 										
-										<h2><a href="https://github.com/henrimbo/SQL-Project-III/blob/main/project.sqlite">Analyze Data with SQL: Trends in Startups <br />
+										<h2><a href="#">Next Project is coming soon<br />
 										</a></h2>
-										<p>The project is focused on utilizing SQL and its aggregate functions to derive valuable insights from a dataset. 
-											By crafting SQL queries that use functions like SUM, AVG, COUNT, MAX, and MIN, the data can be analyzed and summarized at a higher level. 
-											This approach enables the extraction of meaningful trends and patterns that can help in making informed decisions.</p>
+										<p>My next project focuses on data visualization in Python, leveraging powerful libraries such as Matplotlib and Seaborn. 
+											These tools enable effective presentation and analysis of complex datasets, transforming raw data into insightful, 
+											visually appealing charts and graphs. This project aims to master these libraries for advanced data interpretation.</p>
 									</header>
-									<a href="https://github.com/henrimbo/SQL-Project-III/blob/main/project.sqlite" class="image fit" target="_blank" ><img src="images\sql.JPG" alt="" /></a>
+									<a href="#" class="image fit"><img src="images/Python2.jpg" alt="" /></a>
 									
 									<ul class="actions special">
-										<li><a href="https://github.com/henrimbo/SQL-Project-III/blob/main/project.sqlite" class="button" target="_blank">View Project</a></li>
+										<li><a href="#" class="button">View Project</a></li>
 									</ul>
 								</article>
 
