@@ -1,0 +1,370 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Coffee Lover &#8212; Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* ── Video background ── */
+			.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+			.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+			/* ── Transparent wrapper so video shows through ── */
+			#wrapper > .bg { display: none !important; }
+			#wrapper.fade-in::before { display: none !important; }
+
+			/* ── Dark overlay on content for readability ── */
+			#main .post  { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+			#main .post p, #main .post li { color: #1a2035 !important; }
+			#main .post h1, #main .post h2, #main .post h3, #main .post h4 { color: #0d1b2a !important; }
+			.city-heading { color: #b5703a !important; border-color: #b5703a !important; }
+			.cafe-card { border-top-color: #b5703a !important; background: rgba(0,0,0,0.03) !important; border-color: rgba(0,0,0,0.1) !important; }
+			.cafe-card-location { background: rgba(181,112,58,0.1) !important; border-color: rgba(181,112,58,0.3) !important; color: #b5703a !important; }
+			.cafe-card-order { color: #b5703a !important; }
+			.cafe-card-order strong { color: #b5703a !important; }
+			.coming-soon-box { border-color: rgba(181,112,58,0.3) !important; background: rgba(181,112,58,0.04) !important; color: #1a2035 !important; }
+
+			/* ── Coffee page specific styles ── */
+			.coffee-intro-text {
+				font-size: 1.05em;
+				line-height: 1.8;
+				margin-bottom: 2.5em;
+				opacity: 0.9;
+			}
+
+			.city-heading {
+				font-size: 1.05em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #c8956c;
+				border-bottom: 2px solid #c8956c;
+				padding-bottom: 0.4em;
+				margin: 2.5em 0 1.5em;
+			}
+
+			.cafe-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+				gap: 1.5em;
+				margin: 0 0 2.5em;
+			}
+
+			.cafe-card {
+				background: rgba(255,255,255,0.03);
+				border: 1px solid rgba(255,255,255,0.1);
+				border-top: 4px solid #c8956c;
+				border-radius: 6px;
+				padding: 1.4em 1.6em;
+				transition: transform 0.2s, box-shadow 0.2s;
+			}
+			.cafe-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+			}
+
+			.cafe-card-name {
+				font-size: 1.15em;
+				font-weight: 700;
+				margin: 0 0 0.2em;
+				color: inherit;
+			}
+
+			.cafe-card-location {
+				display: inline-block;
+				background: rgba(200,149,108,0.15);
+				border: 1px solid rgba(200,149,108,0.35);
+				border-radius: 3px;
+				padding: 0.1em 0.5em;
+				font-size: 0.75em;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: #c8956c;
+				margin-bottom: 0.8em;
+			}
+
+			.cafe-card-vibe {
+				font-size: 0.92em;
+				line-height: 1.65;
+				margin: 0.6em 0 0.8em;
+				opacity: 0.88;
+			}
+
+			.cafe-card-order {
+				font-size: 0.82em;
+				font-style: italic;
+				color: #c8956c;
+				margin: 0;
+			}
+			.cafe-card-order strong {
+				color: #c8956c;
+				font-style: normal;
+			}
+
+			/* ── Card photo ── */
+			.cafe-card-photo {
+				margin: -1.4em -1.6em 1em;
+				height: 150px;
+				overflow: hidden;
+				border-radius: 6px 6px 0 0;
+			}
+			.cafe-card-photo img {
+				width: 100%; height: 100%;
+				object-fit: cover; display: block;
+				transition: transform 0.35s;
+			}
+			.cafe-card:hover .cafe-card-photo img { transform: scale(1.04); }
+
+			/* ── Broadsheet link ── */
+			.cafe-read-more {
+				display: inline-block;
+				margin-top: 0.55em;
+				font-size: 0.75em;
+				color: #c8956c !important;
+				text-decoration: none;
+				border-bottom: 1px solid rgba(200,149,108,0.35);
+				transition: border-color 0.2s;
+			}
+			.cafe-read-more:hover { border-bottom-color: #c8956c; text-decoration: none; }
+
+			.coming-soon-box {
+				background: rgba(200,149,108,0.06);
+				border: 1px dashed rgba(200,149,108,0.3);
+				border-radius: 6px;
+				padding: 1.5em 2em;
+				text-align: center;
+				margin-top: 1em;
+				opacity: 0.7;
+				font-style: italic;
+				font-size: 0.9em;
+			}
+
+		/* ── Bottom page navigation ── */
+		#bottom-nav {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.65em 2em;
+			background: rgba(8, 12, 26, 0.88);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-top: 1px solid rgba(255,255,255,0.07);
+		}
+		.bnav-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.55em;
+			color: rgba(255,255,255,0.5);
+			text-decoration: none;
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			transition: color 0.2s;
+			min-width: 120px;
+		}
+		.bnav-btn:hover { color: #4a9eda; text-decoration: none; }
+		.bnav-next { justify-content: flex-end; }
+		.bnav-arrow { font-size: 1.3em; line-height: 1; }
+		.bnav-dots {
+			display: flex;
+			gap: 7px;
+			align-items: center;
+		}
+		.bnav-dot {
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.18);
+			transition: background 0.2s, transform 0.2s;
+			cursor: default;
+		}
+		.bnav-dot.active {
+			background: #4a9eda;
+			transform: scale(1.3);
+		}
+		</style>
+		<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+	<body class="is-preload">
+	<!-- Background video -->
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+	<!-- Intro -->
+	<div id="intro">
+		<h1>Coffee<br />Lover</h1>
+		<p>Specialty Coffee &nbsp;&middot;&nbsp; Hidden Gems &nbsp;&middot;&nbsp; Sydney &amp; Beyond</p>
+		<ul class="actions">
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+		</ul>
+	</div>
+
+		<div id="wrapper">
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Resume</a></li>
+					<li><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li><a href="knowledge.html">Knowledge Hub</a></li>
+					<li class="active"><a href="coffee.html">Coffee</a></li>
+					<li><a href="tennis.html">Tennis</a></li>
+					<li><a href="thv.html">THV Surf Co</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<div id="main">
+				<section class="post">
+
+					<header class="major">
+						<h1>Coffee Lover</h1>
+						<p>Life is too short for average coffee. Here are the spots worth your time.</p>
+					</header>
+
+					<p class="coffee-intro-text">
+						From a strong flat white before the morning commute to a long black on a slow weekend &#8212; coffee has always been more than a drink to me. This page collects the caf&eacute;s I return to, the ones that get the craft right. Starting with Sydney, and growing from there.
+					</p>
+
+					<h3 class="city-heading">&#9749; Sydney, NSW &#8212; Australia</h3>
+
+					<div class="cafe-grid">
+
+						<div class="cafe-card">
+							<div class="cafe-card-photo">
+								<img src="images/cafe-diggy-doo.jpg" alt="Diggy Doos Coffee" onerror="this.parentNode.style.display='none'">
+							</div>
+							<p class="cafe-card-name">Diggy Doos Coffee</p>
+							<span class="cafe-card-location">Bridge St, CBD</span>
+							<p class="cafe-card-vibe">
+								Lo-fi and completely honest about it &#8212; mismatched stools, handmade ceramics, spent coffee bags from guest roasters pinned to the walls. Near Wynyard and feels like a room in someone&#8217;s house. Paul Lee, formerly of Proud Mary Melbourne, runs it with quiet precision. The daily blackboard cycles through single-origins and geisha lots that are worth talking to the barista about.
+							</p>
+							<p class="cafe-card-order"><strong>Must try:</strong> Whatever is on the blackboard &#8212; single-origin, often geisha, always worth asking about.</p>
+							<a href="https://www.broadsheet.com.au/sydney/cafes/diggy-doos-coffee" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+						</div>
+
+						<div class="cafe-card">
+							<div class="cafe-card-photo">
+								<img src="images/cafe-only.jpg" alt="Only Coffee Project" onerror="this.parentNode.style.display='none'">
+							</div>
+							<p class="cafe-card-name">Only Coffee Project</p>
+							<span class="cafe-card-location">Willoughby Rd, Crows Nest</span>
+							<p class="cafe-card-vibe">
+								A minimalist espresso bar that takes transparency seriously &#8212; tasting cards list the exact price paid for the beans at origin. Market Lane from Melbourne handles the milk drinks; Sey Coffee, a prestigious New York micro-roastery, covers the black and filter side. Filter is served in Origami ceramic cups designed to open up the aroma. One of the most education-forward caf&eacute;s in Sydney.
+							</p>
+							<p class="cafe-card-order"><strong>Must try:</strong> Flat white on Market Lane, or ask for the Sey Coffee filter if you want to understand what specialty coffee actually means.</p>
+							<a href="https://www.broadsheet.com.au/sydney/crows-nest/cafes/only-coffee-project" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+						</div>
+
+						<div class="cafe-card">
+							<div class="cafe-card-photo">
+								<img src="images/cafe-kingswood.jpg" alt="Kingswood Coffee" onerror="this.parentNode.style.display='none'">
+							</div>
+							<p class="cafe-card-name">Kingswood Coffee</p>
+							<span class="cafe-card-location">George St, CBD</span>
+							<p class="cafe-card-vibe">
+								Old-fashioned in the best way &#8212; wood panelling, polished brass, and a space designed by Tamsin Johnson that draws from the original World Square building&#8217;s character. The Steadfast blend from Sensory Lab anchors the milk-based menu, with a rotating monthly guest roaster on espresso and filter. Pastries from Penny Fours, sourdough from Brickfields. The kind of caf&eacute; that quietly raises your standard for every cup after it.
+							</p>
+							<p class="cafe-card-order"><strong>Must try:</strong> Flat white on the Steadfast blend &#8212; ask what the guest roaster is and order that on filter too.</p>
+							<a href="https://www.broadsheet.com.au/sydney/cafes/kingswood-coffee" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+						</div>
+
+					</div>
+
+					<h3 class="city-heading">&#127757; Coming Soon &#8212; Around the World</h3>
+					<div class="coming-soon-box">
+						More cities and caf&eacute;s being added. Porto Alegre, London, New York &#8212; the list is growing.
+					</div>
+
+				</section>
+			</div>
+
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt"><h3>Country</h3><p>Australia</p></section>
+					<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+					<section><h3>Email</h3><p><a href="mailto:henriquemborges45@hotmail.com">henriquemborges45@hotmail.com</a></p></section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+			<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+		</div>
+
+		<!-- Bottom Page Navigation -->
+		<div id="bottom-nav">
+			<a href="knowledge.html" id="prev-page" class="bnav-btn bnav-prev">
+				<span class="bnav-arrow">&#8592;</span>
+				<span class="bnav-label">Knowledge Hub</span>
+			</a>
+			<div class="bnav-dots">
+				<span class="bnav-dot" title="Resume"></span>
+				<span class="bnav-dot" title="Awards"></span>
+				<span class="bnav-dot" title="Knowledge Hub"></span>
+				<span class="bnav-dot active" title="Coffee"></span>
+				<span class="bnav-dot" title="Tennis"></span>
+				<span class="bnav-dot" title="THV Surf Co"></span>
+			</div>
+			<a href="tennis.html" id="next-page" class="bnav-btn bnav-next">
+				<span class="bnav-label">Tennis</span>
+				<span class="bnav-arrow">&#8594;</span>
+			</a>
+		</div>
+		<script>
+			// Keyboard navigation
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'ArrowLeft') {
+					var p = document.getElementById('prev-page');
+					if (p) window.location.href = p.href;
+				}
+				if (e.key === 'ArrowRight') {
+					var n = document.getElementById('next-page');
+					if (n) window.location.href = n.href;
+				}
+				if (e.key === 'ArrowDown') {
+					var intro = document.getElementById('intro');
+					if (intro && window.scrollY < 10) {
+						var main = document.getElementById('main');
+						if (main) main.scrollIntoView({behavior: 'smooth'});
+					}
+				}
+				if (e.key === 'ArrowUp') {
+					window.scrollTo({top: 0, behavior: 'smooth'});
+				}
+			});
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			// Remove theme's dynamic bg element so video shows through
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+	</body>
+</html>

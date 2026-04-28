@@ -1,0 +1,439 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Tennis &#8212; Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+			.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+			#wrapper > .bg { display: none !important; }
+			#wrapper.fade-in::before { display: none !important; }
+			#main .post { background: rgba(255,255,255,0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+			#main .post p, #main .post li { color: #1a2035 !important; }
+			#main .post h1, #main .post h2, #main .post h3, #main .post h4 { color: #0d1b2a !important; }
+
+			.section-title {
+				font-size: 1.05em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				border-bottom: 2px solid #4a9eda;
+				padding-bottom: 0.4em;
+				margin: 2.8em 0 1.2em;
+			}
+
+			/* ── Player Picker ── */
+			.player-intro { font-size: 0.93em; opacity: 0.7; margin: 0 0 1.2em; }
+			.player-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+				gap: 0.85em;
+				margin-bottom: 1.2em;
+			}
+			.player-card {
+				background: rgba(0,0,0,0.035);
+				border: 2px solid rgba(0,0,0,0.07);
+				border-radius: 9px;
+				padding: 1.1em 0.8em;
+				text-align: center;
+				cursor: pointer;
+				transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+				user-select: none;
+				-webkit-user-select: none;
+			}
+			.player-card:hover {
+				border-color: rgba(74,158,218,0.6);
+				transform: translateY(-2px);
+				box-shadow: 0 6px 18px rgba(74,158,218,0.15);
+			}
+			.player-card.selected {
+				border-color: #4a9eda;
+				background: rgba(74,158,218,0.09);
+				box-shadow: 0 4px 20px rgba(74,158,218,0.22);
+			}
+			.pc-flag    { font-size: 2em; display: block; margin-bottom: 0.3em; line-height: 1; }
+			.pc-rank    { font-size: 0.62em; text-transform: uppercase; letter-spacing: 0.1em; color: #4a9eda; font-weight: 700; margin-bottom: 0.15em; }
+			.pc-name    { font-size: 0.87em; font-weight: 700; color: #0d1b2a; line-height: 1.25; margin-bottom: 0.12em; }
+			.pc-country { font-size: 0.7em; opacity: 0.5; }
+
+			/* ── Following banner ── */
+			.following-banner {
+				display: none;
+				align-items: center;
+				gap: 0.6em;
+				background: rgba(74,158,218,0.09);
+				border: 1px solid rgba(74,158,218,0.28);
+				border-radius: 6px;
+				padding: 0.8em 1.1em;
+				font-size: 0.9em;
+				flex-wrap: wrap;
+				margin-bottom: 0.5em;
+			}
+			.following-label { opacity: 0.65; }
+			.following-player-name { font-weight: 700; color: #4a9eda; font-size: 1.05em; }
+			.clear-btn {
+				margin-left: auto;
+				background: none;
+				border: 1px solid rgba(74,158,218,0.35);
+				border-radius: 4px;
+				color: #4a9eda;
+				font-size: 0.72em;
+				padding: 0.22em 0.75em;
+				cursor: pointer;
+				transition: background 0.18s;
+			}
+			.clear-btn:hover { background: rgba(74,158,218,0.12); }
+
+			/* ── Scores section ── */
+			.scores-note { font-size: 0.88em; opacity: 0.65; margin: -0.5em 0 1.2em; }
+			.scores-widget-wrap {
+				background: #f8f9fc;
+				border: 1px solid rgba(0,0,0,0.08);
+				border-radius: 8px;
+				overflow: hidden;
+				margin-bottom: 1em;
+				padding: 1em;
+				min-height: 120px;
+			}
+			.scores-btns { display: flex; flex-wrap: wrap; gap: 0.8em; margin-bottom: 2em; }
+
+			/* ── Grand Slams ── */
+			.slams-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+				gap: 1em;
+				margin-bottom: 2em;
+			}
+			.slam-card {
+				border-radius: 7px;
+				padding: 1.2em 1.3em;
+				border: 1px solid rgba(0,0,0,0.08);
+				border-top: 4px solid #ddd;
+				background: rgba(0,0,0,0.025);
+			}
+			.slam-card.hard-court  { border-top-color: #4a9eda; }
+			.slam-card.clay-court  { border-top-color: #c46828; }
+			.slam-card.grass-court { border-top-color: #3ca050; }
+			.slam-name  { font-weight: 700; font-size: 1em; margin: 0 0 0.4em; }
+			.slam-badge {
+				display: inline-block;
+				font-size: 0.7em;
+				text-transform: uppercase;
+				letter-spacing: 0.07em;
+				font-weight: 600;
+				padding: 0.15em 0.55em;
+				border-radius: 3px;
+				margin-bottom: 0.55em;
+			}
+			.slam-badge.hard  { background: rgba(74,158,218,0.13);  color: #2878b0; }
+			.slam-badge.clay  { background: rgba(196,104,40,0.13);  color: #9a5020; }
+			.slam-badge.grass { background: rgba(60,160,80,0.13);   color: #267840; }
+			.slam-dates { font-size: 0.78em; opacity: 0.55; display: block; margin-bottom: 0.3em; }
+			.slam-loc   { font-size: 0.82em; opacity: 0.65; margin: 0; }
+
+			/* ── Note box ── */
+			.note-box {
+				background: rgba(74,158,218,0.05);
+				border: 1px solid rgba(74,158,218,0.15);
+				border-left: 4px solid #4a9eda;
+				border-radius: 4px;
+				padding: 1.2em 1.6em;
+				margin: 2.2em 0;
+				font-size: 0.95em;
+				line-height: 1.8;
+				font-style: italic;
+			}
+
+			/* ── Bottom nav ── */
+			#bottom-nav {
+				position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+				display: flex; align-items: center; justify-content: space-between;
+				padding: 0.65em 2em;
+				background: rgba(8,12,26,0.88);
+				backdrop-filter: blur(12px);
+				-webkit-backdrop-filter: blur(12px);
+				border-top: 1px solid rgba(255,255,255,0.07);
+			}
+			.bnav-btn {
+				display: flex; align-items: center; gap: 0.55em;
+				color: rgba(255,255,255,0.5); text-decoration: none;
+				font-size: 0.72em; letter-spacing: 0.12em; text-transform: uppercase;
+				transition: color 0.2s; min-width: 120px;
+			}
+			.bnav-btn:hover { color: #4a9eda; text-decoration: none; }
+			.bnav-next  { justify-content: flex-end; }
+			.bnav-arrow { font-size: 1.3em; line-height: 1; }
+			.bnav-dots  { display: flex; gap: 7px; align-items: center; }
+			.bnav-dot   { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.18); transition: background 0.2s, transform 0.2s; }
+			.bnav-dot.active { background: #4a9eda; transform: scale(1.3); }
+		</style>
+		<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+	<body class="is-preload">
+
+		<div class="video-bg">
+			<video autoplay muted loop>
+				<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+			</video>
+		</div>
+
+		<div id="intro">
+			<h1>Tennis</h1>
+			<p>ATP Tour &nbsp;&#183;&nbsp; Live Scores &nbsp;&#183;&nbsp; Follow the Circuit</p>
+			<ul class="actions">
+				<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+			</ul>
+		</div>
+
+		<div id="wrapper">
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Resume</a></li>
+					<li><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li><a href="knowledge.html">Knowledge Hub</a></li>
+					<li><a href="coffee.html">Coffee</a></li>
+					<li class="active"><a href="tennis.html">Tennis</a></li>
+					<li><a href="thv.html">THV Surf Co</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<div id="main">
+				<section class="post">
+
+					<header class="major">
+						<h1>Tennis</h1>
+						<p>On the court and watching the circuit &#8212; tennis is a constant.<br />
+						Pick a player, track the Tour, and follow the action.</p>
+					</header>
+
+					<!-- ── Player Picker ── -->
+					<h3 class="section-title">&#127934; Choose Your Player</h3>
+					<p class="player-intro">Select an ATP player to follow &#8212; your pick is saved between visits.</p>
+					<div class="player-grid" id="player-grid"></div>
+					<div class="following-banner" id="following-banner">
+						<span class="following-label">Following</span>
+						<span id="following-flag"></span>
+						<span id="following-name" class="following-player-name"></span>
+						<button id="clear-btn" class="clear-btn">Change player</button>
+					</div>
+
+					<!-- ── Live Scores ── -->
+					<h3 class="section-title">&#128225; Live Scores &amp; Results</h3>
+					<p class="scores-note">ATP match scores updated in real time via Sofascore. Links below open the full tour view.</p>
+					<div class="scores-widget-wrap">
+						<!-- Sofascore widget: sport-id 5 = Tennis, tournament-id 2 = ATP Singles -->
+						<!-- To refresh season ID: sofascore.com > Tennis > ATP Singles > Share > Widget -->
+						<div id="sofa-standings-embed"
+							 data-sport-id="5"
+							 data-tournament-id="2"
+							 data-locale="en"
+							 data-widget-theme="light">
+						</div>
+					</div>
+					<div class="scores-btns">
+						<a href="https://www.sofascore.com/tennis" target="_blank" rel="noopener" class="button">Live Scores on Sofascore &#8599;</a>
+						<a href="https://www.atptour.com/en/scores/current" target="_blank" rel="noopener" class="button">ATP Tour Official &#8599;</a>
+						<a href="https://www.atptour.com/en/rankings/singles" target="_blank" rel="noopener" class="button">ATP Rankings &#8599;</a>
+					</div>
+
+					<!-- ── Grand Slams ── -->
+					<h3 class="section-title">&#127942; Grand Slams</h3>
+					<div class="slams-grid">
+						<div class="slam-card hard-court">
+							<p class="slam-name">Australian Open</p>
+							<span class="slam-badge hard">Hard court</span>
+							<span class="slam-dates">January</span>
+							<p class="slam-loc">Melbourne Park, Australia</p>
+						</div>
+						<div class="slam-card clay-court">
+							<p class="slam-name">Roland Garros</p>
+							<span class="slam-badge clay">Clay court</span>
+							<span class="slam-dates">May &#8211; June</span>
+							<p class="slam-loc">Stade Roland Garros, Paris</p>
+						</div>
+						<div class="slam-card grass-court">
+							<p class="slam-name">Wimbledon</p>
+							<span class="slam-badge grass">Grass court</span>
+							<span class="slam-dates">June &#8211; July</span>
+							<p class="slam-loc">All England Club, London</p>
+						</div>
+						<div class="slam-card hard-court">
+							<p class="slam-name">US Open</p>
+							<span class="slam-badge hard">Hard court</span>
+							<span class="slam-dates">August &#8211; September</span>
+							<p class="slam-loc">USTA Billie Jean King, New York</p>
+						</div>
+					</div>
+
+					<!-- ── Personal note ── -->
+					<div class="note-box">
+						Tennis has been part of my life for years &#8212; on the court and as a spectator. The individual nature of the game is what I connect with most: no team to lean on, every point earned under pressure, and the mental game as important as the technical one. The ATP Tour is one of the most compelling competitions in sport, and it&#8217;s something I follow closely &#8212; from the Australian Open in my own backyard to the clay at Roland Garros.
+					</div>
+
+				</section>
+			</div>
+
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt"><h3>Country</h3><p>Australia</p></section>
+					<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+					<section><h3>Email</h3><p><a href="mailto:henriquemborges45@hotmail.com">henriquemborges45@hotmail.com</a></p></section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+			<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+		</div>
+
+		<!-- Bottom Page Navigation -->
+		<div id="bottom-nav">
+			<a href="coffee.html" id="prev-page" class="bnav-btn bnav-prev">
+				<span class="bnav-arrow">&#8592;</span>
+				<span class="bnav-label">Coffee</span>
+			</a>
+			<div class="bnav-dots">
+				<span class="bnav-dot" title="Resume"></span>
+				<span class="bnav-dot" title="Awards"></span>
+				<span class="bnav-dot" title="Knowledge Hub"></span>
+				<span class="bnav-dot" title="Coffee"></span>
+				<span class="bnav-dot active" title="Tennis"></span>
+				<span class="bnav-dot" title="THV Surf Co"></span>
+			</div>
+			<a href="thv.html" id="next-page" class="bnav-btn bnav-next">
+				<span class="bnav-label">THV Surf Co</span>
+				<span class="bnav-arrow">&#8594;</span>
+			</a>
+		</div>
+
+		<script>
+			var PLAYERS = [
+				{ rank: 1,  name: "Jannik Sinner",    country: "Italy",     flag: "🇮🇹" },
+				{ rank: 2,  name: "Carlos Alcaraz",   country: "Spain",     flag: "🇪🇸" },
+				{ rank: 3,  name: "Alexander Zverev", country: "Germany",   flag: "🇩🇪" },
+				{ rank: 4,  name: "Daniil Medvedev",  country: "Russia",    flag: "🇷🇺" },
+				{ rank: 5,  name: "Novak Djokovic",   country: "Serbia",    flag: "🇷🇸" },
+				{ rank: 6,  name: "Casper Ruud",      country: "Norway",    flag: "🇳🇴" },
+				{ rank: 7,  name: "Taylor Fritz",     country: "USA",       flag: "🇺🇸" },
+				{ rank: 8,  name: "Alex de Minaur",   country: "Australia", flag: "🇦🇺" },
+				{ rank: 9,  name: "Andrey Rublev",    country: "Russia",    flag: "🇷🇺" },
+				{ rank: 10, name: "Hubert Hurkacz",   country: "Poland",    flag: "🇵🇱" },
+				{ rank: 11, name: "Holger Rune",      country: "Denmark",   flag: "🇩🇰" },
+				{ rank: 12, name: "Lorenzo Musetti",  country: "Italy",     flag: "🇮🇹" }
+			];
+			var KEY      = 'tennis_player';
+			var KEY_FLAG = 'tennis_player_flag';
+
+			function renderGrid() {
+				var saved = localStorage.getItem(KEY);
+				var grid  = document.getElementById('player-grid');
+				if (!grid) return;
+				grid.innerHTML = PLAYERS.map(function(p, i) {
+					var sel = (saved === p.name) ? ' selected' : '';
+					return '<div class="player-card' + sel + '" data-i="' + i + '">' +
+						'<span class="pc-flag">' + p.flag + '</span>' +
+						'<div class="pc-rank">No.&nbsp;' + p.rank + '</div>' +
+						'<div class="pc-name">' + p.name + '</div>' +
+						'<div class="pc-country">' + p.country + '</div>' +
+						'</div>';
+				}).join('');
+
+				/* event delegation — avoids putting emoji/strings inside onclick attributes */
+				grid.addEventListener('click', function(e) {
+					var card = e.target;
+					while (card && card !== grid) {
+						if (card.classList && card.classList.contains('player-card')) break;
+						card = card.parentNode;
+					}
+					if (!card || card === grid) return;
+					var i = parseInt(card.getAttribute('data-i'), 10);
+					if (!isNaN(i) && PLAYERS[i]) pick(PLAYERS[i].name, PLAYERS[i].flag);
+				});
+
+				refreshBanner();
+			}
+
+			function pick(name, flag) {
+				localStorage.setItem(KEY, name);
+				localStorage.setItem(KEY_FLAG, flag);
+				document.querySelectorAll('.player-card').forEach(function(el) {
+					var i = parseInt(el.getAttribute('data-i'), 10);
+					el.classList.toggle('selected', !isNaN(i) && PLAYERS[i].name === name);
+				});
+				refreshBanner();
+			}
+
+			function clearFollowing() {
+				localStorage.removeItem(KEY);
+				localStorage.removeItem(KEY_FLAG);
+				document.querySelectorAll('.player-card').forEach(function(el) { el.classList.remove('selected'); });
+				refreshBanner();
+			}
+
+			function refreshBanner() {
+				var name   = localStorage.getItem(KEY);
+				var flag   = localStorage.getItem(KEY_FLAG) || '';
+				var banner = document.getElementById('following-banner');
+				if (name) {
+					document.getElementById('following-name').textContent = name;
+					document.getElementById('following-flag').textContent = flag + ' ';
+					banner.style.display = 'flex';
+				} else {
+					banner.style.display = 'none';
+				}
+			}
+
+			document.getElementById('clear-btn').addEventListener('click', clearFollowing);
+
+			renderGrid();
+
+			/* Sofascore widget loader */
+			(function() {
+				var s = document.createElement('script');
+				s.async = true;
+				s.src   = 'https://widgets.sofascore.com/embed/1.0/main.js';
+				document.head.appendChild(s);
+			})();
+
+			/* Keyboard nav */
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'ArrowLeft')  { var p = document.getElementById('prev-page'); if (p) window.location.href = p.href; }
+				if (e.key === 'ArrowRight') { var n = document.getElementById('next-page'); if (n) window.location.href = n.href; }
+				if (e.key === 'ArrowDown') {
+					if (window.scrollY < 10) { var m = document.getElementById('main'); if (m) m.scrollIntoView({behavior:'smooth'}); }
+				}
+				if (e.key === 'ArrowUp') { window.scrollTo({top:0,behavior:'smooth'}); }
+			});
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+
+	</body>
+</html>

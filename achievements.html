@@ -1,0 +1,540 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Achievements — Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+
+			/* ── Stats row ── */
+			.stats-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1em;
+				margin: 0 0 3em;
+			}
+			.stat-box {
+				flex: 1;
+				min-width: 130px;
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.1);
+				border-radius: 6px;
+				padding: 1.1em 1em;
+				text-align: center;
+			}
+			.stat-box .sv {
+				display: block;
+				font-size: 2em;
+				font-weight: 700;
+				color: #4a9eda;
+				line-height: 1.1;
+			}
+			.stat-box .sl {
+				display: block;
+				font-size: 0.72em;
+				opacity: 0.55;
+				margin-top: 0.3em;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+			}
+
+			/* ── Section title ── */
+			.section-title {
+				font-size: 1.05em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				border-bottom: 2px solid #4a9eda;
+				padding-bottom: 0.4em;
+				margin: 2.8em 0 1.5em;
+			}
+
+			/* ── Spotlight cards ── */
+			.spotlight-card {
+				background: rgba(255,255,255,0.03);
+				border: 1px solid rgba(255,255,255,0.09);
+				border-radius: 8px;
+				padding: 1.8em 2em;
+				margin-bottom: 2em;
+				position: relative;
+				overflow: hidden;
+			}
+			.spotlight-card::before {
+				content: '';
+				position: absolute;
+				top: 0; left: 0;
+				width: 4px; height: 100%;
+				background: linear-gradient(180deg, #4a9eda, #7abfea);
+			}
+
+			/* Header row */
+			.spotlight-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				gap: 0.8em;
+				margin-bottom: 1.2em;
+			}
+			.spotlight-name {
+				font-size: 1.15em;
+				font-weight: 700;
+				margin: 0;
+			}
+			.spotlight-meta {
+				font-size: 0.78em;
+				opacity: 0.5;
+				text-align: right;
+				line-height: 1.6;
+			}
+
+			/* Value badges */
+			.value-badges {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.4em;
+				margin: 0 0 1.4em;
+			}
+			.value-badge {
+				background: rgba(74,158,218,0.15);
+				border: 1px solid rgba(74,158,218,0.4);
+				color: #7abfea;
+				border-radius: 20px;
+				padding: 0.25em 0.85em;
+				font-size: 0.78em;
+				font-weight: 600;
+				letter-spacing: 0.04em;
+			}
+
+			/* Content sections */
+			.spotlight-body {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+				gap: 1.2em;
+			}
+			.spotlight-section h5 {
+				font-size: 0.72em;
+				text-transform: uppercase;
+				letter-spacing: 0.14em;
+				color: #4a9eda;
+				margin: 0 0 0.5em;
+			}
+			.spotlight-section p {
+				margin: 0;
+				font-size: 0.88em;
+				line-height: 1.7;
+				opacity: 0.85;
+			}
+
+			/* Quote style for the full recognition text */
+			.spotlight-quote {
+				border-left: 3px solid rgba(74,158,218,0.4);
+				padding: 0.8em 1.2em;
+				margin: 1.2em 0 0;
+				font-style: italic;
+				font-size: 0.9em;
+				line-height: 1.75;
+				opacity: 0.75;
+			}
+
+			/* Recogniser pill */
+			.recogniser-pill {
+				display: inline-block;
+				background: rgba(255,255,255,0.05);
+				border: 1px solid rgba(255,255,255,0.12);
+				border-radius: 20px;
+				padding: 0.25em 0.85em;
+				font-size: 0.78em;
+				opacity: 0.65;
+				margin-top: 1.2em;
+			}
+			.recogniser-pill::before {
+				content: '✦ ';
+				color: #4a9eda;
+			}
+
+			/* Lunch award cards */
+			.award-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1em;
+				margin: 1.2em 0;
+			}
+			.award-card {
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.09);
+				border-radius: 6px;
+				padding: 1.1em 1.3em;
+				text-align: center;
+			}
+			.award-card .award-icon {
+				font-size: 1.8em;
+				display: block;
+				margin-bottom: 0.4em;
+			}
+			.award-card h4 { margin: 0 0 0.3em; font-size: 0.9em; color: #4a9eda; }
+			.award-card p  { margin: 0; font-size: 0.82em; opacity: 0.65; line-height: 1.5; }
+
+		
+		/* ── Video background ── */
+		.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+		.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+		/* ── Transparent wrapper so video shows through ── */
+		#wrapper > .bg { display: none !important; }
+		#wrapper.fade-in::before { display: none !important; }
+
+		/* ── Dark overlay on content for readability ── */
+		#main .post  { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+		#main .posts { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2em !important; color: #1a2035 !important; }
+		#main .post p, #main .posts p, #main .post li { color: #1a2035 !important; }
+		#main .post h1, #main .post h2, #main .post h3, #main .post h4,
+		#main .posts h1, #main .posts h2, #main .posts h3, #main .posts h4 { color: #0d1b2a !important; }
+
+		/* ── Bottom page navigation ── */
+		#bottom-nav {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.65em 2em;
+			background: rgba(8, 12, 26, 0.88);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-top: 1px solid rgba(255,255,255,0.07);
+		}
+		.bnav-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.55em;
+			color: rgba(255,255,255,0.5);
+			text-decoration: none;
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			transition: color 0.2s;
+			min-width: 120px;
+		}
+		.bnav-btn:hover { color: #4a9eda; text-decoration: none; }
+		.bnav-next { justify-content: flex-end; }
+		.bnav-arrow { font-size: 1.3em; line-height: 1; }
+		.bnav-dots {
+			display: flex;
+			gap: 7px;
+			align-items: center;
+		}
+		.bnav-dot {
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.18);
+			transition: background 0.2s, transform 0.2s;
+			cursor: default;
+		}
+		.bnav-dot.active {
+			background: #4a9eda;
+			transform: scale(1.3);
+		}
+		</style>
+		<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+	<body class="is-preload">
+	<!-- Background video -->
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+
+	<!-- Intro -->
+
+	<div id="intro">
+
+		<h1>Awards &amp;<br />Recognition</h1>
+
+		<p> Professional Milestones</p>
+
+		<ul class="actions">
+
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+
+		</ul>
+
+	</div>
+
+
+		<div id="wrapper">
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Resume</a></li>
+					<li class="active"><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li><a href="knowledge.html">Knowledge Hub</a></li>
+					<li><a href="coffee.html">Coffee</a></li>
+					<li><a href="tennis.html">Tennis</a></li>
+					<li><a href="thv.html">THV Surf Co</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<div id="main">
+				<section class="post">
+
+					<header class="major">
+						<h1>Achievements</h1>
+						<p>Recognition from managers and senior leaders across Finance and Treasury —<br />spotlighting contributions to accuracy, automation, and team outcomes.</p>
+					</header>
+
+					<!-- Stats -->
+					<div class="stats-row">
+						<div class="stat-box"><span class="sv">4</span><span class="sl">Manager Spotlights</span></div>
+						<div class="stat-box"><span class="sv">2</span><span class="sl">Lunch Recognition Awards</span></div>
+						<div class="stat-box"><span class="sv">2 yrs</span><span class="sl">At current employer</span></div>
+						<div class="stat-box"><span class="sv">3+</span><span class="sl">Teams recognising contributions</span></div>
+					</div>
+
+					<!-- ── SPOTLIGHT SECTION ── -->
+					<h3 class="section-title">The Spotlight Stage</h3>
+					<p>The Spotlight Stage recognises individuals and teams who demonstrate company values in extraordinary ways. The following spotlights were received from senior leaders across Finance, Treasury, and Operations.</p>
+
+					<!-- Spotlight 1 — March 2026 -->
+					<div class="spotlight-card">
+						<div class="spotlight-header">
+							<p class="spotlight-name">Henrique Borges</p>
+							<div class="spotlight-meta">Finance &nbsp;·&nbsp; March 2026<br />Recognised by Financial Accountant Manager</div>
+						</div>
+						<div class="value-badges">
+							<span class="value-badge">Customer Focus</span>
+							<span class="value-badge">Putting People First</span>
+						</div>
+						<div class="spotlight-body">
+							<div class="spotlight-section">
+								<h5>Situation</h5>
+								<p>February is the heaviest month for environmental certificate trades — LGC and STC volumes are high, and certificate inventory reconciliations require exceptional attention to detail within tight month-end deadlines.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Behaviour</h5>
+								<p>In addition to providing a detailed summary of monthly events, ensured that the reconciliation of certificate inventory to respective registries was comprehensive and accurate — despite strict deadlines that could have compromised quality.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Impact</h5>
+								<p>When the certificate reconciliation is robust, the accounting team does not need to investigate discrepancies — saving significant time at month end. In February 2026, no reconciliation issues required investigation, freeing the accounting team to focus on higher-value work.</p>
+							</div>
+						</div>
+						<div class="spotlight-quote">
+							"Thanks Henrique for your diligence in this process and for facilitating the accounting team's work."
+						</div>
+						<div class="recogniser-pill"> Financial Accountant Manager &nbsp;·&nbsp; March 2026</div>
+					</div>
+
+					<!-- Spotlight 2 — December 2025 -->
+					<div class="spotlight-card">
+						<div class="spotlight-header">
+							<p class="spotlight-name">Henrique Borges</p>
+							<div class="spotlight-meta">Finance &nbsp;·&nbsp; December 2025<br />Recognised by Trading Team</div>
+						</div>
+						<div class="value-badges">
+							<span class="value-badge">One Team</span>
+							<span class="value-badge">Striving for Better</span>
+							<span class="value-badge">Customer Focus</span>
+							<span class="value-badge">Putting People First</span>
+						</div>
+						<div class="spotlight-body">
+							<div class="spotlight-section">
+								<h5>Situation</h5>
+								<p>Day-to-day operations across Finance and Treasury require consistent support, accuracy, and a willingness to step in and help colleagues resolve issues as they arise.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Behaviour</h5>
+								<p>Always helpful and diligent — consistently willing to assist and solve issues with a high level of accuracy and attention to detail, demonstrating strong customer focus in every interaction.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Impact</h5>
+								<p>Makes everyone's work easier and sets an example of what it means to be a great team player — raising the overall standard of the team through consistent, reliable contributions.</p>
+							</div>
+						</div>
+						<div class="spotlight-quote">
+							"Henri is always helpful and diligent. Always willing to help and solve issues. He makes everybody's life easier, and is an example of a great team player."
+						</div>
+						<div class="recogniser-pill">Trading Team &nbsp;·&nbsp; December 2025</div>
+					</div>
+
+					<!-- Spotlight 3 — December 2025 -->
+					<div class="spotlight-card">
+						<div class="spotlight-header">
+							<p class="spotlight-name">Henrique Borges</p>
+							<div class="spotlight-meta">Finance &nbsp;·&nbsp; December 2025<br />Recognised by Settlements Manager &amp; Treasury</div>
+						</div>
+						<div class="value-badges">
+							<span class="value-badge">Commercial Leadership</span>
+							<span class="value-badge">Striving for Better</span>
+						</div>
+						<div class="spotlight-body">
+							<div class="spotlight-section">
+								<h5>Situation</h5>
+								<p>Within the Settlements role, there was an opportunity to go beyond day-to-day responsibilities and use technical skills to drive meaningful process improvements — not just for one role, but for the broader team.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Behaviour</h5>
+								<p>Proactively explored automation opportunities across the end-to-end settlements process — starting with smarter Excel techniques and progressing to Python automation for accessing centralised data and eliminating repetitive manual tasks. Worked directly with IT to make the necessary tools available and addressed security concerns collaboratively. Demonstrated the automations to the wider team and encouraged adoption.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Impact</h5>
+								<p>Measurable time savings for multiple roles across the team, significant reduction in manual errors, and consistently reliable output. Inspired a broader culture of process improvement — demonstrating that repetitive, manual effort is always a candidate for automation.</p>
+							</div>
+						</div>
+						<div class="spotlight-quote">
+							"Henri has confidently worked to have Python available to create automations, mitigating risks and fears around cyber security. He has demonstrated his automations and encouraged others in the team to adopt these time-saving and error-reducing tools. Encouraging us to always challenge our processes — where there is repetition and/or manual effort, these are prime for improvement and automation."
+						</div>
+						<div class="recogniser-pill">Settlements Manager &amp; Settlements &nbsp;·&nbsp; December 2025</div>
+					</div>
+
+					<!-- Spotlight 4 — September 2024 -->
+					<div class="spotlight-card">
+						<div class="spotlight-header">
+							<p class="spotlight-name">Henrique Borges</p>
+							<div class="spotlight-meta">Finance &nbsp;·&nbsp; September 2024<br />Recognised by Treasury Manager</div>
+						</div>
+						<div class="value-badges">
+							<span class="value-badge">Customer Focus</span>
+							<span class="value-badge">Putting People First</span>
+							<span class="value-badge">Commercial Leadership</span>
+							<span class="value-badge">Striving for Better</span>
+						</div>
+						<div class="spotlight-body">
+							<div class="spotlight-section">
+								<h5>Situation</h5>
+								<p>A complex semi-annual dividend process involving multiple payment directions, offsetting items, loans, and last-minute changes — requiring precision and coordination across Finance and Treasury teams under significant time pressure.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Behaviour</h5>
+								<p>Delivered a well-executed dividend process from end to end — handling complexity, last-minute curveballs, and stakeholder requirements with focus and professionalism. Ensured all cashflow netting and offsetting items were processed accurately and clearly communicated.</p>
+							</div>
+							<div class="spotlight-section">
+								<h5>Impact</h5>
+								<p>Shareholders received the dividend smoothly and appreciated the clarity of the netting arrangements. The process ran without issue despite its complexity, setting a strong standard for future dividend cycles.</p>
+							</div>
+						</div>
+						<div class="spotlight-quote">
+							"A very well executed semi-annual Dividend Process. There is a lot of work that goes into making the dividend process run smoothly — in particular this time around, there were lots of payment directions, offsetting items and loans, and some last-minute curveballs, which required work and focus."
+						</div>
+						<div class="recogniser-pill">Treasury Manager &nbsp;·&nbsp; September 2024</div>
+					</div>
+
+					<!-- ── OTHER RECOGNITION ── -->
+					<h3 class="section-title">Other Recognition</h3>
+
+					<div class="award-grid">
+						<div class="award-card">
+							<span class="award-icon">🏆</span>
+							<h4>Lunch Recognition Award</h4>
+							<p>Awarded twice within 2 years for project-specific contributions and consistent high performance across Finance and Treasury.</p>
+						</div>
+						<div class="award-card">
+							<span class="award-icon">⭐</span>
+							<h4>4 Spotlights</h4>
+							<p>Recognised by managers across multiple teams — Finance Control, Finance Leadership, and Treasury — for accuracy, automation, and teamwork.</p>
+						</div>
+						<div class="award-card">
+							<span class="award-icon">🎖️</span>
+							<h4>Military Merit Certificate</h4>
+							<p>Awarded during service in the Brazilian Armed Forces for high-performance assessments in tactical, strategic, and physical fitness.</p>
+						</div>
+						<div class="award-card">
+							<span class="award-icon">📋</span>
+							<h4>ISO 9001 Certification</h4>
+							<p>Led end-to-end documentation, auditing, and process improvement initiatives at a Brazilian Notary Public Office — achieving full ISO 9001 Quality Management certification.</p>
+						</div>
+					</div>
+
+				</section>
+			</div>
+
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt"><h3>Country</h3><p>Australia</p></section>
+					<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+					<section><h3>Email</h3><p><a href="mailto:henriquemborges45@hotmail.com">henriquemborges45@hotmail.com</a></p></section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+			<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+		</div>
+
+		<!-- Bottom Page Navigation -->
+		<div id="bottom-nav">
+			<a href="index.html" id="prev-page" class="bnav-btn bnav-prev">
+				<span class="bnav-arrow">&#8592;</span>
+				<span class="bnav-label">Resume</span>
+			</a>
+			<div class="bnav-dots">
+				<span class="bnav-dot" title="Resume"></span>
+				<span class="bnav-dot active" title="Awards"></span>
+				<span class="bnav-dot" title="Knowledge Hub"></span>
+				<span class="bnav-dot" title="Coffee"></span>
+				<span class="bnav-dot" title="Tennis"></span>
+				<span class="bnav-dot" title="THV Surf Co"></span>
+			</div>
+			<a href="knowledge.html" id="next-page" class="bnav-btn bnav-next">
+				<span class="bnav-label">Knowledge Hub</span>
+				<span class="bnav-arrow">&#8594;</span>
+			</a>
+		</div>
+		<script>
+			// Keyboard navigation
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'ArrowLeft') {
+					var p = document.getElementById('prev-page');
+					if (p) window.location.href = p.href;
+				}
+				if (e.key === 'ArrowRight') {
+					var n = document.getElementById('next-page');
+					if (n) window.location.href = n.href;
+				}
+				if (e.key === 'ArrowDown') {
+					var intro = document.getElementById('intro');
+					if (intro && window.scrollY < 10) {
+						var main = document.getElementById('main');
+						if (main) main.scrollIntoView({behavior: 'smooth'});
+					}
+				}
+				if (e.key === 'ArrowUp') {
+					window.scrollTo({top: 0, behavior: 'smooth'});
+				}
+			});
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			// Remove theme's dynamic bg element so video shows through
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+	</body>
+</html>

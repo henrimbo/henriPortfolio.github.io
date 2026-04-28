@@ -1,0 +1,1098 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Knowledge Hub — Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* ── Tab system ── */
+			.tab-nav {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				margin: 0 0 2.5em;
+				border-bottom: 2px solid rgba(255,255,255,0.1);
+				padding-bottom: 0;
+			}
+			.tab-btn {
+				background: transparent;
+				border: none;
+				border-bottom: 3px solid transparent;
+				color: inherit;
+				font-size: 0.9em;
+				font-family: inherit;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				padding: 0.6em 1.2em;
+				cursor: pointer;
+				opacity: 0.55;
+				transition: opacity 0.2s, border-color 0.2s;
+				margin-bottom: -2px;
+			}
+			.tab-btn:hover  { opacity: 0.85; }
+			.tab-btn.active { opacity: 1; border-bottom-color: #4a9eda; color: #4a9eda; }
+			.tab-panel { display: none; }
+			.tab-panel.active { display: block; }
+
+			/* ── Section titles ── */
+			.section-title {
+				font-size: 1em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				border-bottom: 2px solid #4a9eda;
+				padding-bottom: 0.4em;
+				margin: 2.5em 0 1.1em;
+			}
+
+			/* ── Code blocks ── */
+			pre { margin: 1em 0 1.8em; border-radius: 6px; overflow-x: auto; }
+			code.hljs { border-radius: 6px; font-size: 0.8em; line-height: 1.65; padding: 1.3em !important; }
+			.code-label {
+				display: inline-block;
+				background: #4a9eda;
+				color: #fff;
+				font-size: 0.7em;
+				letter-spacing: 0.1em;
+				text-transform: uppercase;
+				padding: 0.25em 0.7em;
+				border-radius: 3px 3px 0 0;
+				margin-bottom: 0;
+			}
+
+			/* ── Cards ── */
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 1.2em;
+				margin: 1.2em 0 2em;
+			}
+			.card {
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.09);
+				border-left: 4px solid #4a9eda;
+				border-radius: 4px;
+				padding: 1.1em 1.3em;
+			}
+			.card h4 { margin: 0 0 0.4em; color: #4a9eda; font-size: 0.95em; }
+			.card p  { margin: 0; font-size: 0.88em; line-height: 1.65; }
+
+			/* ── Tip / info box ── */
+			.tip-box {
+				background: rgba(74,158,218,0.07);
+				border: 1px solid rgba(74,158,218,0.2);
+				border-radius: 4px;
+				padding: 0.9em 1.3em;
+				margin: 1em 0 1.8em;
+				font-size: 0.9em;
+				line-height: 1.7;
+			}
+			.tip-box strong { color: #4a9eda; }
+
+			/* ── Quiz / Q&A ── */
+			.qa-item {
+				border-bottom: 1px solid rgba(255,255,255,0.07);
+				padding: 1.1em 0;
+			}
+			.qa-item:last-child { border-bottom: none; }
+			.qa-q {
+				font-weight: 700;
+				font-size: 0.95em;
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.qa-q::after { content: '+'; color: #4a9eda; font-size: 1.3em; line-height: 1; }
+			.qa-q.open::after { content: '−'; }
+			.qa-a {
+				display: none;
+				padding: 0.8em 0 0.2em;
+				font-size: 0.9em;
+				line-height: 1.7;
+				opacity: 0.85;
+			}
+
+			/* ── Stat highlight ── */
+			.stat-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1em;
+				margin: 1.5em 0;
+			}
+			.stat-pill {
+				background: rgba(74,158,218,0.12);
+				border: 1px solid rgba(74,158,218,0.3);
+				border-radius: 6px;
+				padding: 0.8em 1.2em;
+				text-align: center;
+				min-width: 120px;
+				flex: 1;
+			}
+			.stat-pill .sv { font-size: 1.5em; font-weight: 700; color: #4a9eda; display: block; }
+			.stat-pill .sl { font-size: 0.72em; opacity: 0.6; display: block; margin-top: 0.2em; text-transform: uppercase; letter-spacing: 0.07em; }
+
+			/* ── Source link ── */
+			.source-link { font-size: 0.82em; opacity: 0.65; margin-top: 0.5em; }
+			.source-link a { color: #4a9eda; }
+
+			/* ── Fact cards ── */
+			.fact-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.09); border-left: 4px solid #5ce08a; border-radius: 4px; padding: 1.1em 1.3em; }
+			.fact-card h4 { margin: 0 0 0.4em; color: #5ce08a; font-size: 0.95em; }
+			.fact-card p  { margin: 0; font-size: 0.88em; line-height: 1.65; }
+		
+			/* ── Certificate cards ── */
+			.cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2em; margin:1.2em 0 2em; }
+			.cert-card { background:rgba(74,158,218,0.05); border:1px solid rgba(74,158,218,0.2); border-left:4px solid #4a9eda; border-radius:4px; padding:1.2em 1.4em; }
+			.cert-card h4 { margin:0 0 0.3em; font-size:1em; color:#4a9eda; }
+			.cert-card .cert-full { font-size:0.78em; opacity:0.6; margin:0 0 0.8em; color:#1a2035; }
+			.cert-card p { margin:0; font-size:0.9em; line-height:1.6; color:#1a2035; }
+			/* ── Info box ── */
+			.info-box { background:rgba(74,158,218,0.07); border:1px solid rgba(74,158,218,0.2); border-radius:4px; padding:1em 1.4em; margin:1em 0 1.5em; font-size:0.9em; line-height:1.7; color:#1a2035; }
+			.info-box strong { color:#4a9eda; }
+			/* ── AEMO panel ── */
+			.aemo-panel { display:flex; gap:2em; background:rgba(74,158,218,0.06); border:1px solid rgba(74,158,218,0.25); border-radius:8px; padding:2em; align-items:flex-start; flex-wrap:wrap; }
+			.aemo-panel-left { flex:1; min-width:220px; }
+			.aemo-panel-right { display:flex; flex-direction:column; gap:1em; min-width:160px; }
+			.aemo-panel-title { font-size:1.1em; font-weight:700; color:#0d1b2a; margin-bottom:0.2em; }
+			.aemo-panel-sub { font-size:0.82em; color:#4a9eda; margin-bottom:1em; }
+			.aemo-panel-desc { font-size:0.9em; line-height:1.7; margin:0 0 1.4em; color:#1a2035; }
+			.aemo-btn { display:inline-block; background:#4a9eda; color:#fff !important; padding:0.6em 1.4em; border-radius:4px; font-size:0.88em; font-weight:600; text-decoration:none; }
+			.aemo-btn:hover { background:#357ab8; }
+			.aemo-stat { text-align:center; }
+			.aemo-stat-val { display:block; font-size:1.3em; font-weight:700; color:#4a9eda; line-height:1.1; }
+			.aemo-stat-lbl { display:block; font-size:0.7em; opacity:0.6; text-transform:uppercase; letter-spacing:0.08em; margin-top:0.2em; color:#1a2035; }
+			/* ── Shortcut cards ── */
+			.shortcut-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+				gap: 0.6em;
+				margin: 0.8em 0 1.8em;
+			}
+			.shortcut-card {
+				display: flex;
+				align-items: center;
+				gap: 0.9em;
+				background: rgba(74,158,218,0.05);
+				border: 1px solid rgba(74,158,218,0.15);
+				border-radius: 4px;
+				padding: 0.55em 0.9em;
+				font-size: 0.88em;
+			}
+			kbd {
+				display: inline-block;
+				background: #0d1b2a;
+				color: #4a9eda;
+				border: 1px solid rgba(74,158,218,0.4);
+				border-radius: 4px;
+				padding: 0.2em 0.55em;
+				font-family: monospace;
+				font-size: 0.85em;
+				white-space: nowrap;
+				min-width: 120px;
+				text-align: center;
+				flex-shrink: 0;
+			}
+			.shortcut-card span { color: #1a2035; line-height: 1.4; }
+
+		/* ── Video background ── */
+		.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+		.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+		/* ── Transparent wrapper so video shows through ── */
+		#wrapper > .bg { display: none !important; }
+		#wrapper.fade-in::before { display: none !important; }
+
+		/* ── Dark overlay on content for readability ── */
+		#main .post  { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+		#main .posts { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2em !important; color: #1a2035 !important; }
+		#main .post p, #main .posts p, #main .post li { color: #1a2035 !important; }
+		#main .post h1, #main .post h2, #main .post h3, #main .post h4,
+		#main .posts h1, #main .posts h2, #main .posts h3, #main .posts h4 { color: #0d1b2a !important; }
+
+		/* ── Bottom page navigation ── */
+		#bottom-nav {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.65em 2em;
+			background: rgba(8, 12, 26, 0.88);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-top: 1px solid rgba(255,255,255,0.07);
+		}
+		.bnav-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.55em;
+			color: rgba(255,255,255,0.5);
+			text-decoration: none;
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			transition: color 0.2s;
+			min-width: 120px;
+		}
+		.bnav-btn:hover { color: #4a9eda; text-decoration: none; }
+		.bnav-next { justify-content: flex-end; }
+		.bnav-arrow { font-size: 1.3em; line-height: 1; }
+		.bnav-dots {
+			display: flex;
+			gap: 7px;
+			align-items: center;
+		}
+		.bnav-dot {
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.18);
+			transition: background 0.2s, transform 0.2s;
+			cursor: default;
+		}
+		.bnav-dot.active {
+			background: #4a9eda;
+			transform: scale(1.3);
+		}
+		
+			/* ── Courses tab styles ── */
+			.course-featured {
+				margin: 0 0 2em;
+			}
+			.course-featured-inner {
+				background: rgba(74,158,218,0.07);
+				border: 1px solid rgba(74,158,218,0.25);
+				border-left: 5px solid #4a9eda;
+				border-radius: 6px;
+				padding: 1.6em 2em;
+			}
+			.course-featured-badge {
+				font-size: 0.72em;
+				text-transform: uppercase;
+				letter-spacing: 0.12em;
+				color: #4a9eda;
+				margin-bottom: 0.5em;
+			}
+			.course-featured-name {
+				font-size: 1.25em;
+				font-weight: 700;
+				margin: 0 0 0.5em;
+				color: inherit;
+			}
+			.course-featured-desc {
+				font-size: 0.95em;
+				line-height: 1.7;
+				margin-bottom: 1.2em;
+				opacity: 0.9;
+			}
+			.course-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+				gap: 1.2em;
+				margin: 0 0 1.5em;
+			}
+			.course-card {
+				background: rgba(255,255,255,0.03);
+				border: 1px solid rgba(255,255,255,0.1);
+				border-radius: 5px;
+				padding: 1.1em 1.3em;
+				display: flex;
+				flex-direction: column;
+				gap: 0.4em;
+			}
+			.course-tag {
+				display: inline-block;
+				background: rgba(74,158,218,0.1);
+				border: 1px solid rgba(74,158,218,0.25);
+				border-radius: 3px;
+				padding: 0.1em 0.45em;
+				font-size: 0.7em;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: #4a9eda;
+				align-self: flex-start;
+			}
+			.course-name {
+				font-size: 0.95em;
+				font-weight: 700;
+				margin: 0;
+				color: inherit;
+			}
+			.course-desc {
+				font-size: 0.87em;
+				line-height: 1.6;
+				margin: 0;
+				opacity: 0.85;
+				flex: 1;
+			}
+			.course-link {
+				font-size: 0.8em;
+				color: #4a9eda;
+				text-decoration: none;
+				opacity: 0.8;
+				margin-top: auto;
+			}
+			.course-link:hover { opacity: 1; }
+		</style>
+		<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+	<body class="is-preload">
+	<!-- Background video -->
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+	<!-- Intro -->
+	<div id="intro">
+		<h1>Knowledge Hub</h1>
+		<p>Solar &amp; Energy &nbsp;&middot;&nbsp; Python &nbsp;&middot;&nbsp; SQL &nbsp;&middot;&nbsp; Excel &nbsp;&middot;&nbsp; Shortcuts</p>
+		<ul class="actions">
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+		</ul>
+	</div>
+
+		<div id="wrapper">
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Resume</a></li>
+					<li><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li class="active"><a href="knowledge.html">Knowledge Hub</a></li>
+					<li><a href="coffee.html">Coffee</a></li>
+					<li><a href="tennis.html">Tennis</a></li>
+					<li><a href="thv.html">THV Surf Co</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<div id="main">
+				<section class="post">
+					<header class="major">
+						<h1>Knowledge Hub</h1>
+						<p>Australia's energy landscape, clean technology, carbon markets — and the Python &amp; SQL basics<br />that power data work in this industry.</p>
+					</header>
+
+					<!-- ── TAB NAVIGATION ── -->
+					<div class="tab-nav">
+						<button class="tab-btn active" data-tab="solar">Solar &amp; Renewables</button>
+						<button class="tab-btn" data-tab="certificates">Certificates</button>
+					<button class="tab-btn" data-tab="aemo">AEMO &amp; NEM</button>
+						<button class="tab-btn" data-tab="python">Python Basics</button>
+						<button class="tab-btn" data-tab="sql">SQL Basics</button>
+					<button class="tab-btn" data-tab="excel">Excel Shortcuts</button>
+					<button class="tab-btn" data-tab="windows">Windows Shortcuts</button>
+					<button class="tab-btn" data-tab="courses">Courses</button>
+					</div>
+
+					<!-- ════════════════════════════════════════
+					     TAB 1 — SOLAR & RENEWABLES
+					════════════════════════════════════════ -->
+					<div class="tab-panel active" id="tab-solar">
+
+						<h3 class="section-title">Australia's Solar Story</h3>
+
+						<div class="stat-row">
+							<div class="stat-pill"><span class="sv">3.7M+</span><span class="sl">Rooftop Solar Installations</span></div>
+							<div class="stat-pill"><span class="sv">~40%</span><span class="sl">NEM Generation from Renewables</span></div>
+							<div class="stat-pill"><span class="sv">82%</span><span class="sl">Renewable Target by 2030</span></div>
+							<div class="stat-pill"><span class="sv">#1</span><span class="sl">Per-Capita Solar, Globally</span></div>
+						</div>
+
+						<p>Australia has become one of the world's great solar success stories. With abundant sunshine, falling technology costs, and a network of government incentives, rooftop solar has gone from a niche technology to a mainstream household appliance in less than two decades. As of 2023, over 3.7 million small-scale solar installations have been registered — one of the highest per-capita rates anywhere in the world.</p>
+
+						<div class="tip-box">
+							<strong>Why does Australia lead the world in rooftop solar?</strong> A combination of exceptional solar resources (especially across QLD, WA, and SA), strong government rebates through the Small-scale Renewable Energy Scheme (SRES), falling panel costs, and high electricity prices have made the economics of rooftop solar compelling for homeowners and businesses alike.
+						</div>
+
+						<h3 class="section-title">How Rooftop Solar Works</h3>
+
+						<div class="card-grid">
+							<div class="card"><h4>1. Solar Panels</h4><p>Photovoltaic (PV) panels convert sunlight into direct current (DC) electricity. The more sunlight, the more electricity generated. Modern residential panels typically produce 300–450 watts each, with a standard system being 6–10 kW.</p></div>
+							<div class="card"><h4>2. Inverter</h4><p>The inverter converts DC electricity from the panels into alternating current (AC) — the type used by your household appliances. Modern inverters also monitor system performance in real time.</p></div>
+							<div class="card"><h4>3. Your Home &amp; the Grid</h4><p>Electricity your panels generate goes first to your home. Any surplus is exported to the grid, and your retailer pays you a <strong>feed-in tariff (FiT)</strong> for each kWh exported — typically 5–10 cents/kWh depending on your state and plan.</p></div>
+							<div class="card"><h4>4. STCs — Your Rebate</h4><p>When you install rooftop solar, you're eligible for <strong>Small-scale Technology Certificates (STCs)</strong>. Your installer typically claims these on your behalf, passing the value back to you as an upfront discount on the system cost.</p></div>
+						</div>
+
+						<h3 class="section-title">The Big Picture — Australia's Renewable Transition</h3>
+
+						<p>Australia's National Electricity Market is undergoing the fastest energy transition of any comparable grid in the world. Wind and solar capacity is being added at record rates, and states like South Australia have frequently achieved 100% instantaneous renewable energy generation.</p>
+
+						<div class="card-grid">
+							<div class="fact-card"><h4>South Australia</h4><p>A world leader in grid-scale renewables. SA has operated for extended periods with more renewable generation than total demand — exporting surplus to Victoria. Home to the famous Hornsdale Power Reserve (the "big battery").</p></div>
+							<div class="fact-card"><h4>Queensland</h4><p>Australia's solar capital by installed capacity. QLD's rooftop solar penetration regularly leads the NEM, and its large solar farms contribute significant daytime generation to the grid.</p></div>
+							<div class="fact-card"><h4>Victoria</h4><p>Rapidly expanding wind and solar capacity, with major offshore wind projects planned off Gippsland. Victoria's Star of the South project would be one of the Southern Hemisphere's largest offshore wind farms.</p></div>
+							<div class="fact-card"><h4>New South Wales</h4><p>The NEM's largest state by demand. NSW has committed to a Renewable Energy Zone (REZ) strategy in key regions — New England, Central-West Orana, and South West — to build the backbone of its clean energy future.</p></div>
+						</div>
+
+						<div class="tip-box">
+							<strong>Real-time data:</strong> You can track Australia's live renewable energy generation at <a href="https://opennem.org.au" target="_blank">OpenNEM</a> — a free, beautifully designed dashboard showing current wind, solar, hydro, and gas generation across every NEM region. The <a href="https://www.cleanenergycouncil.org.au" target="_blank">Clean Energy Council</a> publishes annual reports on installed capacity, generation, and industry employment.
+						</div>
+
+						<h3 class="section-title">Useful Resources</h3>
+						<ul style="line-height:2.4;">
+							<li><a href="https://opennem.org.au" target="_blank">OpenNEM</a> — Live and historical NEM renewable generation data (free, no login)</li>
+							<li><a href="https://pv-map.apvi.org.au" target="_blank">APVI Solar Map</a> — Interactive map of Australia's solar installations by postcode</li>
+							<li><a href="https://www.cleanenergycouncil.org.au/resources/resources-for-consumers/solar-accreditation" target="_blank">Clean Energy Council</a> — Find accredited solar installers and read industry reports</li>
+							<li><a href="https://arena.gov.au" target="_blank">ARENA</a> — Australian Renewable Energy Agency — government-funded clean energy R&amp;D</li>
+							<li><a href="https://www.energy.gov.au/rebates/small-scale-renewable-energy-scheme" target="_blank">Small-scale Renewable Energy Scheme</a> — Official government STC scheme information</li>
+						</ul>
+
+					</div>
+
+					<!-- ════════════════════════════════════════
+					     TAB 2 — CARBON CREDITS
+					════════════════════════════════════════ -->
+					<div class="tab-panel" id="tab-certificates">
+						<p>Australia's environmental certificate schemes create financial incentives for clean energy generation and emissions reduction. Each certificate type represents a measurable environmental outcome.</p>
+
+						<div class="cert-grid">
+							<div class="cert-card">
+								<h4>LGC</h4>
+								<div class="cert-full">Large-scale Generation Certificate</div>
+								<p>Created by accredited renewable power stations (wind, solar, hydro) for each MWh of eligible electricity generated above a baseline. Surrendered by liable entities to meet their Renewable Energy Target (RET) obligations.</p>
+							</div>
+							<div class="cert-card">
+								<h4>STC</h4>
+								<div class="cert-full">Small-scale Technology Certificate</div>
+								<p>Created by small-scale renewable systems (rooftop solar, solar water heaters, heat pumps). STCs give households an upfront rebate that effectively reduces the cost of installing a solar system.</p>
+							</div>
+							<div class="cert-card">
+								<h4>ACCU</h4>
+								<div class="cert-full">Australian Carbon Credit Unit</div>
+								<p>Issued by the Clean Energy Regulator for projects that store carbon or reduce greenhouse gas emissions (e.g. avoided deforestation, soil carbon, landfill gas capture). Each ACCU represents one tonne of CO₂-equivalent avoided or sequestered.</p>
+							</div>
+							<div class="cert-card">
+								<h4>VEEC</h4>
+								<div class="cert-full">Victorian Energy Efficiency Certificate</div>
+								<p>Created under Victoria's Victorian Energy Upgrades program when accredited businesses install energy-efficient products or systems. Each certificate represents one tonne of CO₂-equivalent greenhouse gas abated.</p>
+							</div>
+						</div>
+
+						<div class="info-box">
+							<strong>How certificates drive clean energy investment:</strong> Energy retailers and large electricity consumers have mandatory annual obligations to surrender a set number of certificates. If they fall short, they pay a shortfall charge. This creates structured demand that incentivises investment in renewable generation, rooftop solar, and emissions reduction projects.
+						</div>
+
+						<h3 class="section-title">Useful Resources</h3>
+						<ul style="line-height:2.2;">
+							<li><a href="https://www.cleanenergyregulator.gov.au" target="_blank">Clean Energy Regulator</a> — LGC, STC, ACCU registry and auction results</li>
+							<li><a href="https://www.cleanenergycouncil.org.au" target="_blank">Clean Energy Council</a> — industry body for renewable energy in Australia</li>
+						</ul>
+					</div>
+
+					<!-- ════════════════════════════════════════
+					     TAB 3 — AEMO & NEM
+					════════════════════════════════════════ -->
+					<div class="tab-panel" id="tab-aemo">
+						<p>The National Electricity Market (NEM) is one of the world's longest interconnected power systems, spanning Queensland, New South Wales, Victoria, South Australia, and Tasmania. AEMO manages dispatch, settlements, and market integrity.</p>
+
+						<div class="aemo-panel" style="margin-bottom:2em;">
+							<div class="aemo-panel-left">
+								<div class="aemo-panel-title">NEM Spot Prices — Live Data</div>
+								<div class="aemo-panel-sub">5-minute dispatch prices across QLD · NSW · VIC · SA · TAS</div>
+								<p class="aemo-panel-desc">Electricity spot prices are set every 5 minutes through a competitive dispatch process. Prices range from −$1,000/MWh to $16,600/MWh depending on supply and demand conditions.</p>
+								<a href="https://www.aemo.com.au/energy-systems/electricity/national-electricity-market-nem/data-nem/data-dashboard-nem" target="_blank" class="aemo-btn">View Live NEM Prices on AEMO →</a>
+							</div>
+							<div class="aemo-panel-right">
+								<div class="aemo-stat"><span class="aemo-stat-val">5 min</span><span class="aemo-stat-lbl">Dispatch Interval</span></div>
+								<div class="aemo-stat"><span class="aemo-stat-val">−$1,000</span><span class="aemo-stat-lbl">Price Floor ($/MWh)</span></div>
+								<div class="aemo-stat"><span class="aemo-stat-val">$16,600</span><span class="aemo-stat-lbl">Price Cap ($/MWh)</span></div>
+								<div class="aemo-stat"><span class="aemo-stat-val">5</span><span class="aemo-stat-lbl">NEM Regions</span></div>
+							</div>
+						</div>
+
+						<h3 class="section-title">How AEMO Dispatch Works</h3>
+						<p>Every 5 minutes, AEMO runs a dispatch algorithm that matches electricity supply and demand across the NEM:</p>
+						<ol style="line-height:2.2;">
+							<li><strong>Generators submit offers</strong> — each generator bids a volume of electricity at a specified price (up to 10 price bands).</li>
+							<li><strong>AEMO stacks bids cheapest to most expensive</strong> — renewables typically bid near zero marginal cost; gas and coal bid higher.</li>
+							<li><strong>The marginal generator sets the price</strong> — the last generator dispatched to meet demand sets the regional spot price for all generators in that region.</li>
+							<li><strong>Settlement occurs every 30 minutes</strong> — the trading interval price is the average of six 5-minute dispatch prices.</li>
+						</ol>
+
+						<div class="info-box">
+							<strong>Price floor &amp; cap:</strong> The market price floor is <strong>−$1,000/MWh</strong> and the market price cap is <strong>$16,600/MWh</strong> (set by AEMO annually). Sustained high prices trigger the <em>cumulative price threshold</em> mechanism.
+						</div>
+
+						<h3 class="section-title">Useful Resources</h3>
+						<ul style="line-height:2.2;">
+							<li><a href="https://aemo.com.au" target="_blank">AEMO — Australian Energy Market Operator</a></li>
+							<li><a href="https://www.aemc.gov.au" target="_blank">AEMC — Australian Energy Market Commission</a> — market rules</li>
+							<li><a href="https://www.aer.gov.au" target="_blank">AER — Australian Energy Regulator</a> — wholesale market oversight</li>
+							<li><a href="https://nemweb.com.au" target="_blank">NEMWeb</a> — raw AEMO market data files</li>
+							<li><a href="https://opennem.org.au" target="_blank">OpenNEM</a> — visualised NEM generation and price data</li>
+						</ul>
+					</div>
+
+					<!-- ════════════════════════════════════════
+					     TAB 3 — PYTHON BASICS
+					════════════════════════════════════════ -->
+					<div class="tab-panel" id="tab-python">
+
+						<h3 class="section-title">Your First Python Program</h3>
+						<p>Python is one of the most beginner-friendly programming languages — readable, forgiving, and used everywhere from web development to data analysis. Here's everything you need to start.</p>
+
+						<div class="code-label">Python — Hello, World!</div>
+						<pre><code class="language-python"># Your first Python program
+print("Hello, World!")
+
+# Python reads and runs line by line, top to bottom
+# Lines starting with # are comments — Python ignores them
+# They're notes for humans reading the code</code></pre>
+
+						<h3 class="section-title">Variables &amp; Data Types</h3>
+						<p>Variables are containers that store information. Unlike many languages, Python figures out the type automatically.</p>
+
+						<div class="code-label">Python — Variables</div>
+						<pre><code class="language-python"># Text (called a "string")
+name = "Henrique"
+city = "Sydney"
+
+# Whole numbers (integers)
+age = 30
+year = 2025
+
+# Decimal numbers (floats)
+height = 1.80
+temperature = 23.5
+
+# True/False (booleans)
+is_analyst = True
+has_degree  = False
+
+# Print values
+print(name)           # → Henrique
+print(age + 5)        # → 35
+print(f"Hi, {name}!") # → Hi, Henrique!   (f-string: put variables inside {})</code></pre>
+
+						<h3 class="section-title">Making Decisions — If / Else</h3>
+
+						<div class="code-label">Python — Conditions</div>
+						<pre><code class="language-python">temperature = 28
+
+if temperature > 30:
+    print("Hot day — stay hydrated!")
+elif temperature > 20:
+    print("Nice weather.")
+else:
+    print("A bit cool today.")
+
+# Comparison operators:
+# >   greater than        <   less than
+# >=  greater or equal    <=  less or equal
+# ==  equal to            !=  not equal to</code></pre>
+
+						<div class="tip-box"><strong>Indentation matters in Python.</strong> The code inside an <code>if</code> block must be indented (4 spaces or 1 tab). Python uses indentation instead of curly braces to define blocks. Getting this wrong is the most common beginner mistake.</div>
+
+						<h3 class="section-title">Repeating Things — Loops</h3>
+
+						<div class="code-label">Python — For Loop</div>
+						<pre><code class="language-python"># Loop through a range of numbers
+for i in range(5):
+    print(f"Count: {i}")
+# Output: Count: 0, Count: 1, Count: 2, Count: 3, Count: 4
+
+# Loop through a list
+regions = ["NSW", "QLD", "SA", "TAS", "VIC"]
+for region in regions:
+    print(f"Processing: {region}")
+
+# Loop with index
+fruits = ["apple", "banana", "mango"]
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")
+# Output: 0: apple  1: banana  2: mango</code></pre>
+
+						<h3 class="section-title">Reusable Code — Functions</h3>
+
+						<div class="code-label">Python — Functions</div>
+						<pre><code class="language-python"># Define a function with def
+def greet(name):
+    print(f"Hello, {name}!")
+
+# Call the function
+greet("Henrique")   # → Hello, Henrique!
+greet("Anna")       # → Hello, Anna!
+
+# Function with a return value
+def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result)       # → 30
+
+# Function with a default argument
+def introduce(name, city="Sydney"):
+    print(f"My name is {name} and I live in {city}.")
+
+introduce("Henrique")           # → My name is Henrique and I live in Sydney.
+introduce("Carlos", "Brisbane") # → My name is Carlos and I live in Brisbane.</code></pre>
+
+						<h3 class="section-title">Working with Data</h3>
+
+						<div class="code-label">Python — Lists &amp; Dictionaries</div>
+						<pre><code class="language-python"># Lists — ordered collections
+scores = [85, 92, 78, 95, 88]
+print(scores[0])          # → 85  (first item, index starts at 0)
+print(len(scores))        # → 5   (how many items)
+print(sum(scores) / len(scores))  # → average
+
+scores.append(91)         # add to the end
+scores.sort()             # sort in place: [78, 85, 88, 91, 92, 95]
+
+# Dictionaries — key → value pairs
+person = {
+    "name": "Henrique",
+    "age": 30,
+    "city": "Sydney"
+}
+print(person["name"])     # → Henrique
+person["job"] = "Analyst" # add a new key
+
+# Loop through a dictionary
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+
+						<div class="code-label">Python — Reading a CSV with pandas</div>
+						<pre><code class="language-python">import pandas as pd
+
+# Read a CSV file into a DataFrame (like a spreadsheet in Python)
+df = pd.read_csv("data.csv")
+
+# Explore the data
+print(df.shape)        # (rows, columns)
+print(df.columns)      # list of column names
+print(df.head())       # first 5 rows
+print(df.describe())   # summary statistics
+
+# Filter rows
+adults = df[df["age"] > 18]
+
+# Select a column
+names = df["name"]
+
+# Calculate average
+avg_age = df["age"].mean()
+print(f"Average age: {avg_age:.1f}")</code></pre>
+
+						<div class="tip-box"><strong>Where to practice Python for free:</strong> <a href="https://colab.research.google.com" target="_blank">Google Colab</a> lets you run Python in your browser with no setup. <a href="https://www.kaggle.com/learn/python" target="_blank">Kaggle's Python course</a> is excellent and free. <a href="https://docs.python.org/3/tutorial/" target="_blank">Python's official tutorial</a> is thorough and well-written.</div>
+
+					</div>
+
+					<!-- ════════════════════════════════════════
+					     TAB 4 — SQL BASICS
+					════════════════════════════════════════ -->
+					<div class="tab-panel" id="tab-sql">
+
+						<h3 class="section-title">What Is SQL?</h3>
+						<p>SQL (Structured Query Language) is the language used to talk to databases. It lets you retrieve, filter, sort, count, and combine data stored in tables. It's one of the most in-demand skills in data, finance, and tech — and the basics are genuinely easy to learn.</p>
+
+						<div class="code-label">SQL — Your first query</div>
+						<pre><code class="language-sql">-- Get everything from a table
+SELECT * FROM customers;
+
+-- Get specific columns
+SELECT name, age, city FROM customers;
+
+-- The basic structure is always:
+-- SELECT (what columns)
+-- FROM   (which table)</code></pre>
+
+						<h3 class="section-title">Filtering Data — WHERE</h3>
+
+						<div class="code-label">SQL — WHERE clause</div>
+						<pre><code class="language-sql">-- Customers older than 25
+SELECT name, age FROM customers WHERE age > 25;
+
+-- Customers in Sydney
+SELECT * FROM customers WHERE city = 'Sydney';
+
+-- Multiple conditions
+SELECT * FROM customers
+WHERE age > 18
+  AND city = 'Sydney';
+
+-- Range
+SELECT * FROM orders
+WHERE amount BETWEEN 100 AND 500;
+
+-- Partial text match
+SELECT * FROM customers WHERE name LIKE 'H%';
+-- % means "anything" — so this finds names starting with H</code></pre>
+
+						<h3 class="section-title">Sorting &amp; Limiting Results</h3>
+
+						<div class="code-label">SQL — ORDER BY &amp; LIMIT</div>
+						<pre><code class="language-sql">-- Sort by age, youngest first
+SELECT name, age FROM customers ORDER BY age ASC;
+
+-- Sort by age, oldest first
+SELECT name, age FROM customers ORDER BY age DESC;
+
+-- Only show the top 5 results
+SELECT name, age FROM customers
+ORDER BY age DESC
+LIMIT 5;
+
+-- Useful for finding the "top N" of anything:
+-- Most expensive orders, highest earners, latest records, etc.</code></pre>
+
+						<h3 class="section-title">Counting &amp; Aggregating — GROUP BY</h3>
+
+						<div class="code-label">SQL — Aggregation</div>
+						<pre><code class="language-sql">-- Count how many customers per city
+SELECT city, COUNT(*) AS customer_count
+FROM customers
+GROUP BY city;
+
+-- Total sales by product
+SELECT product_name,
+       SUM(quantity)   AS total_sold,
+       AVG(price)      AS avg_price,
+       MAX(price)      AS highest_price
+FROM sales
+GROUP BY product_name;
+
+-- Only show groups with more than 10 customers
+-- Use HAVING (not WHERE) to filter on aggregated values
+SELECT city, COUNT(*) AS customer_count
+FROM customers
+GROUP BY city
+HAVING COUNT(*) > 10
+ORDER BY customer_count DESC;</code></pre>
+
+						<div class="tip-box"><strong>WHERE vs HAVING:</strong> <code>WHERE</code> filters individual rows <em>before</em> grouping. <code>HAVING</code> filters groups <em>after</em> aggregation. You can't use <code>COUNT()</code> or <code>SUM()</code> inside a <code>WHERE</code> clause — that's what <code>HAVING</code> is for.</div>
+
+						<h3 class="section-title">Combining Tables — JOIN</h3>
+
+						<div class="code-label">SQL — INNER JOIN</div>
+						<pre><code class="language-sql">-- customers table has: id, name, city
+-- orders table has: id, customer_id, product, amount
+
+-- Join customers with their orders
+SELECT customers.name,
+       orders.product,
+       orders.amount
+FROM customers
+INNER JOIN orders ON customers.id = orders.customer_id;
+
+-- Only returns rows where BOTH tables have a match
+-- Use LEFT JOIN to keep all customers (even if they have no orders):
+SELECT customers.name,
+       orders.product,
+       orders.amount
+FROM customers
+LEFT JOIN orders ON customers.id = orders.customer_id;
+-- Customers with no orders will show NULL for product and amount</code></pre>
+
+						<div class="tip-box"><strong>Where to practice SQL for free:</strong> <a href="https://sqlzoo.net" target="_blank">SQLZoo</a> has interactive exercises from beginner to advanced. <a href="https://www.w3schools.com/sql/" target="_blank">W3Schools SQL</a> is great for looking up syntax quickly. <a href="https://mode.com/sql-tutorial/" target="_blank">Mode Analytics SQL Tutorial</a> is excellent for data analyst use cases.</div>
+
+					</div>
+
+					<div class="tab-panel" id="tab-excel">
+						<h3 class="section-title">Navigation &amp; Selection</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Ctrl + Home</kbd><span>Go to cell A1</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + End</kbd><span>Go to last used cell</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + &#8592;/&#8594;</kbd><span>Jump to edge of data region</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + End</kbd><span>Select to last used cell</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + &#8592;/&#8594;</kbd><span>Select to edge of data</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Space</kbd><span>Select entire column</span></div>
+							<div class="shortcut-card"><kbd>Shift + Space</kbd><span>Select entire row</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + A</kbd><span>Select all / select data region</span></div>
+							<div class="shortcut-card"><kbd>F5</kbd><span>Go To dialog (jump to cell)</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + G</kbd><span>Go To dialog</span></div>
+						</div>
+
+						<h3 class="section-title">Editing &amp; Formatting</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>F2</kbd><span>Edit active cell</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + D</kbd><span>Fill down</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + R</kbd><span>Fill right</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + ;</kbd><span>Insert today's date</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + :</kbd><span>Insert current time</span></div>
+							<div class="shortcut-card"><kbd>Alt + Enter</kbd><span>New line within a cell</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + 1</kbd><span>Format Cells dialog</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + B / I / U</kbd><span>Bold / Italic / Underline</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + $</kbd><span>Apply currency format</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + %</kbd><span>Apply percentage format</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + #</kbd><span>Apply date format</span></div>
+							<div class="shortcut-card"><kbd>Alt + H + H</kbd><span>Fill colour picker</span></div>
+						</div>
+
+						<h3 class="section-title">Formulas &amp; Data</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Alt + =</kbd><span>AutoSum selected range</span></div>
+							<div class="shortcut-card"><kbd>F4</kbd><span>Toggle absolute/relative reference ($)</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + `</kbd><span>Toggle show formulas</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + U</kbd><span>Expand/collapse formula bar</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + T</kbd><span>Create table from selection</span></div>
+							<div class="shortcut-card"><kbd>Alt + D + F + F</kbd><span>Toggle AutoFilter</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + L</kbd><span>Toggle filter on/off</span></div>
+							<div class="shortcut-card"><kbd>Alt + A + M</kbd><span>Remove duplicates</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + +</kbd><span>Insert row/column</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + -</kbd><span>Delete row/column</span></div>
+						</div>
+
+						<h3 class="section-title">Workbook &amp; Sheets</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Ctrl + N</kbd><span>New workbook</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + S</kbd><span>Save</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + W</kbd><span>Close workbook</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Page Up/Down</kbd><span>Switch between sheets</span></div>
+							<div class="shortcut-card"><kbd>Alt + Shift + F1</kbd><span>Insert new sheet</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Z / Y</kbd><span>Undo / Redo</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + F</kbd><span>Find</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + H</kbd><span>Find and Replace</span></div>
+							<div class="shortcut-card"><kbd>F12</kbd><span>Save As</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + P</kbd><span>Print</span></div>
+						</div>
+					</div>
+
+					<div class="tab-panel" id="tab-windows">
+						<h3 class="section-title">Window &amp; App Management</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Win + D</kbd><span>Show/hide desktop</span></div>
+							<div class="shortcut-card"><kbd>Win + E</kbd><span>Open File Explorer</span></div>
+							<div class="shortcut-card"><kbd>Win + L</kbd><span>Lock screen</span></div>
+							<div class="shortcut-card"><kbd>Win + I</kbd><span>Open Settings</span></div>
+							<div class="shortcut-card"><kbd>Win + R</kbd><span>Open Run dialog</span></div>
+							<div class="shortcut-card"><kbd>Alt + F4</kbd><span>Close active window</span></div>
+							<div class="shortcut-card"><kbd>Alt + Tab</kbd><span>Switch between open apps</span></div>
+							<div class="shortcut-card"><kbd>Win + Tab</kbd><span>Task View (all open windows)</span></div>
+							<div class="shortcut-card"><kbd>Win + &#8593;/&#8595;</kbd><span>Maximise / minimise window</span></div>
+							<div class="shortcut-card"><kbd>Win + &#8592;/&#8594;</kbd><span>Snap window left / right</span></div>
+							<div class="shortcut-card"><kbd>Win + Shift + S</kbd><span>Screenshot snip tool</span></div>
+							<div class="shortcut-card"><kbd>Win + V</kbd><span>Clipboard history</span></div>
+						</div>
+
+						<h3 class="section-title">File Explorer</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Alt + &#8593;</kbd><span>Go up one folder level</span></div>
+							<div class="shortcut-card"><kbd>Alt + &#8592;/&#8594;</kbd><span>Back / Forward</span></div>
+							<div class="shortcut-card"><kbd>F2</kbd><span>Rename selected file</span></div>
+							<div class="shortcut-card"><kbd>F5</kbd><span>Refresh</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + N</kbd><span>New folder</span></div>
+							<div class="shortcut-card"><kbd>Alt + Enter</kbd><span>Open file properties</span></div>
+							<div class="shortcut-card"><kbd>Shift + Delete</kbd><span>Permanently delete (skip Recycle Bin)</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + L</kbd><span>Focus address bar</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + W</kbd><span>Close current window</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + N</kbd><span>Open new Explorer window</span></div>
+						</div>
+
+						<h3 class="section-title">General &amp; Productivity</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Ctrl + C / X / V</kbd><span>Copy / Cut / Paste</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Z / Y</kbd><span>Undo / Redo</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + A</kbd><span>Select all</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + F</kbd><span>Find (in most apps)</span></div>
+							<div class="shortcut-card"><kbd>Win + . (period)</kbd><span>Emoji &amp; symbol picker</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Shift + Esc</kbd><span>Open Task Manager directly</span></div>
+							<div class="shortcut-card"><kbd>Win + X</kbd><span>Quick Link menu (admin tools)</span></div>
+							<div class="shortcut-card"><kbd>Win + P</kbd><span>Project / display settings</span></div>
+							<div class="shortcut-card"><kbd>Win + K</kbd><span>Connect to wireless display</span></div>
+							<div class="shortcut-card"><kbd>PrtSc</kbd><span>Screenshot to clipboard</span></div>
+							<div class="shortcut-card"><kbd>Win + PrtSc</kbd><span>Save screenshot to Pictures</span></div>
+							<div class="shortcut-card"><kbd>Ctrl + Backspace</kbd><span>Delete whole word left</span></div>
+						</div>
+
+						<h3 class="section-title">Virtual Desktops</h3>
+						<div class="shortcut-grid">
+							<div class="shortcut-card"><kbd>Win + Ctrl + D</kbd><span>Create new virtual desktop</span></div>
+							<div class="shortcut-card"><kbd>Win + Ctrl + &#8592;/&#8594;</kbd><span>Switch virtual desktops</span></div>
+							<div class="shortcut-card"><kbd>Win + Ctrl + F4</kbd><span>Close current virtual desktop</span></div>
+							<div class="shortcut-card"><kbd>Win + Tab</kbd><span>View and manage virtual desktops</span></div>
+						</div>
+					</div>
+
+					<div class="tab-panel" id="tab-courses">
+
+						<h3 class="section-title">Featured Resource</h3>
+
+						<div class="course-featured">
+							<div class="course-featured-inner">
+								<div class="course-featured-badge">⭐ Top Pick</div>
+								<h4 class="course-featured-name">Analyst Builder</h4>
+								<p class="course-featured-desc">The best structured platform for learning SQL, Python, and data analytics from scratch or levelling up. Real-world practice problems, video walkthroughs, and a focus on what actually matters in analytics roles.</p>
+								<a href="https://www.analystbuilder.com" target="_blank" class="button">Visit Analyst Builder &rarr;</a>
+							</div>
+						</div>
+
+						<h3 class="section-title">SQL</h3>
+						<div class="course-grid">
+							<div class="course-card">
+								<span class="course-tag">Free + Paid</span>
+								<h4 class="course-name">Analyst Builder — SQL</h4>
+								<p class="course-desc">Hundreds of SQL practice problems sorted by difficulty. The closest thing to real interview and on-the-job SQL you'll find online.</p>
+								<a href="https://www.analystbuilder.com" target="_blank" class="course-link">analystbuilder.com &rarr;</a>
+							</div>
+							<div class="course-card">
+								<span class="course-tag">Free</span>
+								<h4 class="course-name">SQLZoo</h4>
+								<p class="course-desc">Interactive SQL exercises in the browser. Great for beginners — covers SELECT through to advanced JOINs and subqueries with immediate feedback.</p>
+								<a href="https://sqlzoo.net" target="_blank" class="course-link">sqlzoo.net &rarr;</a>
+							</div>
+							<div class="course-card">
+								<span class="course-tag">Free</span>
+								<h4 class="course-name">Mode SQL Tutorial</h4>
+								<p class="course-desc">Clean, well-structured introduction to SQL for data analysis. From basic queries to window functions — written with analysts in mind.</p>
+								<a href="https://mode.com/sql-tutorial" target="_blank" class="course-link">mode.com/sql-tutorial &rarr;</a>
+							</div>
+						</div>
+
+						<h3 class="section-title">Python</h3>
+						<div class="course-grid">
+							<div class="course-card">
+								<span class="course-tag">Free + Paid</span>
+								<h4 class="course-name">Analyst Builder — Python</h4>
+								<p class="course-desc">Python for data analysis — pandas, NumPy, and real-world problem sets. Practical focus that mirrors what you actually do on the job.</p>
+								<a href="https://www.analystbuilder.com" target="_blank" class="course-link">analystbuilder.com &rarr;</a>
+							</div>
+						</div>
+
+						<h3 class="section-title">Tableau</h3>
+						<div class="course-grid">
+							<div class="course-card">
+								<span class="course-tag">Free</span>
+								<h4 class="course-name">Tableau Public Training</h4>
+								<p class="course-desc">Official Tableau free training videos and e-learning. Covers everything from connecting data to building dashboards and calculated fields.</p>
+								<a href="https://www.tableau.com/learn/training" target="_blank" class="course-link">tableau.com/learn &rarr;</a>
+							</div>
+						</div>
+
+						<h3 class="section-title">Coding Platforms</h3>
+						<div class="course-grid">
+							<div class="course-card">
+								<span class="course-tag">Free + Paid</span>
+								<h4 class="course-name">Codecademy</h4>
+								<p class="course-desc">One of the best platforms for learning by doing. Interactive Python, SQL, data science, and more — structured paths for beginners through to intermediate, with real projects throughout. Highly recommended.</p>
+								<a href="https://www.codecademy.com" target="_blank" class="course-link">codecademy.com &rarr;</a>
+							</div>
+							<div class="course-card">
+								<span class="course-tag">Free + Paid</span>
+								<h4 class="course-name">Coursera — Google Data Analytics</h4>
+								<p class="course-desc">Google's professional certificate covering the full analytics workflow. Spreadsheets, SQL, R, and Tableau — solid foundation for career starters.</p>
+								<a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="course-link">coursera.org &rarr;</a>
+							</div>
+						</div>
+
+					</div>
+
+				</section>
+			</div>
+
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt"><h3>Country</h3><p>Australia</p></section>
+					<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+					<section><h3>Email</h3><p><a href="mailto:henriquemborges45@hotmail.com">henriquemborges45@hotmail.com</a></p></section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+			<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+		</div>
+
+		<!-- Bottom Page Navigation -->
+		<div id="bottom-nav">
+			<a href="achievements.html" id="prev-page" class="bnav-btn bnav-prev">
+				<span class="bnav-arrow">&#8592;</span>
+				<span class="bnav-label">Awards</span>
+			</a>
+			<div class="bnav-dots">
+				<span class="bnav-dot" title="Resume"></span>
+				<span class="bnav-dot" title="Awards"></span>
+				<span class="bnav-dot active" title="Knowledge Hub"></span>
+				<span class="bnav-dot" title="Coffee"></span>
+				<span class="bnav-dot" title="Tennis"></span>
+				<span class="bnav-dot" title="THV Surf Co"></span>
+			</div>
+			<a href="coffee.html" id="next-page" class="bnav-btn bnav-next">
+				<span class="bnav-label">Coffee</span>
+				<span class="bnav-arrow">&#8594;</span>
+			</a>
+		</div>
+		<script>
+			// Keyboard navigation
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'ArrowLeft') {
+					var p = document.getElementById('prev-page');
+					if (p) window.location.href = p.href;
+				}
+				if (e.key === 'ArrowRight') {
+					var n = document.getElementById('next-page');
+					if (n) window.location.href = n.href;
+				}
+				if (e.key === 'ArrowDown') {
+					var intro = document.getElementById('intro');
+					if (intro && window.scrollY < 10) {
+						var main = document.getElementById('main');
+						if (main) main.scrollIntoView({behavior: 'smooth'});
+					}
+				}
+				if (e.key === 'ArrowUp') {
+					window.scrollTo({top: 0, behavior: 'smooth'});
+				}
+			});
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			// Remove theme's dynamic bg element so video shows through
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+		<script>
+			hljs.highlightAll();
+
+			// ── Tab switching ─────────────────────────────────────────────
+			document.querySelectorAll('.tab-btn').forEach(btn => {
+				btn.addEventListener('click', () => {
+					document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+					document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+					btn.classList.add('active');
+					document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+				});
+			});
+
+			// ── Q&A accordion ─────────────────────────────────────────────
+			document.querySelectorAll('.qa-q').forEach(q => {
+				q.addEventListener('click', () => {
+					const answer = q.nextElementSibling;
+					const isOpen = q.classList.contains('open');
+					// Close all
+					document.querySelectorAll('.qa-q').forEach(qq => { qq.classList.remove('open'); qq.nextElementSibling.style.display = 'none'; });
+					// Open clicked (unless it was already open)
+					if (!isOpen) { q.classList.add('open'); answer.style.display = 'block'; }
+				});
+			});
+		</script>
+	</body>
+</html>

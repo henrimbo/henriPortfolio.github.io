@@ -1,0 +1,371 @@
+/* ============================================================
+   Portfolio Theme — Dark Minimalist
+   Loaded last so these !important rules win over inline styles.
+   ============================================================ */
+
+/* ── Core panels: dark frosted glass ─────────────────────── */
+#main .post,
+#main .posts {
+	background: rgba(8, 8, 14, 0.84) !important;
+	border: 1px solid rgba(255,255,255,0.07) !important;
+	backdrop-filter: blur(12px) !important;
+	-webkit-backdrop-filter: blur(12px) !important;
+	color: #d0d0d0 !important;
+}
+
+/* ── Text on dark ─────────────────────────────────────────── */
+#main .post p,
+#main .post li,
+#main .posts p,
+#main .posts li,
+#main .posts h2,
+#main .posts h3,
+#main .posts h4,
+#main .posts article header h2 a {
+	color: #c8c8c8 !important;
+}
+
+#main .post h1, #main .post h2, #main .post h3, #main .post h4,
+#main .posts h1, #main .posts h2, #main .posts h3, #main .posts h4 {
+	color: #ffffff !important;
+}
+
+/* ── Links inside content ─────────────────────────────────── */
+#main .post a,
+#main .posts a {
+	color: rgba(255,255,255,0.75) !important;
+	border-bottom-color: rgba(255,255,255,0.2) !important;
+}
+#main .post a:hover,
+#main .posts a:hover {
+	color: #ffffff !important;
+	border-bottom-color: rgba(255,255,255,0.5) !important;
+}
+
+/* ── Header icons ─────────────────────────────────────────── */
+#header .icons a { background: transparent !important; }
+
+/* ── Bottom nav: white active dot ─────────────────────────── */
+.bnav-dot.active  { background: #ffffff !important; }
+.bnav-btn:hover   { color: #ffffff !important; }
+
+
+/* ══════════════════════════════════════════════════════════
+   RESUME (index.html)
+══════════════════════════════════════════════════════════ */
+.resume-section-title {
+	color: #ffffff !important;
+	border-bottom-color: rgba(255,255,255,0.14) !important;
+	border-bottom-width: 1px !important;
+}
+.resume-job-company  { color: #ffffff !important; }
+.resume-job-meta     { color: rgba(255,255,255,0.42) !important; font-style: italic; opacity: 1 !important; }
+.resume-achievements { color: rgba(255,255,255,0.58) !important; }
+.resume-edu-school   { color: #ffffff !important; }
+.resume-edu-year     { color: rgba(255,255,255,0.42) !important; opacity: 1 !important; }
+.resume-edu-degree   { color: #ffffff !important; }
+.resume-job          { border-bottom-color: rgba(255,255,255,0.06) !important; }
+
+.skills-label { color: #ffffff !important; font-size: 0.9em; }
+.skill-tag {
+	background: rgba(255,255,255,0.06) !important;
+	border-color: rgba(255,255,255,0.11) !important;
+	color: #c0c0c0 !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   SHARED — section titles used across all pages
+══════════════════════════════════════════════════════════ */
+.section-title {
+	color: #ffffff !important;
+	border-bottom-color: rgba(255,255,255,0.14) !important;
+	border-bottom-width: 1px !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   THV SURF CO (thv.html)
+══════════════════════════════════════════════════════════ */
+.brand-logo-text { color: #ffffff !important; }
+.brand-tagline   { color: rgba(255,255,255,0.36) !important; opacity: 1 !important; }
+
+.timeline::before {
+	background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.03) 100%) !important;
+}
+.tl-dot {
+	background: rgba(255,255,255,0.08) !important;
+	border: 1px solid rgba(255,255,255,0.25) !important;
+	color: rgba(255,255,255,0.75) !important;
+}
+.tl-year       { color: rgba(255,255,255,0.42) !important; }
+.tl-content h4 { color: #ffffff !important; }
+.tl-content p  { color: #b8b8b8 !important; }
+
+.skill-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+}
+.skill-card h4 { color: #ffffff !important; }
+.skill-card p  { color: #b0b0b0 !important; }
+
+.stat-box {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+}
+.stat-box .sv { color: #ffffff !important; }
+.stat-box .sl { color: rgba(255,255,255,0.36) !important; opacity: 1 !important; }
+
+.reflection-box {
+	background: rgba(255,255,255,0.03) !important;
+	border-color: rgba(255,255,255,0.06) !important;
+	border-left-color: rgba(255,255,255,0.30) !important;
+	color: #b8b8b8 !important;
+}
+.reflection-box cite { color: rgba(255,255,255,0.30) !important; }
+
+.next-chapter {
+	background: rgba(255,255,255,0.03) !important;
+	border-color: rgba(255,255,255,0.06) !important;
+}
+.next-arrow    { color: rgba(255,255,255,0.42) !important; }
+.next-chapter h4 { color: #ffffff !important; }
+.next-chapter p  { color: #b8b8b8 !important; }
+
+.photo-item { background: rgba(255,255,255,0.03) !important; }
+
+
+/* ══════════════════════════════════════════════════════════
+   COFFEE (coffee.html)
+══════════════════════════════════════════════════════════ */
+.city-heading {
+	color: #c8956c !important;
+	border-bottom-color: rgba(200,149,108,0.30) !important;
+	border-bottom-width: 1px !important;
+}
+.coffee-intro-text { color: #c0c0c0 !important; opacity: 1 !important; }
+
+.cafe-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+	border-top-color: #c8956c !important;
+}
+.cafe-card:hover {
+	box-shadow: 0 8px 28px rgba(0,0,0,0.55) !important;
+}
+.cafe-card-name     { color: #ffffff !important; }
+.cafe-card-vibe     { color: #b8b8b8 !important; }
+.cafe-card-location {
+	background: rgba(200,149,108,0.11) !important;
+	border-color: rgba(200,149,108,0.25) !important;
+	color: #c8956c !important;
+}
+.cafe-card-order,
+.cafe-card-order strong { color: #c8956c !important; }
+
+.coming-soon-box {
+	background: rgba(255,255,255,0.02) !important;
+	border-color: rgba(255,255,255,0.08) !important;
+	color: #888 !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   TENNIS (tennis.html)
+══════════════════════════════════════════════════════════ */
+.player-intro { color: rgba(255,255,255,0.48) !important; opacity: 1 !important; }
+
+.player-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.09) !important;
+}
+.player-card:hover {
+	border-color: rgba(255,255,255,0.40) !important;
+	box-shadow: 0 6px 20px rgba(0,0,0,0.45) !important;
+}
+.player-card.selected {
+	border-color: rgba(255,255,255,0.80) !important;
+	background: rgba(255,255,255,0.08) !important;
+	box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+}
+.pc-rank    { color: rgba(255,255,255,0.45) !important; }
+.pc-name    { color: #ffffff !important; }
+.pc-country { color: rgba(255,255,255,0.36) !important; }
+
+.following-banner {
+	background: rgba(255,255,255,0.05) !important;
+	border-color: rgba(255,255,255,0.12) !important;
+}
+.following-label       { color: rgba(255,255,255,0.48) !important; opacity: 1 !important; }
+.following-player-name { color: #ffffff !important; }
+.clear-btn {
+	border-color: rgba(255,255,255,0.20) !important;
+	color: rgba(255,255,255,0.60) !important;
+}
+.clear-btn:hover { background: rgba(255,255,255,0.07) !important; }
+
+.scores-note { color: rgba(255,255,255,0.43) !important; opacity: 1 !important; }
+.scores-widget-wrap {
+	background: rgba(255,255,255,0.02) !important;
+	border-color: rgba(255,255,255,0.06) !important;
+}
+
+.slam-card {
+	background: rgba(255,255,255,0.03) !important;
+	border-color: rgba(255,255,255,0.06) !important;
+}
+.slam-card.hard-court  { border-top-color: rgba(255,255,255,0.52) !important; }
+.slam-card.clay-court  { border-top-color: #c46828 !important; }
+.slam-card.grass-court { border-top-color: #3ca050 !important; }
+.slam-name   { color: #ffffff !important; }
+.slam-badge.hard  { background: rgba(255,255,255,0.07) !important; color: rgba(255,255,255,0.68) !important; }
+.slam-badge.clay  { background: rgba(196,104,40,0.18) !important; color: #c87a28 !important; }
+.slam-badge.grass { background: rgba(60,160,80,0.18) !important;  color: #3ca050 !important; }
+.slam-dates { color: rgba(255,255,255,0.36) !important; opacity: 1 !important; }
+.slam-loc   { color: rgba(255,255,255,0.50) !important; }
+
+.note-box {
+	background: rgba(255,255,255,0.03) !important;
+	border-color: rgba(255,255,255,0.06) !important;
+	border-left-color: rgba(255,255,255,0.28) !important;
+	color: #b8b8b8 !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   AWARDS / ACHIEVEMENTS (achievements.html)
+══════════════════════════════════════════════════════════ */
+.spotlight-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+}
+.spotlight-card::before {
+	background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0.12)) !important;
+}
+.spotlight-name { color: #ffffff !important; }
+.spotlight-meta { color: rgba(255,255,255,0.38) !important; opacity: 1 !important; }
+
+.value-badge {
+	background: rgba(255,255,255,0.07) !important;
+	border-color: rgba(255,255,255,0.15) !important;
+	color: rgba(255,255,255,0.72) !important;
+}
+.spotlight-section h5 { color: rgba(255,255,255,0.5) !important; }
+.spotlight-section p  { color: #c0c0c0 !important; opacity: 1 !important; }
+.spotlight-quote {
+	border-left-color: rgba(255,255,255,0.20) !important;
+	color: #b0b0b0 !important;
+	opacity: 1 !important;
+}
+.recogniser-pill {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.10) !important;
+	color: rgba(255,255,255,0.45) !important;
+	opacity: 1 !important;
+}
+.recogniser-pill::before { color: rgba(255,255,255,0.4) !important; }
+
+.award-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+}
+.award-card h4 { color: #ffffff !important; }
+.award-card p  { color: rgba(255,255,255,0.48) !important; opacity: 1 !important; }
+
+
+/* ══════════════════════════════════════════════════════════
+   KNOWLEDGE HUB (knowledge.html)
+══════════════════════════════════════════════════════════ */
+.tab-btn        { color: rgba(255,255,255,0.5) !important; opacity: 1 !important; }
+.tab-btn:hover  { color: rgba(255,255,255,0.82) !important; opacity: 1 !important; }
+.tab-btn.active {
+	color: #ffffff !important;
+	border-bottom-color: #ffffff !important;
+	opacity: 1 !important;
+}
+.tab-nav { border-bottom-color: rgba(255,255,255,0.10) !important; }
+
+.code-label {
+	background: rgba(255,255,255,0.10) !important;
+	color: rgba(255,255,255,0.80) !important;
+}
+
+.card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+	border-left-color: rgba(255,255,255,0.28) !important;
+}
+.card h4 { color: #ffffff !important; }
+.card p  { color: #b8b8b8 !important; }
+
+.tip-box {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.08) !important;
+}
+.tip-box strong { color: #ffffff !important; }
+
+.qa-item   { border-bottom-color: rgba(255,255,255,0.06) !important; }
+.qa-q      { color: #ffffff !important; }
+.qa-q::after, .qa-q.open::after { color: rgba(255,255,255,0.55) !important; }
+.qa-a      { color: #b8b8b8 !important; opacity: 1 !important; }
+
+.stat-pill {
+	background: rgba(255,255,255,0.05) !important;
+	border-color: rgba(255,255,255,0.10) !important;
+}
+.stat-pill .sv { color: #ffffff !important; }
+.stat-pill .sl { color: rgba(255,255,255,0.38) !important; opacity: 1 !important; }
+
+.source-link     { color: rgba(255,255,255,0.40) !important; opacity: 1 !important; }
+.source-link a   { color: rgba(255,255,255,0.58) !important; }
+
+.fact-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.07) !important;
+	border-left-color: rgba(255,255,255,0.28) !important;
+}
+.fact-card h4 { color: #ffffff !important; }
+.fact-card p  { color: #b8b8b8 !important; }
+
+.cert-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.08) !important;
+	border-left-color: rgba(255,255,255,0.28) !important;
+}
+.cert-card h4       { color: #ffffff !important; }
+.cert-card .cert-full,
+.cert-card p        { color: #b0b0b0 !important; }
+
+.info-box {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.08) !important;
+	color: #c0c0c0 !important;
+}
+.info-box strong { color: #ffffff !important; }
+
+.aemo-panel {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.09) !important;
+}
+.aemo-panel-title { color: #ffffff !important; }
+.aemo-panel-sub   { color: rgba(255,255,255,0.45) !important; }
+.aemo-panel-desc  { color: #c0c0c0 !important; }
+.aemo-btn {
+	background: rgba(255,255,255,0.10) !important;
+	color: #ffffff !important;
+	border: 1px solid rgba(255,255,255,0.2) !important;
+}
+.aemo-btn:hover { background: rgba(255,255,255,0.18) !important; }
+.aemo-stat-val  { color: #ffffff !important; }
+.aemo-stat-lbl  { color: rgba(255,255,255,0.36) !important; }
+
+.shortcut-card {
+	background: rgba(255,255,255,0.04) !important;
+	border-color: rgba(255,255,255,0.08) !important;
+}
+.shortcut-card span { color: #c0c0c0 !important; }
+kbd {
+	background: rgba(255,255,255,0.06) !important;
+	color: rgba(255,255,255,0.78) !important;
+	border-color: rgba(255,255,255,0.15) !important;
+}

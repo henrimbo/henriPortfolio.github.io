@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Resume — Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* ── Resume-specific styles ── */
+
+			/* Section headings with blue accent line */
+			.resume-section-title {
+				font-size: 1.1em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				border-bottom: 2px solid #4a9eda;
+				padding-bottom: 0.4em;
+				margin: 2.5em 0 1.2em;
+			}
+
+			/* About paragraph */
+			.resume-about {
+				font-size: 1em;
+				line-height: 1.75;
+				margin-bottom: 0;
+			}
+
+			/* Experience cards */
+			.resume-job {
+				margin-bottom: 2em;
+				padding-bottom: 2em;
+				border-bottom: 1px solid rgba(255,255,255,0.1);
+			}
+			.resume-job:last-child {
+				border-bottom: none;
+			}
+			.resume-job-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				flex-wrap: wrap;
+				gap: 0.3em;
+			}
+			.resume-job-title {
+				font-weight: 700;
+				font-size: 1.05em;
+				margin: 0;
+			}
+			.resume-job-company {
+				color: #4a9eda;
+				font-weight: 600;
+			}
+			.resume-job-meta {
+				font-size: 0.85em;
+				opacity: 0.65;
+				font-style: italic;
+			}
+			.resume-job ul {
+				margin: 0.8em 0 0.5em 1.2em;
+				padding: 0;
+			}
+			.resume-job ul li {
+				margin-bottom: 0.35em;
+				line-height: 1.6;
+			}
+			.resume-achievements {
+				font-weight: 600;
+				color: #4a9eda;
+				font-style: italic;
+				margin: 0.8em 0 0.3em;
+				font-size: 0.95em;
+			}
+
+			/* Education entries */
+			.resume-edu {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				flex-wrap: wrap;
+				gap: 0.3em;
+				margin-bottom: 0.8em;
+			}
+			.resume-edu-degree {
+				font-weight: 700;
+			}
+			.resume-edu-school {
+				color: #4a9eda;
+			}
+			.resume-edu-year {
+				font-size: 0.85em;
+				opacity: 0.65;
+				font-style: italic;
+			}
+
+			/* Skills tags */
+			.skills-group {
+				margin-bottom: 1em;
+			}
+			.skills-label {
+				font-weight: 700;
+				margin-right: 0.5em;
+				font-size: 0.95em;
+			}
+			.skill-tag {
+				display: inline-block;
+				background: rgba(74, 158, 218, 0.15);
+				border: 1px solid rgba(74, 158, 218, 0.4);
+				color: inherit;
+				border-radius: 3px;
+				padding: 0.2em 0.6em;
+				margin: 0.2em 0.25em 0.2em 0;
+				font-size: 0.85em;
+			}
+
+			/* Download button area */
+			.resume-download {
+				text-align: center;
+				margin: 2.5em 0 0.5em;
+			}
+		
+		/* ── Video background ── */
+		.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+		.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+		/* ── Transparent wrapper so video shows through ── */
+		#wrapper > .bg { display: none !important; }
+		#wrapper.fade-in::before { display: none !important; }
+
+		/* ── Dark overlay on content for readability ── */
+		#main .post  { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+		#main .posts { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2em !important; color: #1a2035 !important; }
+		#main .post p, #main .posts p, #main .post li { color: #1a2035 !important; }
+		#main .post h1, #main .post h2, #main .post h3, #main .post h4,
+		#main .posts h1, #main .posts h2, #main .posts h3, #main .posts h4 { color: #0d1b2a !important; }
+		</style>
+	</head>
+	<body class="is-preload">
+	<!-- Background video -->
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+
+	<!-- Intro -->
+
+	<div id="intro">
+
+		<h1>Resume</h1>
+
+		<p>Analytics &amp; Settlements Professional<br />
+
+		Master of Analytics &nbsp;&middot;&nbsp; UNSW</p>
+
+		<ul class="actions">
+
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+
+		</ul>
+
+	</div>
+
+
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+
+			<!-- Nav -->
+			<nav id="nav">
+				<ul class="links">
+					<li class="active"><a href="index.html">Resume</a></li>
+					<li><a href="thv.html">THV Surf Co</a></li>
+					<li><a href="projects.html">Projects</a></li>
+					<li><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li><a href="knowledge.html">Knowledge Hub</a></li>
+					<li><a href="coffee.html">Coffee</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<div id="main">
+				<section class="post">
+
+					<!-- Page title -->
+					<header class="major">
+						<h1>Henrique Borges</h1>
+						<p>Master of Analytics &nbsp;|&nbsp; Analytics &amp; Settlements Professional<br />
+						Sydney, NSW &nbsp;·&nbsp; henri_mb@icloud.com &nbsp;·&nbsp; +61 432 849 841<br />
+					<a href="https://henrimbo.github.io/henriPortfolio.github.io/" target="_blank">henrimbo.github.io/henriPortfolio.github.io</a></p>
+					</header>
+
+					<!-- Download button -->
+					<div class="resume-download">
+						<a href="Henrique_Borges_Resume_Final.pdf" download class="button primary icon solid fa-download">Download PDF Resume</a>
+					</div>
+
+					<!-- About -->
+					<h3 class="resume-section-title">About Me</h3>
+					<p class="resume-about">
+						Originally from Brazil and now calling Sydney home, I am an analytics professional who has taken an unconventional path — from military service and running my own surf brand, to leading Python automation projects in Australia's energy market. I hold a Master of Analytics from UNSW and currently work at Alinta Energy, where I specialise in environmental and financial settlements, data reconciliation, and building tools that make teams faster and more accurate. I bring a mix of technical rigour and process discipline, shaped by years working across different fields and environments. When I am not automating something, you will find me on the tennis court or tracking down a great coffee.
+					</p>
+
+					<!-- Experience -->
+					<h3 class="resume-section-title">Experience</h3>
+
+					<div class="resume-job">
+						<div class="resume-job-header">
+							<span class="resume-job-title">Analyst, Treasury Operations &amp; Settlements &mdash; <span class="resume-job-company">Alinta Energy</span></span>
+							<span class="resume-job-meta">Apr 2024 – Present &nbsp;|&nbsp; Sydney, NSW – Hybrid</span>
+						</div>
+						<ul>
+							<li>Manage end-to-end settlement processes for environmental and financial products including LGCs, STCs, and ACCUs, ensuring accuracy and compliance across all trades.</li>
+							<li>Perform daily reconciliations and validations using <strong>Python, SQL, and advanced Excel</strong> across Treasury and Settlements workflows.</li>
+							<li>Build <strong>Power BI</strong> dashboards and automated Excel reports delivering near real-time insights to Finance, Trading, and Risk teams.</li>
+							<li>Collaborate with traders, brokers, and internal stakeholders to resolve discrepancies, strengthen data integrity, and support audit and compliance requirements.</li>
+							<li>Serve as an active member of the Company Safety &amp; Wellbeing Committee, contributing to monthly cross-functional discussions on safety and employee wellbeing programs.</li>
+						</ul>
+						<p class="resume-achievements">Key Achievements</p>
+						<ul>
+							<li>Spearheaded Python automation initiatives that streamlined reconciliation workflows, reduced manual effort, and improved settlement speed and accuracy.</li>
+							<li>Delivered accurate and timely settlements for complex environmental and financial instruments through cross-functional collaboration.</li>
+							<li>Received 4 spotlights from across multiple teams and 2 Lunch Recognition Awards within 2 years, recognising both project-specific contributions and consistent high performance.</li>
+						</ul>
+					</div>
+
+					<div class="resume-job">
+						<div class="resume-job-header">
+							<span class="resume-job-title">Career Transition &amp; Professional Development &mdash; <span class="resume-job-company"></span></span>
+							<span class="resume-job-meta">Aug 2018 – Jan 2024 &nbsp;|&nbsp; Sydney, NSW / Brazil (Remote)</span>
+						</div>
+						<ul>
+							<li>Relocated from Brazil to Australia in 2018 to pursue further education and professional development.</li>
+							<li>Completed Masters in Analytics at UNSW, building expertise in Python, SQL, and BI tools.</li>
+							<li>Managed invoicing, payments, and administrative operations for family business in Brazil remotely, maintaining commercial continuity across time zones.</li>
+							<li>Worked casually in hospitality, logistics, and construction while studying, building adaptability, communication, and teamwork skills in the Australian working environment.</li>
+						</ul>
+					</div>
+
+					<div class="resume-job">
+						<div class="resume-job-header">
+							<span class="resume-job-title">Notarial &amp; Quality Systems Officer &mdash; <span class="resume-job-company">Tabelionato de Notas (Notary Public Office)</span></span>
+							<span class="resume-job-meta">Mar 2014 – Aug 2018 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+						</div>
+						<ul>
+							<li>Verified, registered, and validated high-value legal and financial documents including contracts, debt instruments, and certificates in a regulated notarial environment.</li>
+							<li>Led process documentation and internal audits to align operations with <strong>ISO 9001 Quality Management</strong> standards, resulting in full certification.</li>
+							<li>Partnered with IT to digitise and modernise workflows, reducing manual data entry errors and improving turnaround times.</li>
+							<li>Designed and maintained Standard Operating Procedures (SOPs) and compliance documentation across the organisation.</li>
+							<li>Trained and mentored staff on updated quality and documentation processes, ensuring ongoing audit readiness.</li>
+						</ul>
+						<p class="resume-achievements">Key Achievements</p>
+						<ul>
+							<li>Achieved ISO 9001 Certification by owning end-to-end documentation, auditing, and process improvement initiatives.</li>
+							<li>Recognised for precision and reliability in managing sensitive and confidential data.</li>
+						</ul>
+					</div>
+
+					<div class="resume-job">
+						<div class="resume-job-header">
+							<span class="resume-job-title">Founder &amp; Owner &mdash; <span class="resume-job-company"><a href="thv.html" style="color:inherit;border-bottom:1px dotted rgba(74,158,218,0.5);">THV Surf Co</a></span></span>
+							<span class="resume-job-meta">2015 – 2018 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+						</div>
+						<ul>
+							<li>Founded and operated a surf apparel brand, managing the full business cycle from supplier negotiations and inventory procurement to sales and customer engagement.</li>
+							<li>Managed supplier relationships and financial operations including budgeting, cost control, and margin tracking.</li>
+							<li>Developed and executed sales and marketing strategies, building brand presence through social channels and direct-to-consumer sales.</li>
+						</ul>
+					</div>
+
+					<div class="resume-job">
+						<div class="resume-job-header">
+							<span class="resume-job-title">Soldier &mdash; <span class="resume-job-company">Brazilian Armed Forces</span></span>
+							<span class="resume-job-meta">Mar 2013 – Mar 2014 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+						</div>
+						<ul>
+							<li>Served full-time in the Brazilian Armed Forces, developing strong discipline, teamwork, and resilience under pressure.</li>
+							<li>Awarded a Merit and Honour Certificate for outstanding service and exemplary conduct.</li>
+						</ul>
+					</div>
+
+					<!-- Education -->
+					<h3 class="resume-section-title">Education</h3>
+
+					<div class="resume-edu">
+						<span><span class="resume-edu-degree">Master of Analytics</span> &mdash; <span class="resume-edu-school">University of New South Wales</span></span>
+						<span class="resume-edu-year">Completed Dec 2024</span>
+					</div>
+					<div class="resume-edu">
+						<span><span class="resume-edu-degree">Graduate Certificate in Data Analytics</span> &mdash; <span class="resume-edu-school">Swinburne University of Technology</span></span>
+						<span class="resume-edu-year">Completed Dec 2022</span>
+					</div>
+
+					<!-- Skills -->
+					<h3 class="resume-section-title">Skills &amp; Tools</h3>
+
+					<div class="skills-group">
+						<span class="skills-label">Technical:</span>
+						<span class="skill-tag">Python</span>
+						<span class="skill-tag">SQL</span>
+						<span class="skill-tag">Power BI</span>
+						<span class="skill-tag">Advanced Excel</span>
+						<span class="skill-tag">Data Reconciliation</span>
+						<span class="skill-tag">Process Automation</span>
+					</div>
+					<div class="skills-group">
+						<span class="skills-label">Domain:</span>
+						<span class="skill-tag">Energy Markets</span>
+						<span class="skill-tag">Environmental Settlements (LGCs, STCs, ACCUs)</span>
+						<span class="skill-tag">Financial Instruments</span>
+						<span class="skill-tag">Compliance &amp; Audit</span>
+						<span class="skill-tag">ISO 9001</span>
+					</div>
+					<div class="skills-group">
+						<span class="skills-label">Languages:</span>
+						<span class="skill-tag">English (fluent)</span>
+						<span class="skill-tag">Portuguese (native)</span>
+					</div>
+
+				</section>
+			</div>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt">
+						<h3>Country</h3>
+						<p>Australia</p>
+					</section>
+					<section>
+						<h3>Phone</h3>
+						<p><a href="tel:+61432849841">(+61) 432 849 841</a></p>
+					</section>
+					<section>
+						<h3>Email</h3>
+						<p><a href=>henri_mb@Icloud.com</a></p>
+					</section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+
+			<!-- Copyright -->
+			<div id="copyright">
+				<ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+			</div>
+
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			// Remove theme's dynamic bg element so video shows through
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+
+	</body>
+</html>

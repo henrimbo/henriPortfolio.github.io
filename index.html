@@ -1,202 +1,1026 @@
 <!DOCTYPE HTML>
-<!--
-	Massively by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<style>
-			.video-container {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				z-index: -1;
-				overflow: hidden;
-			}
-			
-			.video-container video {
-				min-width: 100%;
-				min-height: 100%;
-				object-fit: cover;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
-			
-			</style>
-		<title>Henrique Borges 
+<head>
+	<title>Henrique Borges | Portfolio</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<style>
+		/* ── VIDEO ── */
+		.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; transition:opacity 0.8s ease; }
+		.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+		#wrapper > .bg { display:none !important; }
+		#wrapper.fade-in::before { display:none !important; }
+		/* Content pages: fade out video, solid dark background */
+		body.content-mode { background:#06080f; }
+		body.content-mode .video-bg { opacity:0; pointer-events:none; }
 
-		</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+		/* ── CONTENT PANELS ── */
+		#main .post { background:rgba(255,255,255,0.96) !important; border-radius:6px; padding:2.5em !important; color:#1a2035 !important; }
+		#main .post p, #main .post li { color:#1a2035 !important; }
+		#main .post h1, #main .post h2, #main .post h3, #main .post h4 { color:#0d1b2a !important; }
 
+		/* ── SECTION SWITCHING ── */
+		.section { display:none; }
+		.section.active { display:block; animation:secFadeIn 0.32s ease forwards; }
+		@keyframes secFadeIn {
+			from { opacity:0; transform:translateY(10px); }
+			to   { opacity:1; transform:translateY(0); }
+		}
 
-		<!-- Wrapper -->
-		<div class="video-container">
-			<video autoplay muted loop id="myVideo">
-				<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
-			</video>
+		/* ── BOTTOM NAV ── */
+		#bottom-nav {
+			position:fixed; bottom:0; left:0; right:0; z-index:9999;
+			display:flex; align-items:center; justify-content:space-between;
+			padding:0.65em 2em;
+			background:rgba(8,12,26,0.88);
+			backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+			border-top:1px solid rgba(255,255,255,0.07);
+		}
+		.bnav-btn {
+			display:flex; align-items:center; gap:0.55em;
+			color:#fff; text-decoration:none;
+			font-size:1.3em; letter-spacing:0.12em; text-transform:uppercase;
+			transition:color 0.2s; min-width:40px;
+			background:none; border:none; cursor:pointer; font-family:inherit;
+		}
+		.bnav-btn:hover { color:#fff; opacity:0.7; text-decoration:none; }
+		.bnav-next { justify-content:flex-end; }
+		.bnav-arrow { font-size:1.3em; line-height:1; }
+		.bnav-dots { display:flex; gap:7px; align-items:center; }
+		.bnav-dot {
+			width:7px; height:7px; border-radius:50%;
+			background:rgba(255,255,255,0.18);
+			transition:background 0.2s, transform 0.2s;
+			cursor:pointer;
+		}
+		.bnav-dot.active { background:#fff; transform:scale(1.3); }
+
+		/* ── SIDE ARROWS ── */
+		.side-arrow {
+			position:fixed; top:50%; z-index:200;
+			transform:translateY(-50%);
+			background:rgba(8,12,26,0.45);
+			border:1px solid rgba(255,255,255,0.12);
+			color:#fff; font-size:1.6em; line-height:1;
+			width:2.4em; height:2.4em;
+			display:flex; align-items:center; justify-content:center;
+			cursor:pointer; border-radius:50%;
+			opacity:0.55; transition:opacity 0.2s, background 0.2s;
+			backdrop-filter:blur(8px);
+		}
+		.side-arrow:hover { opacity:1; background:rgba(74,158,218,0.25); }
+		#tnav-prev { left:1em; }
+		#tnav-next { right:1em; }
+
+		/* ── SHARED: SECTION TITLES ── */
+		.section-title, .resume-section-title {
+			font-size:1.05em; text-transform:uppercase; letter-spacing:0.15em;
+			color:#4a9eda; border-bottom:2px solid #4a9eda;
+			padding-bottom:0.4em; margin:2.5em 0 1.2em;
+		}
+
+		/* ── SHARED: STATS ROW ── */
+		.stats-row { display:flex; flex-wrap:wrap; gap:1em; margin:1.2em 0 2.5em; }
+		.stat-box { flex:1; min-width:120px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:1.1em 1em; text-align:center; }
+		.stat-box .sv { display:block; font-size:1.9em; font-weight:700; color:#4a9eda; line-height:1.1; }
+		.stat-box .sl { display:block; font-size:0.72em; opacity:0.55; margin-top:0.3em; text-transform:uppercase; letter-spacing:0.08em; }
+
+		/* ── RESUME ── */
+		.resume-about { font-size:1em; line-height:1.75; margin-bottom:0; }
+		.resume-job { margin-bottom:2em; padding-bottom:2em; border-bottom:1px solid rgba(0,0,0,0.08); }
+		.resume-job:last-child { border-bottom:none; }
+		.resume-job-header { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:0.3em; }
+		.resume-job-title { font-weight:700; font-size:1.05em; margin:0; }
+		.resume-job-company { color:#4a9eda; font-weight:600; }
+		.resume-job-meta { font-size:0.85em; opacity:0.65; font-style:italic; }
+		.resume-job ul { margin:0.8em 0 0.5em 1.2em; padding:0; }
+		.resume-job ul li { margin-bottom:0.35em; line-height:1.6; }
+		.resume-achievements { font-weight:600; color:#4a9eda; font-style:italic; margin:0.8em 0 0.3em; font-size:0.95em; }
+		.resume-edu { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:0.3em; margin-bottom:0.8em; }
+		.resume-edu-degree { font-weight:700; }
+		.resume-edu-school { color:#4a9eda; }
+		.resume-edu-year { font-size:0.85em; opacity:0.65; font-style:italic; }
+		.skills-group { margin-bottom:1em; }
+		.skills-label { font-weight:700; margin-right:0.5em; font-size:0.95em; }
+		.skill-tag { display:inline-block; background:rgba(74,158,218,0.15); border:1px solid rgba(74,158,218,0.4); color:inherit; border-radius:3px; padding:0.2em 0.6em; margin:0.2em 0.25em 0.2em 0; font-size:0.85em; }
+		.resume-download { text-align:center; margin:2.5em 0 0.5em; }
+
+		/* ── ACHIEVEMENTS ── */
+		.spotlight-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.09); border-radius:8px; padding:1.8em 2em; margin-bottom:2em; position:relative; overflow:hidden; }
+		.spotlight-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(180deg,#4a9eda,#7abfea); }
+		.spotlight-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.8em; margin-bottom:1.2em; }
+		.spotlight-name { font-size:1.15em; font-weight:700; margin:0; }
+		.spotlight-meta { font-size:0.78em; opacity:0.5; text-align:right; line-height:1.6; }
+		.value-badges { display:flex; flex-wrap:wrap; gap:0.4em; margin:0 0 1.4em; }
+		.value-badge { background:rgba(74,158,218,0.15); border:1px solid rgba(74,158,218,0.4); color:#7abfea; border-radius:20px; padding:0.25em 0.85em; font-size:0.78em; font-weight:600; letter-spacing:0.04em; }
+		.spotlight-body { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.2em; }
+		.spotlight-section h5 { font-size:0.72em; text-transform:uppercase; letter-spacing:0.14em; color:#4a9eda; margin:0 0 0.5em; }
+		.spotlight-section p { margin:0; font-size:0.88em; line-height:1.7; opacity:0.85; }
+		.spotlight-quote { border-left:3px solid rgba(74,158,218,0.4); padding:0.8em 1.2em; margin:1.2em 0 0; font-style:italic; font-size:0.9em; line-height:1.75; opacity:0.75; }
+		.recogniser-pill { display:inline-block; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:20px; padding:0.25em 0.85em; font-size:0.78em; opacity:0.65; margin-top:1.2em; }
+		.recogniser-pill::before { content:'✦ '; color:#4a9eda; }
+		.award-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1em; margin:1.2em 0; }
+		.award-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-radius:6px; padding:1.1em 1.3em; text-align:center; }
+		.award-card .award-icon { font-size:1.8em; display:block; margin-bottom:0.4em; }
+		.award-card h4 { margin:0 0 0.3em; font-size:0.9em; color:#4a9eda; }
+		.award-card p  { margin:0; font-size:0.82em; opacity:0.65; line-height:1.5; }
+
+		/* ── KNOWLEDGE HUB ── */
+		.tab-nav { display:flex; flex-wrap:wrap; gap:0.5em; margin:0 0 2.5em; border-bottom:2px solid rgba(255,255,255,0.1); padding-bottom:0; }
+		.tab-btn { background:transparent; border:none; border-bottom:3px solid transparent; color:inherit; font-size:0.9em; font-family:inherit; letter-spacing:0.08em; text-transform:uppercase; padding:0.6em 1.2em; cursor:pointer; opacity:0.55; transition:opacity 0.2s,border-color 0.2s; margin-bottom:-2px; }
+		.tab-btn:hover  { opacity:0.85; }
+		.tab-btn.active { opacity:1; border-bottom-color:#4a9eda; color:#4a9eda; }
+		.tab-panel { display:none; }
+		.tab-panel.active { display:block; }
+		pre { margin:1em 0 1.8em; border-radius:6px; overflow-x:auto; }
+		code.hljs { border-radius:6px; font-size:0.8em; line-height:1.65; padding:1.3em !important; }
+		.code-label { display:inline-block; background:#4a9eda; color:#fff; font-size:0.7em; letter-spacing:0.1em; text-transform:uppercase; padding:0.25em 0.7em; border-radius:3px 3px 0 0; margin-bottom:0; }
+		.card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.2em; margin:1.2em 0 2em; }
+		.card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-left:4px solid #4a9eda; border-radius:4px; padding:1.1em 1.3em; }
+		.card h4 { margin:0 0 0.4em; color:#4a9eda; font-size:0.95em; }
+		.card p  { margin:0; font-size:0.88em; line-height:1.65; }
+		.tip-box { background:rgba(74,158,218,0.07); border:1px solid rgba(74,158,218,0.2); border-radius:4px; padding:0.9em 1.3em; margin:1em 0 1.8em; font-size:0.9em; line-height:1.7; }
+		.tip-box strong { color:#4a9eda; }
+		.stat-row { display:flex; flex-wrap:wrap; gap:1em; margin:1.5em 0; }
+		.stat-pill { background:rgba(74,158,218,0.12); border:1px solid rgba(74,158,218,0.3); border-radius:6px; padding:0.8em 1.2em; text-align:center; min-width:120px; flex:1; }
+		.stat-pill .sv { font-size:1.5em; font-weight:700; color:#4a9eda; display:block; }
+		.stat-pill .sl { font-size:0.72em; opacity:0.6; display:block; margin-top:0.2em; text-transform:uppercase; letter-spacing:0.07em; }
+		.fact-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.09); border-left:4px solid #5ce08a; border-radius:4px; padding:1.1em 1.3em; }
+		.fact-card h4 { margin:0 0 0.4em; color:#5ce08a; font-size:0.95em; }
+		.fact-card p  { margin:0; font-size:0.88em; line-height:1.65; }
+		.cert-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2em; margin:1.2em 0 2em; }
+		.cert-card { background:rgba(74,158,218,0.05); border:1px solid rgba(74,158,218,0.2); border-left:4px solid #4a9eda; border-radius:4px; padding:1.2em 1.4em; }
+		.cert-card h4 { margin:0 0 0.3em; font-size:1em; color:#4a9eda; }
+		.cert-card .cert-full { font-size:0.78em; opacity:0.6; margin:0 0 0.8em; }
+		.cert-card p { margin:0; font-size:0.9em; line-height:1.6; }
+		.info-box { background:rgba(74,158,218,0.07); border:1px solid rgba(74,158,218,0.2); border-radius:4px; padding:1em 1.4em; margin:1em 0 1.5em; font-size:0.9em; line-height:1.7; }
+		.info-box strong { color:#4a9eda; }
+		.aemo-panel { display:flex; gap:2em; background:rgba(74,158,218,0.06); border:1px solid rgba(74,158,218,0.25); border-radius:8px; padding:2em; align-items:flex-start; flex-wrap:wrap; }
+		.aemo-panel-left { flex:1; min-width:220px; }
+		.aemo-panel-right { display:flex; flex-direction:column; gap:1em; min-width:160px; }
+		.aemo-panel-title { font-size:1.1em; font-weight:700; margin-bottom:0.2em; }
+		.aemo-panel-sub { font-size:0.82em; color:#4a9eda; margin-bottom:1em; }
+		.aemo-panel-desc { font-size:0.9em; line-height:1.7; margin:0 0 1.4em; }
+		.aemo-btn { display:inline-block; background:#4a9eda; color:#fff !important; padding:0.6em 1.4em; border-radius:4px; font-size:0.88em; font-weight:600; text-decoration:none; }
+		.aemo-btn:hover { background:#357ab8; }
+		.aemo-stat { text-align:center; }
+		.aemo-stat-val { display:block; font-size:1.3em; font-weight:700; color:#4a9eda; line-height:1.1; }
+		.aemo-stat-lbl { display:block; font-size:0.7em; opacity:0.6; text-transform:uppercase; letter-spacing:0.08em; margin-top:0.2em; }
+		.shortcut-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:0.6em; margin:0.8em 0 1.8em; }
+		.shortcut-card { display:flex; align-items:center; gap:0.9em; background:rgba(74,158,218,0.05); border:1px solid rgba(74,158,218,0.15); border-radius:4px; padding:0.55em 0.9em; font-size:0.88em; }
+		kbd { display:inline-block; background:#0d1b2a; color:#4a9eda; border:1px solid rgba(74,158,218,0.4); border-radius:4px; padding:0.2em 0.55em; font-family:monospace; font-size:0.85em; white-space:nowrap; min-width:120px; text-align:center; flex-shrink:0; }
+		.course-featured { margin:0 0 2em; }
+		.course-featured-inner { background:rgba(74,158,218,0.07); border:1px solid rgba(74,158,218,0.25); border-left:5px solid #4a9eda; border-radius:6px; padding:1.6em 2em; }
+		.course-featured-badge { font-size:0.72em; text-transform:uppercase; letter-spacing:0.12em; color:#4a9eda; margin-bottom:0.5em; }
+		.course-featured-name { font-size:1.25em; font-weight:700; margin:0 0 0.5em; }
+		.course-featured-desc { font-size:0.95em; line-height:1.7; margin-bottom:1.2em; opacity:0.9; }
+		.course-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2em; margin:0 0 1.5em; }
+		.course-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:5px; padding:1.1em 1.3em; display:flex; flex-direction:column; gap:0.4em; }
+		.course-tag { display:inline-block; background:rgba(74,158,218,0.1); border:1px solid rgba(74,158,218,0.25); border-radius:3px; padding:0.1em 0.45em; font-size:0.7em; text-transform:uppercase; letter-spacing:0.08em; color:#4a9eda; align-self:flex-start; }
+		.course-name { font-size:0.95em; font-weight:700; margin:0; }
+		.course-desc { font-size:0.87em; line-height:1.6; margin:0; opacity:0.85; flex:1; }
+		.course-link { font-size:0.8em; color:#4a9eda; text-decoration:none; opacity:0.8; margin-top:auto; }
+		.course-link:hover { opacity:1; }
+
+		/* ── COFFEE ── */
+		.coffee-intro-text { font-size:1.05em; line-height:1.8; margin-bottom:2.5em; opacity:0.9; }
+		.city-heading { font-size:1.05em; text-transform:uppercase; letter-spacing:0.15em; color:#c8956c; border-bottom:2px solid #c8956c; padding-bottom:0.4em; margin:2.5em 0 1.5em; }
+		.cafe-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.5em; margin:0 0 2.5em; }
+		.cafe-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-top:4px solid #c8956c; border-radius:6px; padding:1.4em 1.6em; transition:transform 0.2s,box-shadow 0.2s; }
+		.cafe-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+		.cafe-card-name { font-size:1.15em; font-weight:700; margin:0 0 0.2em; }
+		.cafe-card-location { display:inline-block; background:rgba(200,149,108,0.15); border:1px solid rgba(200,149,108,0.35); border-radius:3px; padding:0.1em 0.5em; font-size:0.75em; text-transform:uppercase; letter-spacing:0.08em; color:#c8956c; margin-bottom:0.8em; }
+		.cafe-card-vibe { font-size:0.92em; line-height:1.65; margin:0.6em 0 0.8em; opacity:0.88; }
+		.cafe-card-order { font-size:0.82em; font-style:italic; color:#c8956c; margin:0; }
+		.cafe-card-order strong { color:#c8956c; font-style:normal; }
+		.cafe-card-photo { margin:-1.4em -1.6em 1em; height:150px; overflow:hidden; border-radius:6px 6px 0 0; }
+		.cafe-card-photo img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.35s; }
+		.cafe-card:hover .cafe-card-photo img { transform:scale(1.04); }
+		.cafe-read-more { display:inline-block; margin-top:0.55em; font-size:0.75em; color:#c8956c !important; text-decoration:none; border-bottom:1px solid rgba(200,149,108,0.35); transition:border-color 0.2s; }
+		.cafe-read-more:hover { border-bottom-color:#c8956c; text-decoration:none; }
+		.coming-soon-box { background:rgba(200,149,108,0.06); border:1px dashed rgba(200,149,108,0.3); border-radius:6px; padding:1.5em 2em; text-align:center; margin-top:1em; opacity:0.7; font-style:italic; font-size:0.9em; }
+
+		/* ── TENNIS ── */
+		.player-intro { font-size:0.93em; opacity:0.7; margin:0 0 1.2em; }
+		.player-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:0.85em; margin-bottom:1.2em; }
+		.player-card { background:rgba(0,0,0,0.035); border:2px solid rgba(0,0,0,0.07); border-radius:9px; padding:1.1em 0.8em; text-align:center; cursor:pointer; transition:border-color 0.2s,box-shadow 0.2s,transform 0.15s; user-select:none; -webkit-user-select:none; }
+		.player-card:hover { border-color:rgba(74,158,218,0.6); transform:translateY(-2px); box-shadow:0 6px 18px rgba(74,158,218,0.15); }
+		.player-card.selected { border-color:#4a9eda; background:rgba(74,158,218,0.09); box-shadow:0 4px 20px rgba(74,158,218,0.22); }
+		.pc-flag    { font-size:2em; display:block; margin-bottom:0.3em; line-height:1; }
+		.pc-rank    { font-size:0.62em; text-transform:uppercase; letter-spacing:0.1em; color:#4a9eda; font-weight:700; margin-bottom:0.15em; }
+		.pc-name    { font-size:0.87em; font-weight:700; line-height:1.25; margin-bottom:0.12em; }
+		.pc-country { font-size:0.7em; opacity:0.5; }
+		.following-banner { display:none; align-items:center; gap:0.6em; background:rgba(74,158,218,0.09); border:1px solid rgba(74,158,218,0.28); border-radius:6px; padding:0.8em 1.1em; font-size:0.9em; flex-wrap:wrap; margin-bottom:0.5em; }
+		.following-label { opacity:0.65; }
+		.following-player-name { font-weight:700; color:#4a9eda; font-size:1.05em; }
+		.clear-btn { margin-left:auto; background:none; border:1px solid rgba(74,158,218,0.35); border-radius:4px; color:#4a9eda; font-size:0.72em; padding:0.22em 0.75em; cursor:pointer; transition:background 0.18s; }
+		.player-info-card { background:rgba(255,255,255,0.04); border:1px solid rgba(74,158,218,0.25); border-radius:10px; padding:1.3em 1.5em; margin:0.7em 0 1.5em; animation:secFadeIn 0.28s ease forwards; }
+		.pi-header { display:flex; align-items:center; gap:1em; margin-bottom:1em; }
+		.pi-flag { font-size:2.4em; line-height:1; }
+		.pi-name { font-size:1.2em; font-weight:700; color:#fff; }
+		.pi-meta { font-size:0.8em; opacity:0.55; margin-top:0.15em; }
+		.pi-stat-row { display:flex; gap:1.5em; flex-wrap:wrap; margin-bottom:1em; }
+		.pi-stat { display:flex; flex-direction:column; gap:0.15em; }
+		.pi-sv { font-size:1em; font-weight:700; color:#4a9eda; }
+		.pi-sl { font-size:0.65em; text-transform:uppercase; letter-spacing:0.08em; opacity:0.5; }
+		.pi-links { display:flex; gap:0.8em; flex-wrap:wrap; }
+		.pi-link { display:inline-block; padding:0.45em 1em; border:1px solid rgba(74,158,218,0.35); border-radius:5px; color:#4a9eda; font-size:0.82em; text-decoration:none; transition:background 0.18s; }
+		.pi-link:hover { background:rgba(74,158,218,0.12); color:#fff; }
+		.clear-btn:hover { background:rgba(74,158,218,0.12); }
+		.scores-note { font-size:0.88em; opacity:0.65; margin:-0.5em 0 1.2em; }
+		.scores-widget-wrap { background:#f8f9fc; border:1px solid rgba(0,0,0,0.08); border-radius:8px; overflow:hidden; margin-bottom:1em; padding:1em; min-height:120px; }
+		.scores-btns { display:flex; flex-wrap:wrap; gap:0.8em; margin-bottom:2em; }
+		.slams-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(195px,1fr)); gap:1em; margin-bottom:2em; }
+		.slam-card { border-radius:7px; padding:1.2em 1.3em; border:1px solid rgba(0,0,0,0.08); border-top:4px solid #ddd; background:rgba(0,0,0,0.025); }
+		.slam-card.hard-court  { border-top-color:#4a9eda; }
+		.slam-card.clay-court  { border-top-color:#c46828; }
+		.slam-card.grass-court { border-top-color:#3ca050; }
+		.slam-name  { font-weight:700; font-size:1em; margin:0 0 0.4em; }
+		.slam-badge { display:inline-block; font-size:0.7em; text-transform:uppercase; letter-spacing:0.07em; font-weight:600; padding:0.15em 0.55em; border-radius:3px; margin-bottom:0.55em; }
+		.slam-badge.hard  { background:rgba(74,158,218,0.13); color:#2878b0; }
+		.slam-badge.clay  { background:rgba(196,104,40,0.13); color:#9a5020; }
+		.slam-badge.grass { background:rgba(60,160,80,0.13);  color:#267840; }
+		.slam-dates { font-size:0.78em; opacity:0.55; display:block; margin-bottom:0.3em; }
+		.slam-loc   { font-size:0.82em; opacity:0.65; margin:0; }
+		.note-box { background:rgba(74,158,218,0.05); border:1px solid rgba(74,158,218,0.15); border-left:4px solid #4a9eda; border-radius:4px; padding:1.2em 1.6em; margin:2.2em 0; font-size:0.95em; line-height:1.8; font-style:italic; }
+
+		.next-chapter p  { margin:0; font-size:0.9em; line-height:1.7; opacity:0.8; }
+	</style>
+	<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+<body class="is-preload">
+
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+
+	<div id="intro">
+		<h1>Henrique Borges<br />Portfolio</h1>
+		<p>Master of Analytics &nbsp;·&nbsp; Analytics &amp; Settlements Professional<br />
+		Python &nbsp;·&nbsp; SQL &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; Energy Markets</p>
+		<ul class="actions">
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+		</ul>
+	</div>
+
+	<div id="wrapper">
+		<button class="side-arrow" id="tnav-prev" title="Previous">&#8592;</button>
+		<button class="side-arrow" id="tnav-next" title="Next">&#8594;</button>
+
+		<div id="main">
+
+			<!-- ══════════════════════════════════════════
+			     RESUME
+			══════════════════════════════════════════ -->
+			<section class="post section active" id="sec-resume">
+				<header class="major">
+					<h1>Henrique Borges</h1>
+					<p>Master of Analytics &nbsp;|&nbsp; Analytics &amp; Settlements Professional<br />
+					Sydney, NSW &nbsp;&middot;&nbsp; henri_mb@icloud.com &nbsp;&middot;&nbsp; +61 432 849 841<br />
+					<a href="https://henrimbo.github.io/henriPortfolio.github.io/" target="_blank">henrimbo.github.io/henriPortfolio.github.io</a></p>
+				</header>
+
+				<div class="resume-download">
+					<a href="My resume - Henri.pdf" download class="button primary icon solid fa-download">Download PDF Resume</a>
+				</div>
+
+				<h3 class="resume-section-title">About Me</h3>
+				<p class="resume-about">
+					Analytics professional with a Master of Analytics from UNSW, currently at Alinta Energy specialising in environmental and financial settlements, Python automation, and data reconciliation. Background spans military service, entrepreneurship (THV Surf Co), and energy markets — built on precision, process discipline, and a drive to make teams faster and more accurate.
+				</p>
+
+				<h3 class="resume-section-title">Experience</h3>
+
+				<div class="resume-job">
+					<div class="resume-job-header">
+						<span class="resume-job-title">Analyst, Treasury Operations &amp; Settlements &mdash; <span class="resume-job-company">Alinta Energy</span></span>
+						<span class="resume-job-meta">Apr 2024 &#x2013; Present &nbsp;|&nbsp; Sydney, NSW</span>
+					</div>
+					<ul>
+						<li>Manage end-to-end settlement processes for environmental and financial products including LGCs, STCs, and ACCUs.</li>
+						<li>Perform daily reconciliations and validations using <strong>Python, SQL, and advanced Excel</strong> across Treasury and Settlements workflows.</li>
+						<li>Build <strong>Power BI</strong> dashboards and automated reports delivering near real-time insights to Finance, Trading, and Risk teams.</li>
+					</ul>
+					<p class="resume-achievements">Key Achievements</p>
+					<ul>
+						<li>Spearheaded Python automation initiatives that streamlined reconciliation workflows and improved settlement speed and accuracy.</li>
+						<li>Received 4 Manager Spotlights and 2 Lunch Recognition Awards within 2 years for consistent high performance across Finance and Treasury.</li>
+					</ul>
+				</div>
+
+				<div class="resume-job">
+					<div class="resume-job-header">
+						<span class="resume-job-title">Career Transition &amp; Professional Development</span>
+						<span class="resume-job-meta">Aug 2018 &#x2013; Jan 2024 &nbsp;|&nbsp; Sydney, NSW</span>
+					</div>
+					<ul>
+						<li>Relocated from Brazil to Australia to pursue postgraduate education in data analytics.</li>
+						<li>Completed a Master of Analytics at UNSW and a Graduate Certificate at Swinburne, building expertise in Python, SQL, and BI tools.</li>
+					</ul>
+				</div>
+
+				<div class="resume-job">
+					<div class="resume-job-header">
+						<span class="resume-job-title">Notarial &amp; Quality Systems Officer &mdash; <span class="resume-job-company">Tabelionato de Notas (Notary Public Office)</span></span>
+						<span class="resume-job-meta">Mar 2014 &#x2013; Aug 2018 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+					</div>
+					<ul>
+						<li>Verified and validated high-value legal and financial documents in a regulated notarial environment.</li>
+						<li>Led process documentation and internal audits to align operations with <strong>ISO 9001 Quality Management</strong> standards, resulting in full certification.</li>
+						<li>Partnered with IT to digitise workflows, reducing manual data entry errors and improving turnaround times.</li>
+					</ul>
+				</div>
+
+				<div class="resume-job">
+					<div class="resume-job-header">
+						<span class="resume-job-title">Founder &amp; Owner &mdash; <span class="resume-job-company">THV Surf Co</span></span>
+						<span class="resume-job-meta">2015 &#x2013; 2018 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+					</div>
+					<ul>
+						<li>Founded and operated a surf apparel brand, managing supplier negotiations, inventory, sales, and customer engagement.</li>
+						<li>Managed financial operations including budgeting, cost control, and margin tracking.</li>
+						<li>Developed sales and marketing strategies, building brand presence through social channels and direct-to-consumer sales.</li>
+					</ul>
+				</div>
+
+				<div class="resume-job">
+					<div class="resume-job-header">
+						<span class="resume-job-title">Soldier &mdash; <span class="resume-job-company">Brazilian Armed Forces</span></span>
+						<span class="resume-job-meta">Mar 2013 &#x2013; Mar 2014 &nbsp;|&nbsp; Porto Alegre, Brazil</span>
+					</div>
+					<ul>
+						<li>Served full-time in the Brazilian Armed Forces, developing discipline, teamwork, and resilience under pressure.</li>
+						<li>Awarded a Merit and Honour Certificate for outstanding service and exemplary conduct.</li>
+					</ul>
+				</div>
+
+				<h3 class="resume-section-title">Education</h3>
+				<div class="resume-edu">
+					<span><span class="resume-edu-degree">Master of Analytics</span> &mdash; <span class="resume-edu-school">University of New South Wales</span></span>
+					<span class="resume-edu-year">Completed Dec 2024</span>
+				</div>
+				<div class="resume-edu">
+					<span><span class="resume-edu-degree">Graduate Certificate in Data Analytics</span> &mdash; <span class="resume-edu-school">Swinburne University of Technology</span></span>
+					<span class="resume-edu-year">Completed Dec 2022</span>
+				</div>
+
+				<h3 class="resume-section-title">Skills &amp; Tools</h3>
+				<div class="skills-group">
+					<span class="skills-label">Technical:</span>
+					<span class="skill-tag">Python</span>
+					<span class="skill-tag">SQL</span>
+					<span class="skill-tag">Power BI</span>
+					<span class="skill-tag">Advanced Excel</span>
+					<span class="skill-tag">Data Reconciliation</span>
+					<span class="skill-tag">Process Automation</span>
+				</div>
+				<div class="skills-group">
+					<span class="skills-label">Domain:</span>
+					<span class="skill-tag">Energy Markets</span>
+					<span class="skill-tag">Environmental Settlements (LGCs, STCs, ACCUs)</span>
+					<span class="skill-tag">Financial Instruments</span>
+					<span class="skill-tag">Compliance &amp; Audit</span>
+					<span class="skill-tag">ISO 9001</span>
+				</div>
+				<div class="skills-group">
+					<span class="skills-label">Languages:</span>
+					<span class="skill-tag">English (fluent)</span>
+					<span class="skill-tag">Portuguese (native)</span>
+				</div>
+			</section>
+
+			<!-- ══════════════════════════════════════════
+			     AWARDS & RECOGNITION
+			══════════════════════════════════════════ -->
+			<section class="post section" id="sec-awards">
+				<header class="major">
+					<h1>Achievements</h1>
+					<p>Recognition from managers and senior leaders across Finance and Treasury —<br />spotlighting contributions to accuracy, automation, and team outcomes.</p>
+				</header>
+
+				<div class="stats-row">
+					<div class="stat-box"><span class="sv">4</span><span class="sl">Manager Spotlights</span></div>
+					<div class="stat-box"><span class="sv">2</span><span class="sl">Lunch Recognition Awards</span></div>
+					<div class="stat-box"><span class="sv">2 yrs</span><span class="sl">At current employer</span></div>
+					<div class="stat-box"><span class="sv">3+</span><span class="sl">Teams recognising contributions</span></div>
+				</div>
+
+				<h3 class="section-title">The Spotlight Stage</h3>
+				<p>The Spotlight Stage recognises individuals and teams who demonstrate company values in extraordinary ways. The following spotlights were received from senior leaders across Finance, Treasury, and Operations.</p>
+
+				<div class="spotlight-card">
+					<div class="spotlight-header">
+						<p class="spotlight-name">Henrique Borges</p>
+						<div class="spotlight-meta">Finance &nbsp;·&nbsp; March 2026<br />Recognised by Financial Accountant Manager</div>
+					</div>
+					<div class="value-badges">
+						<span class="value-badge">Customer Focus</span>
+						<span class="value-badge">Putting People First</span>
+					</div>
+					<div class="spotlight-body">
+						<div class="spotlight-section"><h5>Situation</h5><p>February is the heaviest month for environmental certificate trades — LGC and STC volumes are high, and certificate inventory reconciliations require exceptional attention to detail within tight month-end deadlines.</p></div>
+						<div class="spotlight-section"><h5>Behaviour</h5><p>In addition to providing a detailed summary of monthly events, ensured that the reconciliation of certificate inventory to respective registries was comprehensive and accurate — despite strict deadlines that could have compromised quality.</p></div>
+						<div class="spotlight-section"><h5>Impact</h5><p>When the certificate reconciliation is robust, the accounting team does not need to investigate discrepancies — saving significant time at month end. In February 2026, no reconciliation issues required investigation, freeing the accounting team to focus on higher-value work.</p></div>
+					</div>
+					<div class="spotlight-quote">"Thanks Henrique for your diligence in this process and for facilitating the accounting team's work."</div>
+					<div class="recogniser-pill">Financial Accountant Manager &nbsp;·&nbsp; March 2026</div>
+				</div>
+
+				<div class="spotlight-card">
+					<div class="spotlight-header">
+						<p class="spotlight-name">Henrique Borges</p>
+						<div class="spotlight-meta">Finance &nbsp;·&nbsp; December 2025<br />Recognised by Trading Team</div>
+					</div>
+					<div class="value-badges">
+						<span class="value-badge">One Team</span>
+						<span class="value-badge">Striving for Better</span>
+						<span class="value-badge">Customer Focus</span>
+						<span class="value-badge">Putting People First</span>
+					</div>
+					<div class="spotlight-body">
+						<div class="spotlight-section"><h5>Situation</h5><p>Day-to-day operations across Finance and Treasury require consistent support, accuracy, and a willingness to step in and help colleagues resolve issues as they arise.</p></div>
+						<div class="spotlight-section"><h5>Behaviour</h5><p>Always helpful and diligent — consistently willing to assist and solve issues with a high level of accuracy and attention to detail, demonstrating strong customer focus in every interaction.</p></div>
+						<div class="spotlight-section"><h5>Impact</h5><p>Makes everyone's work easier and sets an example of what it means to be a great team player — raising the overall standard of the team through consistent, reliable contributions.</p></div>
+					</div>
+					<div class="spotlight-quote">"Henri is always helpful and diligent. Always willing to help and solve issues. He makes everybody's life easier, and is an example of a great team player."</div>
+					<div class="recogniser-pill">Trading Team &nbsp;·&nbsp; December 2025</div>
+				</div>
+
+				<div class="spotlight-card">
+					<div class="spotlight-header">
+						<p class="spotlight-name">Henrique Borges</p>
+						<div class="spotlight-meta">Finance &nbsp;·&nbsp; December 2025<br />Recognised by Settlements Manager &amp; Treasury</div>
+					</div>
+					<div class="value-badges">
+						<span class="value-badge">Commercial Leadership</span>
+						<span class="value-badge">Striving for Better</span>
+					</div>
+					<div class="spotlight-body">
+						<div class="spotlight-section"><h5>Situation</h5><p>Within the Settlements role, there was an opportunity to go beyond day-to-day responsibilities and use technical skills to drive meaningful process improvements — not just for one role, but for the broader team.</p></div>
+						<div class="spotlight-section"><h5>Behaviour</h5><p>Proactively explored automation opportunities across the end-to-end settlements process — starting with smarter Excel techniques and progressing to Python automation. Worked directly with IT to make the necessary tools available and demonstrated automations to the wider team.</p></div>
+						<div class="spotlight-section"><h5>Impact</h5><p>Measurable time savings for multiple roles across the team, significant reduction in manual errors, and a broader culture of process improvement.</p></div>
+					</div>
+					<div class="spotlight-quote">"Henri has confidently worked to have Python available to create automations, mitigating risks and fears around cyber security. He has demonstrated his automations and encouraged others in the team to adopt these time-saving and error-reducing tools."</div>
+					<div class="recogniser-pill">Settlements Manager &amp; Settlements &nbsp;·&nbsp; December 2025</div>
+				</div>
+
+				<div class="spotlight-card">
+					<div class="spotlight-header">
+						<p class="spotlight-name">Henrique Borges</p>
+						<div class="spotlight-meta">Finance &nbsp;·&nbsp; September 2024<br />Recognised by Treasury Manager</div>
+					</div>
+					<div class="value-badges">
+						<span class="value-badge">Customer Focus</span>
+						<span class="value-badge">Putting People First</span>
+						<span class="value-badge">Commercial Leadership</span>
+						<span class="value-badge">Striving for Better</span>
+					</div>
+					<div class="spotlight-body">
+						<div class="spotlight-section"><h5>Situation</h5><p>A complex semi-annual dividend process involving multiple payment directions, offsetting items, loans, and last-minute changes — requiring precision and coordination across Finance and Treasury teams under significant time pressure.</p></div>
+						<div class="spotlight-section"><h5>Behaviour</h5><p>Delivered a well-executed dividend process from end to end — handling complexity, last-minute curveballs, and stakeholder requirements with focus and professionalism.</p></div>
+						<div class="spotlight-section"><h5>Impact</h5><p>Shareholders received the dividend smoothly and appreciated the clarity of the netting arrangements. The process ran without issue despite its complexity, setting a strong standard for future dividend cycles.</p></div>
+					</div>
+					<div class="spotlight-quote">"A very well executed semi-annual Dividend Process. There is a lot of work that goes into making the dividend process run smoothly — in particular this time around, there were lots of payment directions, offsetting items and loans, and some last-minute curveballs, which required work and focus."</div>
+					<div class="recogniser-pill">Treasury Manager &nbsp;·&nbsp; September 2024</div>
+				</div>
+
+				<h3 class="section-title">Other Recognition</h3>
+				<div class="award-grid">
+					<div class="award-card"><span class="award-icon">🏆</span><h4>Lunch Recognition Award</h4><p>Awarded twice within 2 years for project-specific contributions and consistent high performance across Finance and Treasury.</p></div>
+					<div class="award-card"><span class="award-icon">⭐</span><h4>4 Spotlights</h4><p>Recognised by managers across multiple teams — Finance Control, Finance Leadership, and Treasury — for accuracy, automation, and teamwork.</p></div>
+					<div class="award-card"><span class="award-icon">🎖️</span><h4>Military Merit Certificate</h4><p>Awarded during service in the Brazilian Armed Forces for high-performance assessments in tactical, strategic, and physical fitness.</p></div>
+					<div class="award-card"><span class="award-icon">📋</span><h4>ISO 9001 Certification</h4><p>Led end-to-end documentation, auditing, and process improvement initiatives at a Brazilian Notary Public Office — achieving full ISO 9001 certification.</p></div>
+				</div>
+			</section>
+
+			<!-- ══════════════════════════════════════════
+			     KNOWLEDGE HUB
+			══════════════════════════════════════════ -->
+			<section class="post section" id="sec-knowledge">
+				<header class="major">
+					<h1>Knowledge Hub</h1>
+					<p>Australia's energy landscape, clean technology, carbon markets — and the Python &amp; SQL basics<br />that power data work in this industry.</p>
+				</header>
+
+				<div class="tab-nav">
+					<button class="tab-btn active" data-tab="python">Python Basics</button>
+					<button class="tab-btn" data-tab="sql">SQL Basics</button>
+					<button class="tab-btn" data-tab="excel">Excel Shortcuts</button>
+					<button class="tab-btn" data-tab="windows">Windows Shortcuts</button>
+					<button class="tab-btn" data-tab="courses">Courses</button>
+				</div>
+
+				<div class="tab-panel active" id="tab-python">
+					<h3 class="section-title">Your First Python Program</h3>
+					<p>Python is one of the most beginner-friendly programming languages — readable, forgiving, and used everywhere from web development to data analysis.</p>
+					<div class="code-label">Python — Hello, World!</div>
+					<pre><code class="language-python"># Your first Python program
+print("Hello, World!")
+
+# Lines starting with # are comments — Python ignores them</code></pre>
+					<h3 class="section-title">Variables &amp; Data Types</h3>
+					<div class="code-label">Python — Variables</div>
+					<pre><code class="language-python">name = "Henrique"   # string
+age  = 30           # integer
+height = 1.80       # float
+is_analyst = True   # boolean
+
+print(f"Hi, {name}! You are {age} years old.")</code></pre>
+					<h3 class="section-title">Making Decisions — If / Else</h3>
+					<div class="code-label">Python — Conditions</div>
+					<pre><code class="language-python">temperature = 28
+
+if temperature > 30:
+    print("Hot day — stay hydrated!")
+elif temperature > 20:
+    print("Nice weather.")
+else:
+    print("A bit cool today.")</code></pre>
+					<div class="tip-box"><strong>Indentation matters in Python.</strong> The code inside an <code>if</code> block must be indented (4 spaces or 1 tab). Python uses indentation instead of curly braces to define blocks.</div>
+					<h3 class="section-title">Loops &amp; Functions</h3>
+					<div class="code-label">Python — For Loop</div>
+					<pre><code class="language-python">regions = ["NSW", "QLD", "SA", "TAS", "VIC"]
+for region in regions:
+    print(f"Processing: {region}")</code></pre>
+					<div class="code-label">Python — Functions</div>
+					<pre><code class="language-python">def greet(name, city="Sydney"):
+    print(f"Hello, {name}! You live in {city}.")
+
+greet("Henrique")            # → Hello, Henrique! You live in Sydney.
+greet("Carlos", "Brisbane")  # → Hello, Carlos! You live in Brisbane.</code></pre>
+					<h3 class="section-title">Working with Data</h3>
+					<div class="code-label">Python — Reading a CSV with pandas</div>
+					<pre><code class="language-python">import pandas as pd
+
+df = pd.read_csv("data.csv")
+print(df.shape)       # (rows, columns)
+print(df.head())      # first 5 rows
+print(df.describe())  # summary statistics
+
+adults = df[df["age"] > 18]
+avg_age = df["age"].mean()
+print(f"Average age: {avg_age:.1f}")</code></pre>
+					<div class="tip-box"><strong>Where to practice Python for free:</strong> <a href="https://colab.research.google.com" target="_blank">Google Colab</a> lets you run Python in your browser with no setup. <a href="https://www.kaggle.com/learn/python" target="_blank">Kaggle's Python course</a> is excellent and free.</div>
+				</div>
+
+				<div class="tab-panel" id="tab-sql">
+					<h3 class="section-title">What Is SQL?</h3>
+					<p>SQL (Structured Query Language) is the language used to talk to databases. It lets you retrieve, filter, sort, count, and combine data stored in tables.</p>
+					<div class="code-label">SQL — Your first query</div>
+					<pre><code class="language-sql">SELECT * FROM customers;
+SELECT name, age, city FROM customers;</code></pre>
+					<h3 class="section-title">Filtering, Sorting &amp; Aggregating</h3>
+					<div class="code-label">SQL — WHERE, ORDER BY, GROUP BY</div>
+					<pre><code class="language-sql">-- Filter rows
+SELECT * FROM customers WHERE age > 25 AND city = 'Sydney';
+
+-- Sort results
+SELECT name, age FROM customers ORDER BY age DESC LIMIT 5;
+
+-- Count per group
+SELECT city, COUNT(*) AS customer_count
+FROM customers
+GROUP BY city
+HAVING COUNT(*) > 10
+ORDER BY customer_count DESC;</code></pre>
+					<h3 class="section-title">Combining Tables — JOIN</h3>
+					<div class="code-label">SQL — INNER JOIN</div>
+					<pre><code class="language-sql">SELECT customers.name, orders.product, orders.amount
+FROM customers
+INNER JOIN orders ON customers.id = orders.customer_id;
+
+-- LEFT JOIN keeps all customers (even with no orders)
+SELECT customers.name, orders.product
+FROM customers
+LEFT JOIN orders ON customers.id = orders.customer_id;</code></pre>
+					<div class="tip-box"><strong>WHERE vs HAVING:</strong> <code>WHERE</code> filters rows <em>before</em> grouping. <code>HAVING</code> filters groups <em>after</em> aggregation.</div>
+				</div>
+
+				<div class="tab-panel" id="tab-excel">
+					<h3 class="section-title">Navigation &amp; Selection</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>Ctrl + Home</kbd><span>Go to cell A1</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + End</kbd><span>Go to last used cell</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + &#8592;/&#8594;</kbd><span>Jump to edge of data region</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + End</kbd><span>Select to last used cell</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Space</kbd><span>Select entire column</span></div>
+						<div class="shortcut-card"><kbd>Shift + Space</kbd><span>Select entire row</span></div>
+						<div class="shortcut-card"><kbd>F5</kbd><span>Go To dialog</span></div>
+					</div>
+					<h3 class="section-title">Editing &amp; Formatting</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>F2</kbd><span>Edit active cell</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + D</kbd><span>Fill down</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + ;</kbd><span>Insert today's date</span></div>
+						<div class="shortcut-card"><kbd>Alt + Enter</kbd><span>New line within a cell</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + 1</kbd><span>Format Cells dialog</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + $</kbd><span>Apply currency format</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + %</kbd><span>Apply percentage format</span></div>
+					</div>
+					<h3 class="section-title">Formulas &amp; Data</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>Alt + =</kbd><span>AutoSum selected range</span></div>
+						<div class="shortcut-card"><kbd>F4</kbd><span>Toggle absolute/relative reference ($)</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + `</kbd><span>Toggle show formulas</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + T</kbd><span>Create table from selection</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + L</kbd><span>Toggle filter on/off</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + +</kbd><span>Insert row/column</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + -</kbd><span>Delete row/column</span></div>
+					</div>
+					<h3 class="section-title">Workbook &amp; Sheets</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>Ctrl + Page Up/Down</kbd><span>Switch between sheets</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Z / Y</kbd><span>Undo / Redo</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + F</kbd><span>Find</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + H</kbd><span>Find and Replace</span></div>
+						<div class="shortcut-card"><kbd>F12</kbd><span>Save As</span></div>
+					</div>
+				</div>
+
+				<div class="tab-panel" id="tab-windows">
+					<h3 class="section-title">Window &amp; App Management</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>Win + D</kbd><span>Show/hide desktop</span></div>
+						<div class="shortcut-card"><kbd>Win + E</kbd><span>Open File Explorer</span></div>
+						<div class="shortcut-card"><kbd>Win + L</kbd><span>Lock screen</span></div>
+						<div class="shortcut-card"><kbd>Win + I</kbd><span>Open Settings</span></div>
+						<div class="shortcut-card"><kbd>Alt + F4</kbd><span>Close active window</span></div>
+						<div class="shortcut-card"><kbd>Alt + Tab</kbd><span>Switch between open apps</span></div>
+						<div class="shortcut-card"><kbd>Win + &#8592;/&#8594;</kbd><span>Snap window left / right</span></div>
+						<div class="shortcut-card"><kbd>Win + Shift + S</kbd><span>Screenshot snip tool</span></div>
+						<div class="shortcut-card"><kbd>Win + V</kbd><span>Clipboard history</span></div>
+					</div>
+					<h3 class="section-title">Productivity</h3>
+					<div class="shortcut-grid">
+						<div class="shortcut-card"><kbd>Ctrl + C / X / V</kbd><span>Copy / Cut / Paste</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Z / Y</kbd><span>Undo / Redo</span></div>
+						<div class="shortcut-card"><kbd>Win + . (period)</kbd><span>Emoji &amp; symbol picker</span></div>
+						<div class="shortcut-card"><kbd>Ctrl + Shift + Esc</kbd><span>Open Task Manager</span></div>
+						<div class="shortcut-card"><kbd>Win + Ctrl + D</kbd><span>Create new virtual desktop</span></div>
+						<div class="shortcut-card"><kbd>Win + Ctrl + &#8592;/&#8594;</kbd><span>Switch virtual desktops</span></div>
+					</div>
+				</div>
+
+				<div class="tab-panel" id="tab-courses">
+					<h3 class="section-title">Featured Resource</h3>
+					<div class="course-featured">
+						<div class="course-featured-inner">
+							<div class="course-featured-badge">⭐ Top Pick</div>
+							<h4 class="course-featured-name">Analyst Builder</h4>
+							<p class="course-featured-desc">The best structured platform for learning SQL, Python, and data analytics from scratch or levelling up. Real-world practice problems, video walkthroughs, and a focus on what actually matters in analytics roles.</p>
+							<a href="https://www.analystbuilder.com" target="_blank" class="button">Visit Analyst Builder &rarr;</a>
+						</div>
+					</div>
+					<h3 class="section-title">SQL</h3>
+					<div class="course-grid">
+						<div class="course-card"><span class="course-tag">Free + Paid</span><h4 class="course-name">Analyst Builder — SQL</h4><p class="course-desc">Hundreds of SQL practice problems sorted by difficulty. The closest thing to real interview and on-the-job SQL you'll find online.</p><a href="https://www.analystbuilder.com" target="_blank" class="course-link">analystbuilder.com &rarr;</a></div>
+						<div class="course-card"><span class="course-tag">Free</span><h4 class="course-name">SQLZoo</h4><p class="course-desc">Interactive SQL exercises in the browser. Great for beginners — covers SELECT through to advanced JOINs and subqueries.</p><a href="https://sqlzoo.net" target="_blank" class="course-link">sqlzoo.net &rarr;</a></div>
+						<div class="course-card"><span class="course-tag">Free</span><h4 class="course-name">Mode SQL Tutorial</h4><p class="course-desc">Clean, well-structured introduction to SQL for data analysis. From basic queries to window functions.</p><a href="https://mode.com/sql-tutorial" target="_blank" class="course-link">mode.com/sql-tutorial &rarr;</a></div>
+					</div>
+					<h3 class="section-title">Python &amp; General</h3>
+					<div class="course-grid">
+						<div class="course-card"><span class="course-tag">Free + Paid</span><h4 class="course-name">Analyst Builder — Python</h4><p class="course-desc">Python for data analysis — pandas, NumPy, and real-world problem sets.</p><a href="https://www.analystbuilder.com" target="_blank" class="course-link">analystbuilder.com &rarr;</a></div>
+						<div class="course-card"><span class="course-tag">Free + Paid</span><h4 class="course-name">Codecademy</h4><p class="course-desc">Interactive Python, SQL, data science, and more — structured paths for beginners through to intermediate.</p><a href="https://www.codecademy.com" target="_blank" class="course-link">codecademy.com &rarr;</a></div>
+						<div class="course-card"><span class="course-tag">Free + Paid</span><h4 class="course-name">Coursera — Google Data Analytics</h4><p class="course-desc">Google's professional certificate covering the full analytics workflow. Spreadsheets, SQL, R, and Tableau.</p><a href="https://www.coursera.org/professional-certificates/google-data-analytics" target="_blank" class="course-link">coursera.org &rarr;</a></div>
+					</div>
+				</div>
+			</section>
+
+			<!-- ══════════════════════════════════════════
+			     COFFEE
+			══════════════════════════════════════════ -->
+			<section class="post section" id="sec-coffee">
+				<header class="major">
+					<h1>Coffee Lover</h1>
+					<p>Life is too short for average coffee. Here are the spots worth your time.</p>
+				</header>
+
+				<p class="coffee-intro-text">
+					From a strong flat white before the morning commute to a long black on a slow weekend &#8212; coffee has always been more than a drink to me. This page collects the caf&eacute;s I return to, the ones that get the craft right.
+				</p>
+
+				<h3 class="city-heading">&#9749; Sydney, NSW &#8212; Australia</h3>
+				<div class="cafe-grid">
+					<div class="cafe-card">
+						<div class="cafe-card-photo"><img src="images/cafe-diggy-doo.jpg" alt="Diggy Doos Coffee" onerror="this.parentNode.style.display='none'"></div>
+						<p class="cafe-card-name">Diggy Doos Coffee</p>
+						<span class="cafe-card-location">Bridge St, CBD</span>
+						<p class="cafe-card-vibe">Lo-fi and completely honest about it &#8212; mismatched stools, handmade ceramics, spent coffee bags from guest roasters pinned to the walls. Paul Lee, formerly of Proud Mary Melbourne, runs it with quiet precision. The daily blackboard cycles through single-origins and geisha lots.</p>
+						<p class="cafe-card-order"><strong>Must try:</strong> Whatever is on the blackboard &#8212; single-origin, often geisha, always worth asking about.</p>
+						<a href="https://www.broadsheet.com.au/sydney/cafes/diggy-doos-coffee" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+					</div>
+					<div class="cafe-card">
+						<div class="cafe-card-photo"><img src="images/cafe-only.jpg" alt="Only Coffee Project" onerror="this.parentNode.style.display='none'"></div>
+						<p class="cafe-card-name">Only Coffee Project</p>
+						<span class="cafe-card-location">Willoughby Rd, Crows Nest</span>
+						<p class="cafe-card-vibe">A minimalist espresso bar that takes transparency seriously &#8212; tasting cards list the exact price paid for the beans at origin. Market Lane from Melbourne handles the milk drinks; Sey Coffee from New York covers the black and filter side. Filter is served in Origami ceramic cups.</p>
+						<p class="cafe-card-order"><strong>Must try:</strong> Flat white on Market Lane, or ask for the Sey Coffee filter.</p>
+						<a href="https://www.broadsheet.com.au/sydney/crows-nest/cafes/only-coffee-project" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+					</div>
+					<div class="cafe-card">
+						<div class="cafe-card-photo"><img src="images/cafe-kingswood.jpg" alt="Kingswood Coffee" onerror="this.parentNode.style.display='none'"></div>
+						<p class="cafe-card-name">Kingswood Coffee</p>
+						<span class="cafe-card-location">George St, CBD</span>
+						<p class="cafe-card-vibe">Old-fashioned in the best way &#8212; wood panelling, polished brass, and a space designed by Tamsin Johnson. The Steadfast blend from Sensory Lab anchors the milk-based menu, with a rotating monthly guest roaster on espresso and filter.</p>
+						<p class="cafe-card-order"><strong>Must try:</strong> Flat white on the Steadfast blend &#8212; ask what the guest roaster is and order that on filter too.</p>
+						<a href="https://www.broadsheet.com.au/sydney/cafes/kingswood-coffee" target="_blank" rel="noopener" class="cafe-read-more">Read on Broadsheet &#8599;</a>
+					</div>
+				</div>
+
+				<h3 class="city-heading">&#127757; Coming Soon &#8212; Around the World</h3>
+				<div class="coming-soon-box">More cities and caf&eacute;s being added. Porto Alegre, London, New York &#8212; the list is growing.</div>
+			</section>
+
+			<!-- ══════════════════════════════════════════
+			     TENNIS
+			══════════════════════════════════════════ -->
+			<section class="post section" id="sec-tennis">
+				<header class="major">
+					<h1>Tennis</h1>
+					<p>On the court and watching the circuit &#8212; tennis is a constant.<br />
+					Pick a player, track the Tour, and follow the action.</p>
+				</header>
+
+				<h3 class="section-title">&#127934; Choose Your Player</h3>
+				<p class="player-intro">Select an ATP player to follow &#8212; your pick is saved between visits.</p>
+				<div class="player-grid" id="player-grid"></div>
+				<div class="following-banner" id="following-banner">
+					<span class="following-label">Following</span>
+					<span id="following-flag"></span>
+					<span id="following-name" class="following-player-name"></span>
+					<button id="clear-btn" class="clear-btn">Change player</button>
+				</div>
+
+				<div class="player-info-card" id="player-info" style="display:none;">
+					<div class="pi-header">
+						<span class="pi-flag" id="pi-flag"></span>
+						<div>
+							<div class="pi-name" id="pi-name"></div>
+							<div class="pi-meta" id="pi-meta"></div>
+						</div>
+					</div>
+					<div class="pi-body">
+						<div class="pi-stat-row">
+							<div class="pi-stat"><span class="pi-sv" id="pi-rank"></span><span class="pi-sl">ATP Rank</span></div>
+							<div class="pi-stat"><span class="pi-sv" id="pi-slams"></span><span class="pi-sl">Grand Slams</span></div>
+							<div class="pi-stat"><span class="pi-sv" id="pi-style"></span><span class="pi-sl">Playing Style</span></div>
+						</div>
+					</div>
+					<div class="pi-links">
+						<a class="pi-link" id="pi-news-link" target="_blank" rel="noopener">📰 Latest News</a>
+						<a class="pi-link" id="pi-scores-link" target="_blank" rel="noopener">🎾 ATP Scores</a>
+					</div>
+				</div>
+
+				<h3 class="section-title">&#128225; Live Scores &amp; Results</h3>
+				<p class="scores-note">ATP match scores updated in real time via Sofascore. Links below open the full tour view.</p>
+				<div class="scores-widget-wrap">
+					<div id="sofa-standings-embed" data-sport-id="5" data-tournament-id="2" data-locale="en" data-widget-theme="light"></div>
+				</div>
+				<div class="scores-btns">
+					<a href="https://www.sofascore.com/tennis" target="_blank" rel="noopener" class="button">Live Scores on Sofascore &#8599;</a>
+					<a href="https://www.atptour.com/en/scores/current" target="_blank" rel="noopener" class="button">ATP Tour Official &#8599;</a>
+					<a href="https://www.atptour.com/en/rankings/singles" target="_blank" rel="noopener" class="button">ATP Rankings &#8599;</a>
+				</div>
+
+				<h3 class="section-title">&#127942; Grand Slams</h3>
+				<div class="slams-grid">
+					<div class="slam-card hard-court"><p class="slam-name">Australian Open</p><span class="slam-badge hard">Hard court</span><span class="slam-dates">January</span><p class="slam-loc">Melbourne Park, Australia</p></div>
+					<div class="slam-card clay-court"><p class="slam-name">Roland Garros</p><span class="slam-badge clay">Clay court</span><span class="slam-dates">May &#8211; June</span><p class="slam-loc">Stade Roland Garros, Paris</p></div>
+					<div class="slam-card grass-court"><p class="slam-name">Wimbledon</p><span class="slam-badge grass">Grass court</span><span class="slam-dates">June &#8211; July</span><p class="slam-loc">All England Club, London</p></div>
+					<div class="slam-card hard-court"><p class="slam-name">US Open</p><span class="slam-badge hard">Hard court</span><span class="slam-dates">August &#8211; September</span><p class="slam-loc">USTA Billie Jean King, New York</p></div>
+				</div>
+
+				<div class="note-box">
+					Tennis has been part of my life for years &#8212; on the court and as a spectator. The individual nature of the game is what I connect with most: no team to lean on, every point earned under pressure, and the mental game as important as the technical one.
+				</div>
+			</section>
+
+		</div><!-- /#main -->
+
+		<footer id="footer">
+			<section class="split contact">
+				<section class="alt"><h3>Country</h3><p>Australia</p></section>
+				<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+				<section><h3>Email</h3><p><a href="mailto:henri_mb@icloud.com">henri_mb@icloud.com</a></p></section>
+				<section>
+					<h3>Social</h3>
+					<ul class="icons alt">
+						<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+		<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+
+	</div><!-- /#wrapper -->
+
+	<!-- Bottom Page Navigation -->
+	<div id="bottom-nav">
+		<div class="bnav-dots" id="bnav-dots">
+			<span class="bnav-dot active" title="Resume"></span>
+			<span class="bnav-dot" title="Awards"></span>
+			<span class="bnav-dot" title="Knowledge Hub"></span>
+			<span class="bnav-dot" title="Coffee"></span>
+			<span class="bnav-dot" title="Tennis"></span>
 		</div>
+	</div>
 
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Henrique Borges<br />
-						Portfolio</h1>
-						<p>Post Graduate Data Analyst skilled in SQL, Python and Tableau. <a href=" "> </a>  <a href=" "> </a> </p> 
-						<ul class="actions">
-							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-				<!-- Header -->
-					<header id="header">
-						<a href="index.html" class="logo">Henrique Borges</a>
-					</header>
+	<script>
+		// Remove theme's dynamic bg element
+		(function() {
+			var el = document.querySelector('#wrapper > .bg');
+			if (el) el.parentNode.removeChild(el);
+		})();
 
-				<!-- Nav -->
-					<nav id="nav">
-						<ul class="links">
-							<li class="active"><a href="index.html">Projects</a></li>
-							
-						</ul>
-						<ul class="icons">
-							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">linkedin</span></a></li>
-						</ul>
-					</nav>
+		// ── SECTION NAVIGATION ────────────────────────────────
+		var SECTIONS = ['resume','awards','knowledge','coffee','tennis'];
+		var LABELS   = ['Resume','Awards & Recognition','Knowledge Hub','Coffee','Tennis'];
+		var current  = 0;
 
-				<!-- Main -->
-					<div id="main">
+		function showSection(idx) {
+			if (idx < 0) idx = SECTIONS.length - 1;
+			if (idx >= SECTIONS.length) idx = 0;
+			document.body.classList.add('content-mode');
+			current = idx;
 
-						<!-- Featured Post -->
-						<section class="posts">
-							<article>
-								<header>
-									
-									<h2><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisProject_17059329645720/Dashboard1">Tableau Projects <br />
-									</a></h2>
-									<p>This dashboard provides an in-depth analysis of the performance of Novak Djokovic, Rafael Nadal, and Andy Murray from 2005 to 2013. As a tennis enthusiast, 
-										I have gathered detailed data on their aces, matches played, matches won, and tie-breaks to identify trends in their performance over the years. 
-										</p>
-								</header>
-								<a href="https://public.tableau.com/app/profile/henrique.mendes.borges/viz/TennisProject_17059329645720/Dashboard1" class="image fit"><img src="images/Dashboard Tableau.jpg" alt="" /></a>
-								
-								<ul class="actions special">
-									<li><a href="https://public.tableau.com/app/profile/henrique.mendes.borges/vizzes" class="button">VIEW PROJECT</a></li>
-								</ul>
-							</article>
+			document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+			document.getElementById('sec-' + SECTIONS[idx]).classList.add('active');
 
-						<!-- Posts -->
-						
-								<article>
-									<header>
-										
-										<h2><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql">BigQuery SQL<br />
-										</a></h2>
-										<p>The Chicago Taxi Trips Dataset is available on Google Cloud's BigQuery platform. I explored this dataset using BigQuery SQL queries and by analyzing this data, we can gain insights into the operational dynamics 
-											of taxi services in Chicago, as well as uncover patterns in urban mobility.</p>
-									</header>
-									<a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="image fit"><img src="images\sql.JPG" alt="" /></a>
-								
-									<ul class="actions special">
-										<li><a href="https://github.com/henrimbo/SQL-Queries-/blob/main/SQL%20Queries.sql" class="button">View Project</a></li>
-									</ul>
-								</article>
+			document.querySelectorAll('.bnav-dot').forEach(function(d, i) {
+				d.classList.toggle('active', i === idx);
+			});
 
-								<article>
-									<header>
+			// Scroll to top of #main so section header is visible
+			var mainEl = document.getElementById('main');
+			if (mainEl) {
+				var top = mainEl.getBoundingClientRect().top + window.pageYOffset - 20;
+				window.scrollTo({ top: top, behavior: 'smooth' });
+			}
+		}
 
-										<h2><a href="https://github.com/henrimbo/Exploratory-Data-Analysis-/blob/main/An%C3%A1lise%20Explorat%C3%B3ria%202.ipynb">Exploratory Analysis<br />
-										with Python</a></h2>
-										<p>This report delves into the heights of presidents to uncover trends in their stature. It also poses an intriguing question: 
-											"What is the probability of having a president of a certain height?" 
-											This query aims to understand the likelihood of specific heights among global presidents, adding a predictive dimension to our exploration
-									</header>
-									<a href="https://github.com/henrimbo/Exploratory-Data-Analysis-/blob/main/An%C3%A1lise%20Explorat%C3%B3ria%202.ipynb" class="image fit"><img src="images/Python2.jpg" alt="" /></a>
-									<ul class="actions special">
-										<li><a href="https://github.com/henrimbo" class="button large">View Project</a></li>
-									</ul>
-								</article>
+		// Nav tab clicks
+		// Fade video when clicking Continue on intro
+		var continueBtn = document.querySelector('#intro .scrolly');
+		if (continueBtn) continueBtn.addEventListener('click', function() { document.body.classList.add('content-mode'); });
 
+		// Top arrow buttons
+		document.getElementById('tnav-prev').addEventListener('click', function() { showSection(current - 1); });
+		document.getElementById('tnav-next').addEventListener('click', function() { showSection(current + 1); });
 
-								<article>
+		// Dot clicks
+		document.querySelectorAll('.bnav-dot').forEach(function(dot, i) {
+			dot.addEventListener('click', function() { showSection(i); });
+		});
 
-									
-									<header>
-										
-										<h2><a href="#">Next Project is coming soon<br />
-										</a></h2>
-										<p>My next project focuses on data visualization in Python, leveraging powerful libraries such as Matplotlib and Seaborn. 
-											These tools enable effective presentation and analysis of complex datasets, transforming raw data into insightful, 
-											visually appealing charts and graphs. This project aims to master these libraries for advanced data interpretation.</p>
-									</header>
-									<a href="#" class="image fit"><img src="images/Python2.jpg" alt="" /></a>
-									
-									<ul class="actions special">
-										<li><a href="#" class="button">View Project</a></li>
-									</ul>
-								</article>
+		// Keyboard navigation
+		document.addEventListener('keydown', function(e) {
+			if (e.key === 'ArrowLeft')  showSection(current - 1);
+			if (e.key === 'ArrowRight') showSection(current + 1);
+			if (e.key === 'ArrowDown') {
+				if (window.scrollY < 10) {
+					var m = document.getElementById('main');
+					if (m) m.scrollIntoView({ behavior: 'smooth' });
+				}
+			}
+			if (e.key === 'ArrowUp') window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
 
+		// ── KNOWLEDGE HUB TABS ────────────────────────────────
+		document.querySelectorAll('.tab-btn').forEach(function(btn) {
+			btn.addEventListener('click', function() {
+				document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+				document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+				btn.classList.add('active');
+				document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+			});
+		});
 
-							</section>
+		// highlight.js
+		hljs.highlightAll();
 
-						<!-- Footer -->
-						
+		// ── TENNIS PLAYER PICKER ──────────────────────────────
+		var PLAYERS = [
+			{ rank: 1,  name: "Jannik Sinner",    country: "Italy",     flag: "🇮🇹", slams: 2,  style: "Baseline",   news: "Jannik+Sinner+tennis" },
+			{ rank: 2,  name: "Carlos Alcaraz",   country: "Spain",     flag: "🇪🇸", slams: 4,  style: "All-court",  news: "Carlos+Alcaraz+tennis" },
+			{ rank: 3,  name: "Alexander Zverev", country: "Germany",   flag: "🇩🇪", slams: 1,  style: "All-court",  news: "Alexander+Zverev+tennis" },
+			{ rank: 4,  name: "Daniil Medvedev",  country: "Russia",    flag: "🇷🇺", slams: 1,  style: "Counter",    news: "Daniil+Medvedev+tennis" },
+			{ rank: 5,  name: "Novak Djokovic",   country: "Serbia",    flag: "🇷🇸", slams: 24, style: "All-court",  news: "Novak+Djokovic+tennis" },
+			{ rank: 6,  name: "Casper Ruud",      country: "Norway",    flag: "🇳🇴", slams: 0,  style: "Clay",       news: "Casper+Ruud+tennis" },
+			{ rank: 7,  name: "Taylor Fritz",     country: "USA",       flag: "🇺🇸", slams: 0,  style: "Serve & BH", news: "Taylor+Fritz+tennis" },
+			{ rank: 8,  name: "Alex de Minaur",   country: "Australia", flag: "🇦🇺", slams: 0,  style: "Speed",      news: "Alex+de+Minaur+tennis" },
+			{ rank: 9,  name: "Andrey Rublev",    country: "Russia",    flag: "🇷🇺", slams: 0,  style: "Aggressive", news: "Andrey+Rublev+tennis" },
+			{ rank: 10, name: "Hubert Hurkacz",   country: "Poland",    flag: "🇵🇱", slams: 0,  style: "Serve",      news: "Hubert+Hurkacz+tennis" },
+			{ rank: 11, name: "Holger Rune",      country: "Denmark",   flag: "🇩🇰", slams: 0,  style: "Aggressive", news: "Holger+Rune+tennis" },
+			{ rank: 12, name: "Lorenzo Musetti",  country: "Italy",     flag: "🇮🇹", slams: 0,  style: "All-court",  news: "Lorenzo+Musetti+tennis" }
+		];
+		var T_KEY = 'tennis_player', T_FLAG = 'tennis_player_flag', T_IDX = 'tennis_player_idx';
 
-					</div>
+		function renderGrid() {
+			var saved = localStorage.getItem(T_KEY);
+			var grid  = document.getElementById('player-grid');
+			if (!grid) return;
+			grid.innerHTML = PLAYERS.map(function(p, i) {
+				var sel = (saved === p.name) ? ' selected' : '';
+				return '<div class="player-card' + sel + '" data-i="' + i + '">' +
+					'<span class="pc-flag">' + p.flag + '</span>' +
+					'<div class="pc-rank">No.&nbsp;' + p.rank + '</div>' +
+					'<div class="pc-name">' + p.name + '</div>' +
+					'<div class="pc-country">' + p.country + '</div>' +
+					'</div>';
+			}).join('');
+			// Direct listeners on each card — reliable regardless of theme JS
+			grid.querySelectorAll('.player-card').forEach(function(card) {
+				card.addEventListener('click', function() {
+					var i = parseInt(card.getAttribute('data-i'), 10);
+					if (!isNaN(i) && PLAYERS[i]) pickPlayer(i);
+				});
+			});
+			var savedIdx = parseInt(localStorage.getItem(T_IDX), 10);
+			if (!isNaN(savedIdx) && PLAYERS[savedIdx]) showPlayerInfo(savedIdx);
+			refreshBanner();
+		}
 
-				<!-- Footer -->
-					<footer id="footer">
-				
-						<section class="split contact">
-							<section class="alt">
-								<h3>Country</h3>
-								<p><br />
-								Australia</p>
-							</section>
-							<section>
-								<h3>Phone</h3>
-								<p><a href="#">(+61) 432 849 841</a></p>
-							</section>
-							<section>
-								<h3>Email</h3>
-								<p><a href="#">henriquemborges45@hotmail.com</a></p>
-							</section>
-							<section>
-								<h3>Social</h3>
-								<ul class="icons alt">
-									
-									<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">linkedin</span></a></li>
-								</ul>
-							</section>
-						</section>
-					</footer>
+		function pickPlayer(idx) {
+			var p = PLAYERS[idx];
+			localStorage.setItem(T_KEY,  p.name);
+			localStorage.setItem(T_FLAG, p.flag);
+			localStorage.setItem(T_IDX,  idx);
+			document.querySelectorAll('.player-card').forEach(function(el) {
+				el.classList.toggle('selected', parseInt(el.getAttribute('data-i'), 10) === idx);
+			});
+			showPlayerInfo(idx);
+			refreshBanner();
+		}
 
-				<!-- Copyright -->
-					<div id="copyright">
-						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
-					</div>
+		function showPlayerInfo(idx) {
+			var p = PLAYERS[idx];
+			var card = document.getElementById('player-info');
+			if (!card) return;
+			document.getElementById('pi-flag').textContent  = p.flag;
+			document.getElementById('pi-name').textContent  = p.name;
+			document.getElementById('pi-meta').textContent  = p.country + ' · ATP No. ' + p.rank;
+			document.getElementById('pi-rank').textContent  = '#' + p.rank;
+			document.getElementById('pi-slams').textContent = p.slams > 0 ? p.slams : '—';
+			document.getElementById('pi-style').textContent = p.style;
+			var newsUrl   = 'https://news.google.com/search?q=' + p.news + '&hl=en';
+			var scoresUrl = 'https://www.atptour.com/en/players/' + p.name.toLowerCase().replace(/\s+/g, '-') + '/overview';
+			document.getElementById('pi-news-link').href   = newsUrl;
+			document.getElementById('pi-scores-link').href = scoresUrl;
+			card.style.display = 'block';
+		}
 
-			</div>
+		function clearFollowing() {
+			localStorage.removeItem(T_KEY);
+			localStorage.removeItem(T_FLAG);
+			localStorage.removeItem(T_IDX);
+			document.querySelectorAll('.player-card').forEach(function(el) { el.classList.remove('selected'); });
+			var card = document.getElementById('player-info');
+			if (card) card.style.display = 'none';
+			refreshBanner();
+		}
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+		function refreshBanner() {
+			var name   = localStorage.getItem(T_KEY);
+			var flag   = localStorage.getItem(T_FLAG) || '';
+			var banner = document.getElementById('following-banner');
+			if (name) {
+				document.getElementById('following-name').textContent = name;
+				document.getElementById('following-flag').textContent = flag + ' ';
+				banner.style.display = 'flex';
+			} else {
+				banner.style.display = 'none';
+			}
+		}
 
-	</body>
+		document.getElementById('clear-btn').addEventListener('click', clearFollowing);
+		renderGrid();
+
+		// Sofascore widget
+		(function() {
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = 'https://widgets.sofascore.com/embed/1.0/main.js';
+			document.head.appendChild(s);
+		})();
+	</script>
+
+</body>
 </html>

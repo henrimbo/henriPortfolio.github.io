@@ -1,0 +1,616 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>THV Surf Co — Henrique Borges</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+
+			/* ── Section title ── */
+			.section-title {
+				font-size: 1.05em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				border-bottom: 2px solid #4a9eda;
+				padding-bottom: 0.4em;
+				margin: 2.8em 0 1.4em;
+			}
+
+			/* ── Brand header ── */
+			.brand-intro {
+				display: flex;
+				align-items: center;
+				gap: 1.2em;
+				margin-bottom: 2em;
+				flex-wrap: wrap;
+			}
+			.brand-logo-text {
+				font-size: 3.5em;
+				font-weight: 900;
+				letter-spacing: 0.08em;
+				color: #4a9eda;
+				line-height: 1;
+				font-style: italic;
+			}
+			.brand-tagline {
+				font-size: 0.85em;
+				opacity: 0.55;
+				text-transform: uppercase;
+				letter-spacing: 0.2em;
+				margin-top: 0.3em;
+			}
+
+			/* ── Timeline ── */
+			.timeline {
+				position: relative;
+				padding: 0.5em 0;
+				margin: 2em 0;
+			}
+			.timeline::before {
+				content: '';
+				position: absolute;
+				left: 18px;
+				top: 0; bottom: 0;
+				width: 2px;
+				background: linear-gradient(180deg, #4a9eda 0%, rgba(74,158,218,0.15) 100%);
+			}
+			.tl-item {
+				display: flex;
+				gap: 1.5em;
+				margin-bottom: 2.2em;
+				position: relative;
+			}
+			.tl-dot {
+				flex-shrink: 0;
+				width: 38px; height: 38px;
+				border-radius: 50%;
+				background: #4a9eda;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 0.7em;
+				font-weight: 700;
+				color: #fff;
+				letter-spacing: 0.02em;
+				z-index: 1;
+				position: relative;
+			}
+			.tl-content {
+				padding-top: 0.5em;
+				flex: 1;
+			}
+			.tl-year {
+				font-size: 0.72em;
+				text-transform: uppercase;
+				letter-spacing: 0.15em;
+				color: #4a9eda;
+				margin-bottom: 0.2em;
+			}
+			.tl-content h4 {
+				margin: 0 0 0.4em;
+				font-size: 1em;
+			}
+			.tl-content p {
+				margin: 0;
+				font-size: 0.88em;
+				line-height: 1.7;
+				opacity: 0.82;
+			}
+
+			/* ── Photo gallery ── */
+			.photo-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 0.8em;
+				margin: 1.5em 0 2em;
+			}
+			@media (max-width: 600px) {
+				.photo-grid { grid-template-columns: 1fr; }
+			}
+			.photo-item {
+				position: relative;
+				overflow: hidden;
+				border-radius: 6px;
+				aspect-ratio: 1 / 1;
+				background: rgba(255,255,255,0.04);
+			}
+			.photo-item img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.4s ease;
+				display: block;
+			}
+			.photo-item:hover img { transform: scale(1.04); }
+			.photo-caption {
+				position: absolute;
+				bottom: 0; left: 0; right: 0;
+				background: linear-gradient(transparent, rgba(0,0,0,0.65));
+				color: #fff;
+				font-size: 0.78em;
+				padding: 1.2em 0.9em 0.7em;
+				opacity: 0;
+				transition: opacity 0.3s;
+			}
+			.photo-item:hover .photo-caption { opacity: 1; }
+
+			/* ── Skills grid ── */
+			.skills-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1em;
+				margin: 1.2em 0 2em;
+			}
+			.skill-card {
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.09);
+				border-radius: 6px;
+				padding: 1.2em 1.3em;
+				text-align: center;
+			}
+			.skill-card .skill-icon {
+				font-size: 1.6em;
+				display: block;
+				margin-bottom: 0.5em;
+			}
+			.skill-card h4 {
+				margin: 0 0 0.35em;
+				font-size: 0.9em;
+				color: #4a9eda;
+			}
+			.skill-card p {
+				margin: 0;
+				font-size: 0.82em;
+				line-height: 1.55;
+				opacity: 0.7;
+			}
+
+			/* ── Quote / Reflection ── */
+			.reflection-box {
+				background: rgba(74,158,218,0.06);
+				border: 1px solid rgba(74,158,218,0.2);
+				border-left: 4px solid #4a9eda;
+				border-radius: 4px;
+				padding: 1.4em 1.8em;
+				margin: 2em 0;
+				font-style: italic;
+				line-height: 1.8;
+				font-size: 1em;
+			}
+			.reflection-box cite {
+				display: block;
+				margin-top: 0.8em;
+				font-style: normal;
+				font-size: 0.8em;
+				opacity: 0.55;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			/* ── Next chapter banner ── */
+			.next-chapter {
+				background: rgba(255,255,255,0.03);
+				border: 1px solid rgba(255,255,255,0.08);
+				border-radius: 8px;
+				padding: 1.8em 2em;
+				margin: 2.5em 0;
+				display: flex;
+				align-items: center;
+				gap: 1.5em;
+				flex-wrap: wrap;
+			}
+			.next-arrow {
+				font-size: 2.5em;
+				color: #4a9eda;
+				flex-shrink: 0;
+			}
+			.next-chapter h4 {
+				margin: 0 0 0.3em;
+				font-size: 1.05em;
+				color: #4a9eda;
+			}
+			.next-chapter p {
+				margin: 0;
+				font-size: 0.9em;
+				line-height: 1.7;
+				opacity: 0.8;
+			}
+
+			/* ── Stats ── */
+			.stats-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1em;
+				margin: 1.2em 0 2.5em;
+			}
+			.stat-box {
+				flex: 1;
+				min-width: 110px;
+				background: rgba(255,255,255,0.04);
+				border: 1px solid rgba(255,255,255,0.09);
+				border-radius: 6px;
+				padding: 1em;
+				text-align: center;
+			}
+			.stat-box .sv { display: block; font-size: 1.8em; font-weight: 700; color: #4a9eda; line-height: 1.1; }
+			.stat-box .sl { display: block; font-size: 0.7em; opacity: 0.55; margin-top: 0.3em; text-transform: uppercase; letter-spacing: 0.07em; }
+
+		
+		/* ── Video background ── */
+		.video-bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; overflow:hidden; }
+		.video-bg video { min-width:100%; min-height:100%; object-fit:cover; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+
+		/* ── Transparent wrapper so video shows through ── */
+		#wrapper > .bg { display: none !important; }
+		#wrapper.fade-in::before { display: none !important; }
+
+		/* ── Dark overlay on content for readability ── */
+		#main .post  { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2.5em !important; color: #1a2035 !important; }
+		#main .posts { background: rgba(255, 255, 255, 0.96) !important; border-radius: 6px; padding: 2em !important; color: #1a2035 !important; }
+		#main .post p, #main .posts p, #main .post li { color: #1a2035 !important; }
+		#main .post h1, #main .post h2, #main .post h3, #main .post h4,
+		#main .posts h1, #main .posts h2, #main .posts h3, #main .posts h4 { color: #0d1b2a !important; }
+
+		/* ── Bottom page navigation ── */
+		#bottom-nav {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0.65em 2em;
+			background: rgba(8, 12, 26, 0.88);
+			backdrop-filter: blur(12px);
+			-webkit-backdrop-filter: blur(12px);
+			border-top: 1px solid rgba(255,255,255,0.07);
+		}
+		.bnav-btn {
+			display: flex;
+			align-items: center;
+			gap: 0.55em;
+			color: rgba(255,255,255,0.5);
+			text-decoration: none;
+			font-size: 0.72em;
+			letter-spacing: 0.12em;
+			text-transform: uppercase;
+			transition: color 0.2s;
+			min-width: 120px;
+		}
+		.bnav-btn:hover { color: #4a9eda; text-decoration: none; }
+		.bnav-next { justify-content: flex-end; }
+		.bnav-arrow { font-size: 1.3em; line-height: 1; }
+		.bnav-dots {
+			display: flex;
+			gap: 7px;
+			align-items: center;
+		}
+		.bnav-dot {
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: rgba(255,255,255,0.18);
+			transition: background 0.2s, transform 0.2s;
+			cursor: default;
+		}
+		.bnav-dot.active {
+			background: #4a9eda;
+			transform: scale(1.3);
+		}
+		</style>
+		<link rel="stylesheet" href="assets/css/portfolio-theme.css" />
+</head>
+	<body class="is-preload">
+	<!-- Background video -->
+	<div class="video-bg">
+		<video autoplay muted loop>
+			<source src="HENRIQUE_VIDEO_V1.mp4" type="video/mp4">
+		</video>
+	</div>
+
+	<!-- Intro -->
+
+	<div id="intro">
+
+		<h1>THV Surf Co</h1>
+
+		<p>Brand Strategy &nbsp;&middot;&nbsp; Market Analysis &nbsp;&middot;&nbsp; Consumer Insights</p>
+
+		<ul class="actions">
+
+			<li><a href="#main" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+
+		</ul>
+
+	</div>
+
+
+		<div id="wrapper">
+			<header id="header">
+				<a href="index.html" class="logo">Henrique Borges</a>
+			</header>
+			<nav id="nav">
+				<ul class="links">
+					<li><a href="index.html">Resume</a></li>
+					<li><a href="achievements.html">Awards &amp; Recognition</a></li>
+					<li><a href="knowledge.html">Knowledge Hub</a></li>
+					<li><a href="coffee.html">Coffee</a></li>
+					<li><a href="tennis.html">Tennis</a></li>
+					<li class="active"><a href="thv.html">THV Surf Co</a></li>
+				</ul>
+				<ul class="icons">
+					<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+					<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				</ul>
+			</nav>
+
+			<div id="main">
+				<section class="post">
+
+					<!-- Brand header -->
+					<header class="major">
+						<div class="brand-intro">
+							<div>
+								<div class="brand-logo-text">thv Surf Co</div>
+								<div class="brand-tagline">Surf Co &nbsp;·&nbsp; Porto Alegre, Brazil &nbsp;·&nbsp; 2015–2018</div>
+							</div>
+						</div>
+						<p>A surf poncho brand built from scratch with two friends — from spotting a genuine market gap in southern Brazil<br />
+						to selling directly from the car on the beach, supplying local surf shops, and sponsoring surf and skate tournaments.</p>
+					</header>
+
+					<!-- Stats -->
+					<div class="stats-row">
+						<div class="stat-box"><span class="sv">3</span><span class="sl">Years Running</span></div>
+						<div class="stat-box"><span class="sv">2015</span><span class="sl">Founded</span></div>
+						<div class="stat-box"><span class="sv">Local</span><span class="sl">Surf Shops Supplied</span></div>
+						<div class="stat-box"><span class="sv">Direct &amp; Wholesale</span><span class="sl">Sales Channels</span></div>
+					</div>
+
+					<!-- The Passion -->
+					<h3 class="section-title">The Passion Behind It</h3>
+					<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5em; align-items: center; margin-bottom: 2em;">
+						<div>
+							<p style="margin-top:0;">
+								THV Surf Co didn't start as a business idea — it started in the water. Surfing was already a core part of my life long before the brand existed. Hours in the ocean reading swells, understanding conditions, feeling what gear worked and what didn't. That knowledge wasn't academic — it was lived.
+							</p>
+							<p>
+								When you're a surfer building a surf brand, your customers aren't strangers. They're you. You know exactly what the product needs to feel like, perform like, and look like — because you've needed it yourself. That authenticity was THV's biggest advantage, and no amount of market research could have replicated it.
+							</p>
+							<p style="margin-bottom:0;">
+								The ocean also taught me things that translate well beyond surfing — reading situations quickly, committing fully when the moment comes, knowing when to hold back, and accepting that sometimes conditions just don't go your way. Lessons that show up in every boardroom and every spreadsheet.
+							</p>
+						</div>
+						<div style="border-radius:8px; overflow:hidden; aspect-ratio: 4/3;">
+							<img src="images/thv photos.png" alt="Henrique surfing a barrel" style="width:100%; height:100%; object-fit:cover; display:block;" />
+						</div>
+					</div>
+
+					<!-- The Story -->
+					<h3 class="section-title">The Story</h3>
+					<p>
+						Porto Alegre sits in the south of Brazil, where winters are genuinely cold &mdash; low temperatures, rough swells, and water that makes you want to get warm and dry as quickly as possible after a session. In 2015, there was a clear gap in the market: very few brands were producing quality surf ponchos locally, and the large international labels that did sell them were priced out of reach for most everyday surfers.
+					</p>
+					<p>
+						A surf poncho is a full-length hooded towel designed to dry off and change after surfing while staying warm &mdash; a simple product, but a real and daily need for anyone who surfs in cold conditions. Two friends and I saw that gap and decided to build a brand around it: local, quality-focused, and priced honestly compared to the major surf labels.
+				</p>
+				<p>
+					We started the way most grassroots brands do &mdash; I sold the first ponchos directly to surfers from my car at the beach. No retail presence, no website, just showing up where the customers were and letting the product speak for itself. From there, the brand grew into wholesale partnerships with local surf shops and a presence at surf and skate tournaments that also attracted sponsorship from brands such as Red Bull. Being at those events alongside established names gave THV genuine credibility and exposure that no advertising spend could have bought.
+				</p>
+				<p>
+					It was never just a hobby. THV operated as a real business &mdash; with supplier contracts, stock management, margin tracking, marketing campaigns, and customer relationships to maintain. Running it alongside other work meant every hour counted and every decision had a direct consequence. That kind of pressure teaches you quickly.
+					</p>
+
+					<!-- Photo Gallery -->
+					<h3 class="section-title">Brand in the Field</h3>
+					<div class="photo-grid">
+						<div class="photo-item">
+							<img src="images/thvphotos 2.png" alt="THV at the beach" />
+							<div class="photo-caption">Brand culture — family, surf, and community</div>
+						</div>
+						<div class="photo-item">
+							<img src="images/thvphotos 3.png" alt="THV surfboard" />
+							<div class="photo-caption">Product in use — poncho and surfboard ready</div>
+						</div>
+						<div class="photo-item">
+							<img src="images/thvphotos 4.png" alt="THV overlooking the ocean" />
+							<div class="photo-caption">The view that started it all — reading the swell</div>
+						</div>
+					</div>
+
+					<!-- Timeline -->
+					<h3 class="section-title">Timeline</h3>
+					<div class="timeline">
+
+						<div class="tl-item">
+							<div class="tl-dot">15</div>
+							<div class="tl-content">
+								<div class="tl-year">2015 — Founded</div>
+								<h4>The Idea, the Product, the First Sale</h4>
+								<p>Two friends and I identified a clear gap in southern Brazil: quality surf ponchos were scarce locally, and the big brands that produced them charged prices most surfers could not justify. We built THV Surf Co around that opportunity &mdash; sourcing manufacturers, designing the product line, and making the first sales directly to surfers from the car at the beach.</p>
+							</div>
+						</div>
+
+						<div class="tl-item">
+							<div class="tl-dot">16</div>
+							<div class="tl-content">
+								<div class="tl-year">2016 — Distribution &amp; Retail</div>
+								<h4>Wholesale Into Local Surf Shops</h4>
+								<p>Expanded from direct sales into wholesale partnerships with local surf shops. Negotiated pricing, payment terms, and consignment arrangements. Learned firsthand how margins work across a supply chain and how to maintain relationships when things do not go to plan.</p>
+							</div>
+						</div>
+
+						<div class="tl-item">
+							<div class="tl-dot">16</div>
+							<div class="tl-content">
+								<div class="tl-year">2016 &ndash; 2017 — Brand Building</div>
+								<h4>Tournament Sponsorships &amp; Community Presence</h4>
+								<p>Grew the brand through sponsorship of local surf and skate tournaments &mdash; events that also attracted support from Red Bull and other established names. That exposure placed THV alongside major brands and built genuine recognition in the local surf community. Product photography, social media, and grassroots engagement ran alongside the event presence.</p>
+							</div>
+						</div>
+
+						<div class="tl-item">
+							<div class="tl-dot">17</div>
+							<div class="tl-content">
+								<div class="tl-year">2017 — Operations</div>
+								<h4>Tightening the Supply Chain and Finances</h4>
+								<p>Improved supplier lead times, refined the inventory model to reduce dead stock, and implemented basic financial tracking across margins, costs, and cash flow. Began thinking seriously about the next chapter and which skills would transfer.</p>
+							</div>
+						</div>
+
+						<div class="tl-item">
+							<div class="tl-dot">18</div>
+							<div class="tl-content">
+								<div class="tl-year">2018 — Decision &amp; Transition</div>
+								<h4>Closing the Chapter, Opening the Next</h4>
+								<p>After four years of building, learning, and growing, I made the decision to pursue a new challenge — relocating to Australia to invest in further education in data analytics. THV had given me the foundation; it was time to build something new on top of it.</p>
+							</div>
+						</div>
+
+					</div>
+
+					<!-- Skills -->
+					<h3 class="section-title">What THV Surf Co Taught Me</h3>
+					<p>Running a business solo, with limited resources and no safety net, compressed years of professional development into a short time. Every function I later saw in corporate roles — I had already done it myself.</p>
+
+					<div class="skills-grid">
+						<div class="skill-card">
+							<span class="skill-icon">📦</span>
+							<h4>Operations &amp; Supply Chain</h4>
+							<p>Managing manufacturer relationships, production timelines, inventory levels, and logistics across a small but real supply chain.</p>
+						</div>
+						<div class="skill-card">
+							<span class="skill-icon">💰</span>
+							<h4>Finance &amp; Margin Management</h4>
+							<p>Budgeting, cost control, margin tracking, pricing strategy, and managing cashflow with real money at stake.</p>
+						</div>
+						<div class="skill-card">
+							<span class="skill-icon">📣</span>
+							<h4>Marketing &amp; Brand Building</h4>
+							<p>Social media strategy, product photography, community building, and creating authentic brand content on zero budget.</p>
+						</div>
+						<div class="skill-card">
+							<span class="skill-icon">🤝</span>
+							<h4>Stakeholder Management</h4>
+							<p>Negotiating with suppliers, managing retailer relationships, handling customer expectations, and building trust with every interaction.</p>
+						</div>
+						<div class="skill-card">
+							<span class="skill-icon">🗓️</span>
+							<h4>Project Management</h4>
+							<p>Coordinating product launches, seasonal orders, marketing campaigns, and tournament sponsorships while balancing other work and responsibilities.</p>
+						</div>
+						<div class="skill-card">
+							<span class="skill-icon">🌊</span>
+							<h4>Resilience &amp; Decision-Making</h4>
+							<p>Making calls with incomplete information, absorbing setbacks, and continuing to build with genuine belief in what you're doing.</p>
+						</div>
+					</div>
+
+					<!-- Reflection -->
+					<div class="reflection-box">
+					"Building THV was not about becoming a fashion entrepreneur. It was about proving &mdash; to myself, mostly &mdash; that I could take something from nothing and make it real. Selling ponchos from a car boot at the beach taught me more about reading customers and earning trust than any course ever could. The skills I built running that brand: negotiating, managing cash, building relationships, executing under pressure &mdash; transferred directly into every professional role since. The brand is gone, but the foundation it built is not."
+					<cite>&mdash; Henrique Borges, on the THV experience</cite>
+				</div>
+
+					<!-- Next Chapter -->
+					<h3 class="section-title">The Next Chapter</h3>
+					<div class="next-chapter">
+						<div class="next-arrow">✈</div>
+						<div>
+							<h4>2018 — Sydney, Australia</h4>
+							<p>
+								After three years of building THV alongside other work, I made the decision to invest in a different kind of future. I relocated to Sydney in 2018 to study data analytics &mdash; taking everything I had learned about running a business, managing people, and working under pressure, and redirecting it into a new field. The discipline, the financial literacy, the stakeholder instincts &mdash; all of it came with me. THV was the classroom; Australia was where I put it to work.
+							</p>
+						</div>
+					</div>
+
+					<!-- Back link -->
+					<ul class="actions" style="margin-top:2em;">
+						<li><a href="index.html" class="button primary">View Resume &rarr;</a></li>
+					</ul>
+
+				</section>
+			</div>
+
+			<footer id="footer">
+				<section class="split contact">
+					<section class="alt"><h3>Country</h3><p>Australia</p></section>
+					<section><h3>Phone</h3><p><a href="tel:+61432849841">(+61) 432 849 841</a></p></section>
+					<section><h3>Email</h3><p><a href="mailto:henriquemborges45@hotmail.com">henriquemborges45@hotmail.com</a></p></section>
+					<section>
+						<h3>Social</h3>
+						<ul class="icons alt">
+							<li><a href="https://www.instagram.com/_henriqueborges/" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/henrimbo" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/in/henrique-borges-986b8b226/" class="icon brands alt fab fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						</ul>
+					</section>
+				</section>
+			</footer>
+			<div id="copyright"><ul><li>&copy; Henrique Borges</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+		</div>
+
+		<!-- Bottom Page Navigation -->
+		<div id="bottom-nav">
+			<a href="tennis.html" id="prev-page" class="bnav-btn bnav-prev">
+				<span class="bnav-arrow">&#8592;</span>
+				<span class="bnav-label">Tennis</span>
+			</a>
+			<div class="bnav-dots">
+				<span class="bnav-dot" title="Resume"></span>
+				<span class="bnav-dot" title="Awards"></span>
+				<span class="bnav-dot" title="Knowledge Hub"></span>
+				<span class="bnav-dot" title="Coffee"></span>
+				<span class="bnav-dot" title="Tennis"></span>
+				<span class="bnav-dot active" title="THV Surf Co"></span>
+			</div>
+			<a href="index.html" id="next-page" class="bnav-btn bnav-next">
+				<span class="bnav-label">Resume</span>
+				<span class="bnav-arrow">&#8594;</span>
+			</a>
+		</div>
+		<script>
+			// Keyboard navigation
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'ArrowLeft') {
+					var p = document.getElementById('prev-page');
+					if (p) window.location.href = p.href;
+				}
+				if (e.key === 'ArrowRight') {
+					var n = document.getElementById('next-page');
+					if (n) window.location.href = n.href;
+				}
+				if (e.key === 'ArrowDown') {
+					var intro = document.getElementById('intro');
+					if (intro && window.scrollY < 10) {
+						var main = document.getElementById('main');
+						if (main) main.scrollIntoView({behavior: 'smooth'});
+					}
+				}
+				if (e.key === 'ArrowUp') {
+					window.scrollTo({top: 0, behavior: 'smooth'});
+				}
+			});
+		</script>
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			// Remove theme's dynamic bg element so video shows through
+			(function() {
+				var el = document.querySelector('#wrapper > .bg');
+				if (el) el.parentNode.removeChild(el);
+			})();
+		</script>
+	</body>
+</html>
